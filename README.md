@@ -1,20 +1,27 @@
-# Sena JG — página do autor
+# Sena JG — site do autor (senajg.com.br)
 
-Página inicial do domínio <https://senajg.com.br/>, com os livros:
+Repositório especial `avisnet-ship-it.github.io`: publica o domínio <https://senajg.com.br/>.
+O catálogo oficial dos livros (ASIN, ISBN, séries, endereços) fica no repositório privado `privado`,
+em `_data/livros.yml`.
 
-- **O Cristo Cósmico** → <https://senajg.com.br/cristo-cosmico-rebuild/> (repositório `cristo-cosmico-rebuild`)
-- **Como A Realidade Funciona** → <https://senajg.com.br/universos.paralelos/> (repositório `universos.paralelos`)
+## Onde está cada página
 
-Este é o repositório especial `avisnet-ship-it.github.io`. Com o domínio próprio configurado aqui
-(Settings → Pages → Custom domain → `senajg.com.br`), todas as páginas de projeto da conta passam
-a responder em `senajg.com.br/<repositório>/`, e os endereços `avisnet-ship-it.github.io/...`
-redirecionam para o domínio com 301.
+| Endereço | Onde fica |
+|---|---|
+| `/` e `/en/` | página do autor, obras humanistas (pt / en) |
+| `/cotidiano/` e `/en/everyday/` | livros de finanças e cotidiano (pt / en) |
+| `/the-cosmic-christ/`, `/o-celeiro-dessa-vida/`, `/the-barn-of-this-life/`, `/neurociencia/`, `/neuroscience.solution/`, `/parallel.universes/`, `/dinheiro/`, `/money/`, `/sucesso.kindle/`, `/succeed.on.kindle/` | **pastas deste repositório** |
+| `/cristo-cosmico-rebuild/` | repositório próprio `cristo-cosmico-rebuild` |
+| `/universos.paralelos/` | repositório próprio `universos.paralelos` |
+
+> Atenção: não ative o GitHub Pages num repositório com o mesmo nome de uma pasta daqui.
+> A página do repositório passaria a valer no lugar da pasta.
 
 ## Arquivos
-- `index.html` — página do autor (capas, títulos e botões para cada livro)
-- `CNAME` — domínio próprio (`senajg.com.br`), criado pelo GitHub; não apagar
-- `robots.txt` — o único `robots.txt` que os buscadores leem no domínio; aponta os três sitemaps
-- `sitemap.xml` — página do autor e as páginas dos dois livros
+- `CNAME` — domínio próprio (`senajg.com.br`); não apagar
+- `.nojekyll` — publica os arquivos como estão (necessário para pastas com ponto no nome)
+- `robots.txt` — o único que os buscadores leem no domínio; aponta os sitemaps
+- `sitemap.xml` — todas as páginas deste repositório e as dos dois repositórios próprios
 - `google484cfeadc0c124ef.html` — verificação do Google Search Console
 - `404.html` — página de erro com botão para a página inicial
-- `assets/` — capas da frente (WebP + JPEG) e ícones
+- `assets/` — capas dos cartões e ícones das páginas principais
