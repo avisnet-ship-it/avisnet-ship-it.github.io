@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://senajg.com.br/sitemap.xml
+Sitemap: https://senajg.com.br/cristo-cosmico-rebuild/sitemap.xml
+Sitemap: https://senajg.com.br/universos.paralelos/sitemap.xml
