@@ -212,8 +212,12 @@
     /* Véu escuro translúcido só atrás desta coluna: o degradê continua visível */
     .direita {
       padding: 0.25rem 1.25rem 1.25rem;
-      border-radius: 16px;
+      border: 1px solid rgba(113, 187, 217, 0.35);
+      border-radius: 20px;
       background: rgba(10, 0, 40, 0.32);
+      box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.8);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
     }
     h2 {
       margin: 0.75rem 0 1rem;
@@ -248,8 +252,12 @@
       max-width: 46rem;
       margin: 0.5rem auto 0;
       padding: 0.5rem 1.5rem 1.5rem;
-      border-radius: 16px;
+      border: 1px solid rgba(113, 187, 217, 0.35);
+      border-radius: 20px;
       background: rgba(10, 0, 40, 0.32);
+      box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.8);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
     }
     .mais p { margin: 1rem 0 0; font-size: 1.05rem; line-height: 1.5; }
     .mais .destaque { color: var(--amarelo); font-weight: 700; font-size: 1.15rem; text-align: left; }
@@ -277,6 +285,8 @@
       border-radius: 20px;
       background: rgba(10, 0, 40, 0.32);
       box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.8);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
       text-align: center;
     }
     .cartao-serie .pre { margin: 0 0 0.3rem; font-size: 1.15rem; color: var(--ciano); }
@@ -302,6 +312,9 @@
       text-decoration: none;
       text-shadow: none;
     }
+
+    .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
+    .rodape a { font-weight: 600; font-size: 1.2rem; color: var(--amarelo); }
 
     /* Desktop: botões empilhados, com a largura exata da capa (268 px) e um pouco
        mais baixos, para a coluna inteira caber na tela */
@@ -474,6 +487,10 @@
       <div class="chips"><a class="chip" href="https://www.amazon.com.br/dp/B0GLG623FQ">Série na Amazon</a></div>
     </section>
   </main>
+
+  <footer class="rodape">
+    <a href="/">Sena JG</a>
+  </footer>
 
 </body>
 </html>
