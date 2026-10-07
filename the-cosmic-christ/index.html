@@ -310,9 +310,13 @@
     .idiomas a[aria-current="page"] { background: var(--ouro); border-color: var(--ouro); color: var(--navy-950); }
     .bandeira { width: 21px; height: 15px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2); }
     @media (max-width: 420px) { .idiomas span { display: none; } .idiomas a { padding: 0.4rem 0.55rem; } }
+
+    /* ---------- TESTE: fundo animado em canvas ---------- */
+    #cosmos { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
   </style>
 </head>
 <body>
+<canvas id="cosmos" aria-hidden="true"></canvas>
 
 <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
@@ -431,5 +435,119 @@
     </nav>
   </main>
 
+<script>
+/* Fundo cósmico — código próprio, sem bibliotecas. Respeita "reduzir movimento",
+   pausa com a aba oculta e limita a resolução para poupar bateria. */
+(() => {
+  const MODO = "cec";               // "bgc" = bolhas galácticas, "cec" = céu estelar, "cmp" = tudo junto
+  // Densidade: 1 = versão original; padrão 2.75. Para experimentar, abra a página com ?d=1, ?d=2.5, ?d=3 ...
+  const D = Math.min(10, Math.max(0.5, parseFloat(new URLSearchParams(location.search).get("d")) || 7));
+  const comBolhas = MODO !== "cec", comCometas = MODO !== "bgc", deriva = MODO !== "bgc";
+  const tela = document.getElementById("cosmos"), g = tela.getContext("2d");
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)");
+  const A = (a, b) => a + Math.random() * (b - a);
+  let L, H, dpr, estrelas = [], bolhas = [], cadentes = [], raf = 0, antes = 0, proxCadente = 0;
+
+  function galaxia(r) {               // desenha uma vez a bolha com a galáxia dentro
+    const s = document.createElement("canvas"), k = Math.ceil(r * 2 * dpr);
+    s.width = s.height = k;
+    const c = s.getContext("2d"); c.scale(dpr, dpr);
+    const corpo = c.createRadialGradient(r * 0.65, r * 0.6, r * 0.05, r, r, r);
+    corpo.addColorStop(0, "rgba(255,255,255,0.10)");
+    corpo.addColorStop(0.7, "rgba(120,170,255,0.04)");
+    corpo.addColorStop(0.93, "rgba(170,220,255,0.20)");
+    corpo.addColorStop(1, "rgba(170,220,255,0)");
+    c.fillStyle = corpo; c.beginPath(); c.arc(r, r, r, 0, 7); c.fill();
+    const tom = A(170, 320), bracos = 2 + (Math.random() * 2 | 0);
+    c.save(); c.translate(r, r); c.rotate(A(0, 6.3)); c.scale(1, A(0.4, 0.85));
+    const nucleo = c.createRadialGradient(0, 0, 0, 0, 0, r * 0.28);
+    nucleo.addColorStop(0, `hsla(${tom},90%,92%,0.9)`); nucleo.addColorStop(1, `hsla(${tom},90%,60%,0)`);
+    c.fillStyle = nucleo; c.beginPath(); c.arc(0, 0, r * 0.28, 0, 7); c.fill();
+    for (let i = 0; i < 260; i++) {
+      const d = Math.pow(Math.random(), 0.75) * r * 0.62;
+      const ang = (i % bracos) * 6.283 / bracos + d / (r * 0.62) * 3.4 + A(-0.35, 0.35);
+      c.fillStyle = `hsla(${tom + A(-35, 35)},85%,${A(65, 90)}%,${A(0.2, 0.8)})`;
+      c.fillRect(Math.cos(ang) * d, Math.sin(ang) * d, A(0.5, 1.4), A(0.5, 1.4));
+    }
+    c.restore();
+    c.strokeStyle = "rgba(255,255,255,0.22)"; c.lineWidth = 1.2;
+    c.beginPath(); c.arc(r, r, r * 0.8, 3.6, 4.5); c.stroke();     // reflexo da bolha
+    return s;
+  }
+
+  function montar() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    L = innerWidth; H = innerHeight;
+    tela.width = L * dpr; tela.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(L * H / (MODO === "cec" ? 1900 : MODO === "cmp" ? 2200 : 2800) * D);
+    estrelas = Array.from({ length: n }, () => ({
+      x: A(0, L), y: A(0, H), z: A(0.2, 1),          // z = profundidade (perto = maior e mais rápida)
+      a: A(0.25, 0.95), f: A(0.4, 1.8), p: A(0, 6.3)
+    }));
+    bolhas = [];
+    if (comBolhas) {
+      const qt = Math.round((L < 700 ? 5 : 9) * D);
+      for (let i = 0; i < qt; i++) {
+        const r = A(20, L < 700 ? 50 : 80);
+        bolhas.push({ r, x: A(0, L), y: A(0, H), vx: A(-0.05, 0.05), vy: A(-0.11, -0.03),
+                      fase: A(0, 6.3), alfa: A(0.35, 0.6), img: galaxia(r) });
+      }
+    }
+  }
+
+  function quadro(t) {
+    const passo = antes ? Math.min(50, t - antes) / 16.7 : 0; antes = t;
+    const s = t / 1000;
+    g.clearRect(0, 0, L, H);
+    g.fillStyle = "#fff";
+    for (const e of estrelas) {
+      if (deriva) { e.x -= 0.06 * e.z * passo; if (e.x < 0) e.x += L; }   // leve deriva em profundidade
+      g.globalAlpha = e.a * (0.6 + 0.4 * Math.sin(s * e.f + e.p));
+      const t2 = 0.4 + e.z * (deriva ? 1.5 : 1.1);
+      g.fillRect(e.x, e.y, t2, t2);
+    }
+    for (const b of bolhas) {
+      b.x += (b.vx + Math.sin(s * 0.2 + b.fase) * 0.04) * passo; b.y += b.vy * passo;
+      if (b.y < -b.r * 2) { b.y = H + b.r; b.x = A(0, L); }
+      if (b.x < -b.r * 2) b.x = L + b.r; else if (b.x > L + b.r * 2) b.x = -b.r;
+      g.globalAlpha = b.alfa;
+      g.drawImage(b.img, b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+    }
+    if (comCometas) {
+      if (t > proxCadente && cadentes.length < 5) {          // nasce em qualquer ponto da metade de cima
+        const sentido = Math.random() < 0.5 ? -1 : 1;        // -1 = vai para a esquerda, 1 = para a direita
+        cadentes.push({
+          x: sentido < 0 ? A(L * 0.25, L * 1.15) : A(-L * 0.15, L * 0.75),
+          y: A(-20, H * 0.55), v: A(7, 11), vida: 1, sentido
+        });
+        proxCadente = t + A(9000, 16000) / D;
+      }
+      cadentes = cadentes.filter(c => {
+        const cx = c.sentido * c.v * 0.9, cy = c.v * 0.45;
+        const rastro = g.createLinearGradient(c.x, c.y, c.x - cx * 12, c.y - cy * 12);
+        rastro.addColorStop(0, `rgba(255,255,255,${0.85 * c.vida})`); rastro.addColorStop(1, "rgba(255,255,255,0)");
+        g.globalAlpha = 1; g.strokeStyle = rastro; g.lineWidth = 1.6;
+        g.beginPath(); g.moveTo(c.x, c.y); g.lineTo(c.x - cx * 12, c.y - cy * 12); g.stroke();
+        c.x += cx * passo; c.y += cy * passo; c.vida -= 0.012 * passo;
+        return c.vida > 0 && c.x > -100 && c.x < L + 100 && c.y < H + 100;
+      });
+    }
+    g.globalAlpha = 1;
+  }
+
+  function ciclo(t) { quadro(t); raf = requestAnimationFrame(ciclo); }
+  function iniciar() {
+    cancelAnimationFrame(raf); antes = 0;
+    if (calmo.matches || document.hidden) { quadro(0); return; }   // sem movimento: só um quadro parado
+    proxCadente = performance.now() + 1500;
+    raf = requestAnimationFrame(ciclo);
+  }
+  let espera;
+  addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(() => { montar(); iniciar(); }, 200); });
+  document.addEventListener("visibilitychange", iniciar);
+  if (calmo.addEventListener) calmo.addEventListener("change", iniciar);
+  montar(); iniciar();
+})();
+</script>
 </body>
 </html>
