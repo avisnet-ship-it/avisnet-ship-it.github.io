@@ -178,8 +178,10 @@
     .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
     .chip { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid var(--acento); border-radius: 999px; background: var(--chip-fundo); color: var(--chip-texto); font-weight: 700; font-size: 0.98rem; text-decoration: none; }
 
-    .citacao a, .cartao strong a { color: inherit; text-decoration: none; }
-    .citacao a:hover, .cartao strong a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+    .citacao a { color: inherit; text-decoration: none; }
+    .citacao a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+    .citacao.esq { margin: 0 0 0.9rem; text-align: left; }
+    .citacao.esq a { text-decoration: underline; text-underline-offset: 0.2em; }
 
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape a { font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.2rem; color: var(--marca); }
@@ -278,7 +280,7 @@
         </ul>
         <p class="citacao"><a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">Comece a ler — e votos de revitalização permanente.</a></p>
         <p>Uma obra que nasceu de um sonho real.</p>
-        <p><strong><a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">Experimente.</a></strong></p>
+        <p class="citacao esq"><a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">Experimente.</a></p>
       </section>
       <figure class="paisagem">
         <a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">
