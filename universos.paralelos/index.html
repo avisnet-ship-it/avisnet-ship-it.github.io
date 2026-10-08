@@ -362,6 +362,10 @@
     .idiomas a[aria-current="page"] { background: var(--botao-ebook); border-color: var(--botao-ebook); color: var(--botao-ebook-texto); }
     .bandeira { width: 21px; height: 15px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2); }
     @media (max-width: 420px) { .idiomas span { display: none; } .idiomas a { padding: 0.4rem 0.55rem; } }
+
+    /* ---------- Marca "Sena JG" no topo (mesmo padrão dos demais livros) ---------- */
+    .barra-idiomas { justify-content: space-between; align-items: center; gap: 1rem; }
+    .marca { font-weight: 600; font-size: 1.3rem; color: var(--amarelo); text-decoration: none; letter-spacing: 0.02em; }
   </style>
 </head>
 <body>
@@ -393,6 +397,7 @@
   </defs>
 </svg>
   <div class="barra-idiomas">
+    <a class="marca" href="/">Sena JG</a>
     <nav class="idiomas" aria-label="Idioma">
       <a href="./" hreflang="pt-BR" lang="pt-BR" aria-current="page">
         <svg class="bandeira" aria-hidden="true"><use href="#flag-br"/></svg>
