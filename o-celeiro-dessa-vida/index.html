@@ -76,7 +76,7 @@
     :root {
       --fundo: #f3ead6;
       --fundo-img: radial-gradient(ellipse 60% 40% at 85% 0%, rgba(255, 236, 170, 0.75), transparent 70%), linear-gradient(180deg, #cfe3f5 0%, #e7eef0 28%, #f3ead6 60%, #ead6a8 100%);
-      --tinta: #2b2a22; --tinta-suave: #5b5544; --link: #1d5e95; --foco: #c9a227;
+      --tinta: #2b2a22; --tinta-suave: #5b5544; --link: #1d5e95; --chamada-hover: #0b57d0; --foco: #c9a227;
       --marca: #22476b; --acento: #c9a227; --acento-texto: #8a6d12; --destaque: #22476b;
       --fonte: "Raleway", "Segoe UI", system-ui, sans-serif;
       --fonte-titulo: "Cormorant Garamond", Georgia, serif; --fonte-sub: "Raleway", "Segoe UI", sans-serif; --fonte-rotulo: "Raleway", sans-serif; --fonte-amostra: "Cormorant Garamond", Georgia, serif;
@@ -180,8 +180,9 @@
 
     .citacao a { color: inherit; text-decoration: none; }
     .citacao a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-    .citacao.esq { margin: 0 0 0.9rem; text-align: left; }
-    .citacao.esq a { text-decoration: underline; text-underline-offset: 0.2em; }
+    .citacao.esq { margin: 0 0 0.9rem; text-align: left; font-size: inherit; line-height: inherit; color: var(--tinta); }
+    .citacao.esq a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; transition: color 0.15s ease; }
+    .citacao.esq a:hover, .citacao.esq a:active { color: var(--chamada-hover, var(--link)); text-decoration-thickness: 2px; }
 
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape a { font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.2rem; color: var(--marca); }
@@ -280,7 +281,7 @@
         </ul>
         <p class="citacao"><a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">Comece a ler — e votos de revitalização permanente.</a></p>
         <p>Uma obra que nasceu de um sonho real.</p>
-        <p class="citacao esq"><a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">Experimente.</a></p>
+        <p class="citacao esq"><a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">Experimente</a>.</p>
       </section>
       <figure class="paisagem">
         <a href="https://www.amazon.com.br/dp/B0GFCN3FM4" title="Ler este livro no Kindle">
