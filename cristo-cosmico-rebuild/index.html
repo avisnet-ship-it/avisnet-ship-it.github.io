@@ -63,6 +63,7 @@
         "description": "O Cristo Cósmico — uma visão espiritual da evolução da humanidade e do despertar da consciência crística. Obra canalizada por Sena JG.",
         "image": "https://senajg.com.br/cristo-cosmico-rebuild/assets/capa-853.jpg",
         "url": "https://senajg.com.br/cristo-cosmico-rebuild/",
+        "isPartOf": { "@type": "BookSeries", "name": "Série Tesouros para uma Vida", "url": "https://www.amazon.com.br/dp/B0GLG623FQ" },
         "workExample": [
           {
             "@type": "Book",
@@ -305,6 +306,25 @@
 
     /* ---------- TESTE: fundo animado em canvas ---------- */
     #cosmos { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+    /* ---------- Marca "Sena JG", cartão da série e rodapé (mesmo padrão dos demais livros) ---------- */
+    .barra-idiomas { justify-content: space-between; align-items: center; gap: 1rem; }
+    .marca { font-family: var(--fonte-display); font-weight: 400; font-size: 1.2rem; color: var(--ouro); text-decoration: none; letter-spacing: 0.02em; }
+    .compra-final { margin-bottom: 2.5rem; }
+    .serie { width: calc(100% - 2rem); max-width: 42rem; margin: 0 auto 3rem; padding: 1.75rem clamp(1.1rem, 4vw, 2.5rem); text-align: center;
+             border: 1px solid rgba(241, 192, 59, 0.38); border-radius: 20px; background: rgba(10, 26, 69, 0.55);
+             box-shadow: 0 18px 50px -26px rgba(36, 161, 156, 0.6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .serie .pre { margin: 0 0 0.4rem; font-style: italic; color: var(--texto-suave); }
+    .serie h2 { justify-content: center; margin: 0 0 1.25rem; font-size: clamp(1.15rem, 3.2vw, 1.5rem); line-height: 1.3; }
+    .serie h2 a { color: inherit; text-decoration: none; }
+    .serie h2 a:hover { text-decoration: underline; }
+    @media (max-width: 520px) { .serie h2::before, .serie h2::after { display: none; } }
+    .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+    .chip { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid var(--ouro); border-radius: 999px;
+            background: rgba(241, 192, 59, 0.08); color: var(--ouro); font-weight: 700; font-size: 0.95rem; text-decoration: none; }
+    .chip:hover { background: rgba(241, 192, 59, 0.18); }
+    .rodape { max-width: 60rem; margin: 0 auto; padding: 1rem 1rem 2.5rem; text-align: center; }
+    .rodape a { font-family: var(--fonte-display); font-weight: 400; font-size: 1.2rem; color: var(--ouro); }
   </style>
 </head>
 <body>
@@ -337,6 +357,7 @@
   </defs>
 </svg>
   <div class="barra-idiomas">
+    <a class="marca" href="/">Sena JG</a>
     <nav class="idiomas" aria-label="Idioma">
       <a href="./" hreflang="pt-BR" lang="pt-BR" aria-current="page">
         <svg class="bandeira" aria-hidden="true"><use href="#flag-br"/></svg>
@@ -425,7 +446,17 @@
         <small>amazon.com.br</small>
       </a>
     </nav>
+
+    <section class="serie" aria-labelledby="serie">
+      <p class="pre">Este livro faz parte da Série:</p>
+      <h2 id="serie"><a href="https://www.amazon.com.br/dp/B0GLG623FQ">Série Tesouros para uma Vida</a></h2>
+      <div class="chips"><a class="chip" href="https://www.amazon.com.br/dp/B0GLG623FQ">Série na Amazon</a><a class="chip" href="https://www.amazon.com.br/stores/Sena-JG/author/B0GCL39X52">Página do autor na Amazon</a></div>
+    </section>
   </main>
+
+  <footer class="rodape">
+    <a href="/">Sena JG</a>
+  </footer>
 
 <script>
 /* Fundo cósmico — código próprio, sem bibliotecas. Respeita "reduzir movimento",
