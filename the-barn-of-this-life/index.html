@@ -170,6 +170,7 @@
 
     .paisagem { position: relative; margin: 0 auto 2rem; padding: 10px; border-radius: 26px; background: linear-gradient(135deg, var(--acento), rgba(255, 255, 255, 0.85), var(--acento)); box-shadow: var(--cartao-sombra); }
     .paisagem img { display: block; width: 100%; border-radius: 18px; }
+    .paisagem a { display: block; border-radius: 18px; }
     .serie { text-align: center; }
     .serie .pre { margin: 0 0 0.3rem; font-family: var(--fonte-rotulo); font-style: var(--rotulo-estilo); font-size: 1.15rem; color: var(--acento-texto); }
     .serie h2 a { color: inherit; text-decoration: none; }
@@ -177,10 +178,15 @@
     .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
     .chip { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid var(--acento); border-radius: 999px; background: var(--chip-fundo); color: var(--chip-texto); font-weight: 700; font-size: 0.98rem; text-decoration: none; }
 
+    .citacao a { color: inherit; text-decoration: none; }
+    .citacao a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape a { font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.2rem; color: var(--marca); }
 
     @media (max-width: 860px) { .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; } .capa { max-width: var(--capa-max-celular); } }
+    .compra-final { display: none; }
+    @media (max-width: 860px) { .compra-final { display: grid; margin: 0 auto 2rem; } }
     @media (max-width: 420px) { .idiomas span { display: none; } .idiomas a { padding: 0.4rem 0.55rem; } }
     @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
 
@@ -321,13 +327,15 @@
           <li>A true gem — and it may become a personal treasure for the reader.</li>
           <li>The concept of the Barn revitalizes, organizes, and restores meaning to living.</li>
         </ul>
-        <p class="citacao">Begin reading — and receive wishes of lasting renewal.</p>
+        <p class="citacao"><a href="https://www.amazon.com/dp/B0GGC9HTTW" title="Read this book on Kindle">Begin reading — and receive wishes of lasting renewal.</a></p>
       </section>
       <figure class="paisagem">
-        <picture>
-          <source type="image/webp" srcset="assets/paisagem-800.webp 800w, assets/paisagem-1400.webp 1400w" sizes="(max-width: 900px) 92vw, 840px">
-          <img src="assets/paisagem-1400.jpg" width="1400" height="933" alt="The Barn landscape: red barn, silos, tractors and golden harvest" loading="lazy">
-        </picture>
+        <a href="https://www.amazon.com/dp/B0GGC9HTTW" title="Read this book on Kindle">
+          <picture>
+            <source type="image/webp" srcset="assets/paisagem-800.webp 800w, assets/paisagem-1400.webp 1400w" sizes="(max-width: 900px) 92vw, 840px">
+            <img src="assets/paisagem-1400.jpg" width="1400" height="933" alt="The Barn landscape: red barn, silos, tractors and golden harvest" loading="lazy">
+          </picture>
+        </a>
       </figure>
       <section class="cartao serie" aria-labelledby="serie">
         <p class="pre">This book is part of the Series:</p>
