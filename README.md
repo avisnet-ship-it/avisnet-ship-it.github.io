@@ -1,8 +1,6 @@
 # Sena JG — site do autor (senajg.com.br)
 
-Repositório especial `avisnet-ship-it.github.io`: publica o domínio <https://senajg.com.br/>.
-O catálogo oficial dos livros (ASIN, ISBN, séries, endereços) fica no repositório privado `privado`,
-em `_data/livros.yml`.
+Páginas do site do autor Sena JG, publicadas em <https://senajg.com.br/>.
 
 ## Onde está cada página
 
@@ -27,11 +25,8 @@ em `_data/livros.yml`.
 11. Faça Sucesso no Kindle — `sucesso.kindle/`
 12. Succeed On Kindle — `succeed.on.kindle/`
 
-> Atenção: não ative o GitHub Pages num repositório com o mesmo nome de uma pasta daqui.
-> A página do repositório passaria a valer no lugar da pasta.
-
 ## Arquivos
-- `CNAME` — domínio próprio (`senajg.com.br`); não apagar
+- `CNAME` — domínio próprio (`senajg.com.br`)
 - `.nojekyll` — publica os arquivos como estão (necessário para pastas com ponto no nome)
 - `robots.txt` — o único que os buscadores leem no domínio; aponta o sitemap
 - `sitemap.xml` — mapa único com todas as páginas do site
