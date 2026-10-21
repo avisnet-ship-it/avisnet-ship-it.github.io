@@ -28,8 +28,11 @@ Páginas do site do autor Sena JG, publicadas em <https://senajg.com.br/>.
 ## Arquivos
 - `CNAME` — domínio próprio (`senajg.com.br`)
 - `.nojekyll` — publica os arquivos como estão (necessário para pastas com ponto no nome)
+- `.gitattributes` — regras do Git para os arquivos (fim de linha e imagens como binário)
 - `robots.txt` — o único que os buscadores leem no domínio; aponta o sitemap
 - `sitemap.xml` — mapa único com todas as páginas do site
 - `google484cfeadc0c124ef.html` — verificação do Google Search Console
 - `404.html` — página de erro com botão para a página inicial
+- `favicon.ico` — ícone da aba do navegador (mandala azul, 16, 32 e 48 px)
+- `apple-touch-icon.png` — ícone de 180×180 para quem salva o site na tela inicial do iPhone ou iPad
 - `assets/` — capas dos cartões e ícones das páginas principais
