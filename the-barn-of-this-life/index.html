@@ -188,10 +188,7 @@
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
     .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
-    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
-    .rodape .chip:hover .seta g { filter: none; }
-    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
+    .rodape .seta.gira g { filter: none; }
 
     @media (max-width: 860px) { .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; } .capa { max-width: var(--capa-max-celular); } }
     .compra-final { display: none; }
@@ -202,7 +199,12 @@
     .ficha { border-left: 6px solid var(--acento); padding-left: 1.5rem; }
     @media (max-width: 860px) { .ficha { border-left: 0; padding-left: 0; border-top: 6px solid var(--acento); padding-top: 1.25rem; } }
     h1 { font-style: italic; }
+    /* ---------- Metal escovado: botões de compra ---------- */
+    .compra { grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); max-width: 24rem; }
+    .compra .btn { min-height: 4.6rem; }
   </style>
+  <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#2f6fb5","meio":"#9cc8ea","horizonte":"#ffe9c0","montanha":"#6f7f3a","chao":"#b9853a","chave":"#fff4e0","faixa":"#ffffff","quente":"#ffcf70","acento":"#ff8a4c","metal":"#fad1c2","brilho":1.1,"liso":1,"onda":0.09,"relevo":1.7}'></script>
+  <script src="/assets/seta-voltar.js" defer></script>
 </head>
 <body>
 
@@ -251,7 +253,7 @@
       <a class="capa" href="https://www.amazon.com/dp/B0GGC9HTTW">
         <picture>
           <source type="image/webp" srcset="assets/cover-400.webp 400w, assets/cover-800.webp 800w" sizes="(max-width: 860px) 290px, 360px">
-          <img src="assets/cover-800.jpg" width="800" height="1144" alt="Cover of the book The Barn Of This Life" fetchpriority="high">
+          <img src="assets/cover-800.jpg" width="800" height="1144" alt="Cover of the book The Barn Of This Life, by Sena JG: a Greek temple on a sunlit hill, golden wheat and a cart with sacks and fruit under a blue sky; the title is in white script and the subtitle is Foundations for a Whole Life." fetchpriority="high">
         </picture>
       </a>
       <div class="ficha">
@@ -264,11 +266,9 @@
         <nav class="compra" aria-label="Where to buy the book">
           <a class="btn btn-a" href="https://www.amazon.com/dp/B0GGC9HTTW">
             <span>Kindle Edition <span class="sem-quebra">(eBook)</span></span>
-            <small>amazon.com</small>
           </a>
           <a class="btn btn-b" href="https://www.amazon.com/dp/650188960X">
             <span>Paperback</span>
-            <small>amazon.com</small>
           </a>
         </nav>
       </div>
@@ -344,7 +344,7 @@
         <a href="https://www.amazon.com/dp/B0GGC9HTTW" title="Read this book on Kindle">
           <picture>
             <source type="image/webp" srcset="assets/paisagem-800.webp 800w, assets/paisagem-1400.webp 1400w" sizes="(max-width: 900px) 92vw, 840px">
-            <img src="assets/paisagem-1400.jpg" width="1400" height="933" alt="The Barn landscape: red barn, silos, tractors and golden harvest" loading="lazy">
+            <img src="assets/paisagem-1400.jpg" width="1400" height="933" alt="The Barn landscape: a large red barn with silos, two tractors and carts with sacks of grain in a golden harvest field, under a blue sky with clouds." loading="lazy">
           </picture>
         </a>
       </figure>

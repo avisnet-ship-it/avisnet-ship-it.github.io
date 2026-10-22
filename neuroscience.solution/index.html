@@ -411,10 +411,7 @@
     }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
     .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
-    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
-    .rodape .chip:hover .seta g { filter: none; }
-    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
+    .rodape .seta.gira g { filter: none; }
 
     @media (max-width: 860px) {
       .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; }
@@ -428,7 +425,12 @@
       .btn { transition: none; }
       .btn:hover { transform: none; }
     }
+    /* ---------- Metal escovado: botões de compra ---------- */
+    .compra { grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); max-width: 24rem; }
+    .compra .btn { min-height: 4.6rem; }
   </style>
+  <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#0e2a8f","meio":"#3b72e0","horizonte":"#dbe9ff","montanha":"#14306e","chao":"#0a1a45","chave":"#ffffff","faixa":"#cfe3ff","quente":"#ffd45c","acento":"#7fb2ff","metal":"#fbf9f5","brilho":1.15,"liso":1,"onda":0.09,"relevo":1.7}'></script>
+  <script src="/assets/seta-voltar.js" defer></script>
 </head>
 <body>
 
@@ -477,7 +479,7 @@
       <a class="capa" href="https://www.amazon.com/dp/B0GPNS5VYL">
         <picture>
           <source type="image/webp" srcset="assets/cover-400.webp 400w, assets/cover-800.webp 800w" sizes="(max-width: 860px) 300px, 380px">
-          <img src="assets/cover-800.jpg" width="800" height="1200" alt="Book: The Solution to Everything in Life" fetchpriority="high">
+          <img src="assets/cover-800.jpg" width="800" height="1200" alt="Cover of the book The Solution to Everything in Life, by Sena JG: a blue sky of clouds and golden light rays, with a golden brain and hourglass at the center; subtitle Practical Neuroscience to Overcome Anxiety, Break Self-Sabotage Patterns, and Win Any Inner Battle." fetchpriority="high">
         </picture>
       </a>
 
@@ -493,11 +495,9 @@
         <nav class="compra" aria-label="Where to buy the book">
           <a class="btn btn-ebook" href="https://www.amazon.com/dp/B0GPNS5VYL">
             <span>Kindle Edition <span class="sem-quebra">(eBook)</span></span>
-            <small>amazon.com</small>
           </a>
           <a class="btn btn-impresso" href="https://www.amazon.com/dp/6501957958">
             <span>Paperback</span>
-            <small>amazon.com</small>
           </a>
         </nav>
       </div>
@@ -538,7 +538,7 @@
       <figure class="oval">
         <picture>
           <source type="image/webp" srcset="assets/oval-455.webp">
-          <img src="assets/oval-455.png" width="455" height="303" alt="" loading="lazy">
+          <img src="assets/oval-455.png" width="455" height="303" alt="Oval illustration: a man with open arms on the rocks, facing a valley with a lake and mountains lit by the rising sun; on the left, a stone arch with another figure and an eagle in flight; on the right, a white dove." loading="lazy">
         </picture>
       </figure>
 
@@ -598,7 +598,7 @@
         <a class="serie-img" href="https://www.amazon.com/dp/B0GPGYVD7T">
           <picture>
             <source type="image/webp" srcset="assets/series-1200.webp">
-            <img src="assets/series-1200.jpg" width="1200" height="456" alt="Treasures for a Whole Life, Collection" loading="lazy">
+            <img src="assets/series-1200.jpg" width="1200" height="456" alt="Screenshot of the Treasures for a Whole Life, Collection page on Amazon (3 books): the three books of the series, with The Cosmic Christ in front, by Sena JG, Kindle edition, noting that the titles are included in Kindle Unlimited." loading="lazy">
           </picture>
         </a>
         <div class="links-amazon">

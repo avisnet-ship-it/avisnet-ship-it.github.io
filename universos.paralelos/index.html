@@ -319,10 +319,7 @@
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
     .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
-    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
-    .rodape .chip:hover .seta g { filter: none; }
-    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
+    .rodape .seta.gira g { filter: none; }
 
     /* Desktop: botões empilhados, com a largura exata da capa (268 px) e um pouco
        mais baixos, para a coluna inteira caber na tela */
@@ -372,7 +369,12 @@
     /* ---------- Marca "Sena JG" no topo (mesmo padrão dos demais livros) ---------- */
     .barra-idiomas { justify-content: space-between; align-items: center; gap: 1rem; }
     .marca { font-weight: 600; font-size: 1.3rem; color: var(--amarelo); text-decoration: none; letter-spacing: 0.02em; }
+    /* ---------- Metal escovado: botões de compra ---------- */
+    .compra { grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); max-width: 24rem; }
+    .compra .btn { min-height: 4.6rem; }
   </style>
+  <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#3a3fd0","meio":"#2f7fe6","horizonte":"#ffc23a","montanha":"#7d8aa8","chao":"#2f7a1f","chave":"#fff2c0","faixa":"#5fe8c0","quente":"#ff8a5a","acento":"#2fd0a0","metal":"#f2f0f4","psi":1,"brilho":1.1,"liso":1,"onda":0.09,"relevo":1.7}'></script>
+  <script src="/assets/seta-voltar.js" defer></script>
 </head>
 <body>
 
@@ -432,7 +434,7 @@
         <picture>
           <source type="image/webp" srcset="assets/capa-frente.webp">
           <img src="assets/capa-frente.jpg" width="268" height="402"
-               alt="Livro Como A Realidade Funciona?" fetchpriority="high">
+               alt="Capa do livro Como A Realidade Funciona?, de JGS: estrela dourada de luz sobre fundo escuro com bolhas transparentes, faixas azuis e uma rachadura; o título em letras inclinadas e o subtítulo De forma simples e vivencial, melhore sua vida." fetchpriority="high">
         </picture>
       </a>
 
@@ -443,11 +445,9 @@
       <nav class="compra" aria-label="Onde comprar o livro">
         <a class="btn btn-ebook" href="https://www.amazon.com.br/dp/B0GCJ6FYM7">
           <span>Livro no Kindle <span class="sem-quebra">(e-book)</span></span>
-          <small>amazon.com.br</small>
         </a>
         <a class="btn btn-impresso" href="https://www.amazon.com.br/dp/B0GCKCJK3T">
-          Livro Impresso
-          <small>amazon.com.br</small>
+          <span>Livro Impresso</span>
         </a>
       </nav>
     </section>
@@ -486,11 +486,9 @@
     <nav class="compra compra-final" aria-label="Onde comprar o livro (final da página)">
       <a class="btn btn-ebook" href="https://www.amazon.com.br/dp/B0GCJ6FYM7">
         <span>Livro no Kindle <span class="sem-quebra">(e-book)</span></span>
-        <small>amazon.com.br</small>
       </a>
       <a class="btn btn-impresso" href="https://www.amazon.com.br/dp/B0GCKCJK3T">
-        Livro Impresso
-        <small>amazon.com.br</small>
+        <span>Livro Impresso</span>
       </a>
     </nav>
 

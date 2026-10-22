@@ -335,14 +335,14 @@
     .rodape { max-width: 60rem; margin: 0 auto; padding: 1rem 1rem 2.5rem; text-align: center; }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
     .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
-    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
-    .rodape .chip:hover .seta g { filter: none; }
-    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
-    /* ---------- Aço escovado: os botões de compra logo abaixo do autor ---------- */
+    .rodape .seta.gira g { filter: none; }
+    /* ---------- Metal escovado: botões de compra ---------- */
+    .compra { grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); max-width: 48rem; }
     .topo .compra { margin: 1.5rem auto 0; padding: 0; }
+    .compra .btn { min-height: 4.6rem; }
   </style>
   <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#0a1a45","meio":"#2a7fb0","horizonte":"#f6e7c1","montanha":"#16304f","chao":"#6b3a22","chave":"#fff6e6","faixa":"#bff4ff","quente":"#f1c03b","acento":"#c46535"}'></script>
+  <script src="/assets/seta-voltar.js" defer></script>
 </head>
 <body>
 <canvas id="cosmos" aria-hidden="true"></canvas>
@@ -394,11 +394,9 @@
     <nav class="compra" aria-label="Where to buy the book">
       <a class="btn btn-primario" href="https://www.amazon.com/dp/B0GCRTFF2J">
         <span>Kindle Edition <span class="sem-quebra">(eBook)</span></span>
-        <small>amazon.com</small>
       </a>
       <a class="btn btn-secundario" href="https://www.amazon.com/dp/6501868483">
-        Paperback
-        <small>amazon.com</small>
+        <span>Paperback</span>
       </a>
     </nav>
 
@@ -408,7 +406,7 @@
                 srcset="assets/capa-480.webp 480w, assets/capa-866.webp 866w"
                 sizes="(max-width: 792px) calc(100vw - 2rem), 760px">
         <img src="assets/capa-866.jpg" width="866" height="635"
-             alt="Cover of the book The Cosmic Christ: Awakening the Solar Consciousness Within Humanity" fetchpriority="high">
+             alt="Open cover of the book The Cosmic Christ, by Sena JG: on the left, the back cover with the book&#x27;s description; on the right, the front cover with the title over a luminous blue six-pointed star, the subtitle Awakening the Solar Consciousness Within Humanity, and the author name." fetchpriority="high">
       </picture>
     </a>
   </header>
@@ -456,11 +454,9 @@
     <nav class="compra compra-final" aria-label="Where to buy the book (end of page)">
       <a class="btn btn-primario" href="https://www.amazon.com/dp/B0GCRTFF2J">
         <span>Kindle Edition <span class="sem-quebra">(eBook)</span></span>
-        <small>amazon.com</small>
       </a>
       <a class="btn btn-secundario" href="https://www.amazon.com/dp/6501868483">
-        Paperback
-        <small>amazon.com</small>
+        <span>Paperback</span>
       </a>
     </nav>
 

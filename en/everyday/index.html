@@ -140,17 +140,17 @@
     @media (prefers-reduced-motion: reduce) { .btn, .livro img { transition: none; } .btn:hover, .livro a.capa:hover img { transform: none; } }
     .voltar .chip { padding-left: 0.6rem; padding-right: 0.6rem; }
     .voltar .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
-    .voltar .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
-    .voltar .chip:hover .seta g { filter: none; }
-    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .voltar .chip:hover .seta { animation: none; } }
+    .voltar .seta.gira g { filter: none; }
     .btn-cristo { background: #a9502a; color: #fff; }
     .btn-universos { background: #ffe600; color: #1a0050; }
     .btn-solucao { background: #1a3cb4; color: #fff; }
     .btn-celeiro { background: #1f4f7a; color: #fff; }
     .btn-dinheiro { background: linear-gradient(160deg, #ffe58a, #e0a800); color: #1a1300; }
     .btn-kindle { background: linear-gradient(160deg, #ffe073, #f2a900); color: #141000; }
+    .livro > .btn:first-child { margin: 0 0 1.4rem; }
   </style>
+  <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#3a5f9e","meio":"#9cb8de","horizonte":"#fff1d0","montanha":"#4a3a22","chao":"#6a4a1e","chave":"#fff0d0","faixa":"#ffffff","quente":"#ffd45c","acento":"#ff9a3c","metal":"#ffe39e","brilho":1.1,"liso":1,"onda":0.09,"relevo":1.7,"por":{"btn-kindle":{"ceu":"#0a46c8","meio":"#3f8fe6","horizonte":"#bfe0ff","montanha":"#0c2442","chao":"#0a68c8","chave":"#ffffff","faixa":"#dff1ff","quente":"#fff6d6","acento":"#7fd0ff","metal":"#f4f6f8","liso":1,"onda":0,"abaulado":0,"olho":0.34,"inclina":0.24,"cidade":1,"aguia":[-0.08,0.28,1.0,0.5],"brilho":1.2,"relevo":1.7}}}'></script>
+  <script src="/assets/seta-voltar.js" defer></script>
 </head>
 <body>
 
@@ -201,26 +201,26 @@
       <p class="serie"><a href="https://www.amazon.com/dp/B0GL62JZQ4">Make Money Series</a></p>
       <ul class="livros n2">
       <li class="livro">
+        <a class="btn btn-dinheiro" href="/money/">Discover the book</a>
         <a class="capa" href="/money/" tabindex="-1" aria-hidden="true">
           <picture>
             <source type="image/webp" srcset="/assets/money.webp">
-            <img src="/assets/money.jpg" width="400" height="600" alt="" loading="lazy">
+            <img src="/assets/money.jpg" width="400" height="600" alt="Cover of the book Money Vol. 1 — Now Yes!, by José G Sena: gold title on a glowing green background, with stacks of dollar bills and gold coins; subtitle The Financial Mistake Nobody Told You!" loading="lazy">
           </picture>
         </a>
         <h3>Money Vol. 1 — Now Yes!</h3>
         <p class="autor">Author: José G Sena</p>
-        <a class="btn btn-dinheiro" href="/money/">Discover the book</a>
       </li>
       <li class="livro">
+        <a class="btn btn-kindle" href="/succeed.on.kindle/">Discover the book</a>
         <a class="capa" href="/succeed.on.kindle/" tabindex="-1" aria-hidden="true">
           <picture>
             <source type="image/webp" srcset="/assets/succeed.webp">
-            <img src="/assets/succeed.jpg" width="400" height="600" alt="" loading="lazy">
+            <img src="/assets/succeed.jpg" width="400" height="600" alt="Cover of the book Succeed On Kindle: Amazon Secrets Revealed, by José G Sena: yellow title on a dark blue background, with golden dollar signs, a stack of books and a rising growth arrow." loading="lazy">
           </picture>
         </a>
         <h3>Succeed On Kindle</h3>
         <p class="autor">Author: José G Sena</p>
-        <a class="btn btn-kindle" href="/succeed.on.kindle/">Discover the book</a>
       </li>
       </ul>
     </section>
