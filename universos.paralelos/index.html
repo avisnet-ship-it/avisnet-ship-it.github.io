@@ -314,10 +314,15 @@
       text-decoration: none;
       text-shadow: none;
     }
+    .chip:hover { background: rgba(255, 255, 0, 0.18); }
 
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
-    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; }
+    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
+    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
+    .rodape .chip:hover .seta g { filter: none; }
+    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
 
     /* Desktop: botões empilhados, com a largura exata da capa (268 px) e um pouco
        mais baixos, para a coluna inteira caber na tela */

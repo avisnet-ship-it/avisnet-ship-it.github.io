@@ -88,7 +88,7 @@
       --btn-b: #000082; --btn-b-texto: #fff; --btn-b-borda: rgba(255, 255, 255, 0.85); --btn-b-sombra: 0 10px 24px -10px rgba(0, 0, 0, 0.6);
       --cartao: rgba(10, 0, 40, 0.32); --cartao-borda: rgba(113, 187, 217, 0.35); --cartao-sombra: 0 24px 50px -30px rgba(0, 0, 0, 0.8);
       --aviso-fundo: rgba(113, 187, 217, 0.14); --marcador: "✦"; --amostra-fundo: rgba(0, 0, 0, 0.2);
-      --chip-fundo: rgba(10, 0, 40, 0.35); --chip-texto: #ffff00;
+      --chip-fundo: rgba(10, 0, 40, 0.35); --chip-texto: #ffff00; --chip-hover: rgba(255, 255, 0, 0.18);
       --idioma-borda: rgba(255, 255, 255, 0.5); --idioma-fundo: rgba(10, 0, 40, 0.3); --idioma-texto: #fff; --idioma-ativo: #ffff00; --idioma-ativo-texto: #1a0050;
     }
 
@@ -176,10 +176,15 @@
     .serie h2 a:hover { text-decoration: underline; }
     .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
     .chip { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid var(--acento); border-radius: 999px; background: var(--chip-fundo); color: var(--chip-texto); font-weight: 700; font-size: 0.98rem; text-decoration: none; }
+    .chip:hover { background: var(--chip-hover); }
 
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
-    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; }
+    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
+    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
+    .rodape .chip:hover .seta g { filter: none; }
+    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
 
     @media (max-width: 860px) { .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; } .capa { max-width: var(--capa-max-celular); } }
     .compra-final { display: none; }

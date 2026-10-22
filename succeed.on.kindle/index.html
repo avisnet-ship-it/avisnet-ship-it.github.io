@@ -88,7 +88,7 @@
       --btn-b: linear-gradient(160deg, #2a56c8, #142a6b); --btn-b-texto: #fff; --btn-b-borda: rgba(255, 201, 40, 0.55); --btn-b-sombra: 0 12px 26px -12px rgba(0, 0, 0, 0.8);
       --cartao: rgba(12, 22, 52, 0.72); --cartao-borda: rgba(255, 201, 40, 0.28); --cartao-sombra: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
       --aviso-fundo: rgba(255, 201, 40, 0.1); --marcador: "➚"; --amostra-fundo: rgba(0, 0, 0, 0.25);
-      --chip-fundo: rgba(0, 0, 0, 0.3); --chip-texto: #ffc928;
+      --chip-fundo: rgba(0, 0, 0, 0.3); --chip-texto: #ffc928; --chip-hover: rgba(255, 201, 40, 0.18);
       --idioma-borda: rgba(255, 201, 40, 0.4); --idioma-fundo: rgba(0, 0, 0, 0.3); --idioma-texto: #e8edf8; --idioma-ativo: #ffc928; --idioma-ativo-texto: #141000;
     }
 
@@ -176,10 +176,15 @@
     .serie h2 a:hover { text-decoration: underline; }
     .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
     .chip { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border: 1px solid var(--acento); border-radius: 999px; background: var(--chip-fundo); color: var(--chip-texto); font-weight: 700; font-size: 0.98rem; text-decoration: none; }
+    .chip:hover { background: var(--chip-hover); }
 
     .rodape { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem 2.5rem; text-align: center; }
     .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
-    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; }
+    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
+    .rodape .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
+    .rodape .chip:hover .seta g { filter: none; }
+    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
 
     @media (max-width: 860px) { .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; } .capa { max-width: var(--capa-max-celular); } }
     @media (max-width: 420px) { .idiomas span { display: none; } .idiomas a { padding: 0.4rem 0.55rem; } }

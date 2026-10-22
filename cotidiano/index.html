@@ -139,7 +139,11 @@
     h1 a { color: inherit; text-decoration: none; }
     @media (prefers-reduced-motion: reduce) { .btn, .livro img { transition: none; } .btn:hover, .livro a.capa:hover img { transform: none; } }
     .voltar .chip { padding-left: 0.6rem; padding-right: 0.6rem; }
-    .voltar .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; }
+    .voltar .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
+    .voltar .chip:hover .seta { animation: seta-giro 1.8s linear infinite; }
+    .voltar .chip:hover .seta g { filter: none; }
+    @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .voltar .chip:hover .seta { animation: none; } }
     .btn-cristo { background: #a9502a; color: #fff; }
     .btn-universos { background: #ffe600; color: #1a0050; }
     .btn-solucao { background: #1a3cb4; color: #fff; }
