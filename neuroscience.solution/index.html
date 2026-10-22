@@ -409,7 +409,8 @@
       font-size: 0.95rem;
       color: var(--tinta-suave);
     }
-    .rodape a { font-family: var(--fonte-serifa); font-style: italic; font-weight: 600; font-size: 1.2rem; }
+    .rodape .chip { display: inline-block; padding-left: 0.6rem; padding-right: 0.6rem; }
+    .rodape .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; }
 
     @media (max-width: 860px) {
       .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; }
@@ -613,7 +614,7 @@
   </main>
 
   <footer class="rodape">
-    <a href="/en/">Sena JG</a>
+    <a class="chip" href="/en/"><svg class="seta" viewBox="0 0 30 20" aria-hidden="true"><defs><linearGradient id="seta-cima" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cad0de"/><stop offset=".45" stop-color="#4b5f90"/><stop offset="1" stop-color="#0e2762"/></linearGradient><linearGradient id="seta-baixo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071330"/><stop offset=".35" stop-color="#586885"/><stop offset=".75" stop-color="#576d9c"/><stop offset="1" stop-color="#6f7fa6"/></linearGradient><linearGradient id="seta-crista" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".7" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="seta-borda" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#3f5589" stop-opacity=".45"/><stop offset="1" stop-color="#050f25" stop-opacity=".95"/></linearGradient><filter id="seta-sombra" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy=".8" stdDeviation=".7" flood-color="#000" flood-opacity=".5"/></filter></defs><g filter="url(#seta-sombra)"><path d="M3.4 8.6Q13.6 2.2 29.4 0.9C24.6 3.5 21.6 7.1 19.4 10L1.35 10Q1.6 9.2 3.4 8.6Z" fill="url(#seta-cima)"/><path d="M1.35 10L19.4 10C21.6 12.9 24.6 16.5 29.4 19.1Q13.6 17.8 3.4 11.4Q1.6 10.8 1.35 10Z" fill="url(#seta-baixo)"/></g><path d="M2.2 10L19.4 10" stroke="url(#seta-crista)" stroke-width=".45" stroke-linecap="round"/><path d="M3.4 8.6Q13.6 2.2 29.4 0.9C24.6 3.5 21.6 7.1 19.4 10C21.6 12.9 24.6 16.5 29.4 19.1Q13.6 17.8 3.4 11.4Q0.6 10 3.4 8.6Z" fill="none" stroke="url(#seta-borda)" stroke-width=".5" stroke-linejoin="miter" stroke-miterlimit="14"/></svg><span>Back</span></a>
   </footer>
 </body>
 </html>

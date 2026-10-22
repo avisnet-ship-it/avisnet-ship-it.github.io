@@ -138,6 +138,8 @@
     .voltar { display: flex; justify-content: center; margin: 1rem 0 0; }
     h1 a { color: inherit; text-decoration: none; }
     @media (prefers-reduced-motion: reduce) { .btn, .livro img { transition: none; } .btn:hover, .livro a.capa:hover img { transform: none; } }
+    .voltar .chip { padding-left: 0.6rem; padding-right: 0.6rem; }
+    .voltar .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; }
     .btn-cristo { background: #a9502a; color: #fff; }
     .btn-universos { background: #ffe600; color: #1a0050; }
     .btn-solucao { background: #1a3cb4; color: #fff; }
@@ -219,7 +221,7 @@
       </ul>
     </section>
 
-    <div class="voltar"><a class="chip" href="/">← Voltar aos livros</a></div>
+    <div class="voltar"><a class="chip" href="/"><svg class="seta" viewBox="0 0 30 20" aria-hidden="true"><defs><linearGradient id="seta-cima" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcf1d4"/><stop offset=".45" stop-color="#f4d06c"/><stop offset="1" stop-color="#deb136"/></linearGradient><linearGradient id="seta-baixo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6c561b"/><stop offset=".35" stop-color="#5d4a20"/><stop offset=".75" stop-color="#9f7f2f"/><stop offset="1" stop-color="#f7d989"/></linearGradient><linearGradient id="seta-crista" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".7" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="seta-borda" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#f4cd62" stop-opacity=".45"/><stop offset="1" stop-color="#544315" stop-opacity=".95"/></linearGradient><filter id="seta-sombra" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy=".8" stdDeviation=".7" flood-color="#000" flood-opacity=".5"/></filter></defs><g filter="url(#seta-sombra)"><path d="M3.4 8.6Q13.6 2.2 29.4 0.9C24.6 3.5 21.6 7.1 19.4 10L1.35 10Q1.6 9.2 3.4 8.6Z" fill="url(#seta-cima)"/><path d="M1.35 10L19.4 10C21.6 12.9 24.6 16.5 29.4 19.1Q13.6 17.8 3.4 11.4Q1.6 10.8 1.35 10Z" fill="url(#seta-baixo)"/></g><path d="M2.2 10L19.4 10" stroke="url(#seta-crista)" stroke-width=".45" stroke-linecap="round"/><path d="M3.4 8.6Q13.6 2.2 29.4 0.9C24.6 3.5 21.6 7.1 19.4 10C21.6 12.9 24.6 16.5 29.4 19.1Q13.6 17.8 3.4 11.4Q0.6 10 3.4 8.6Z" fill="none" stroke="url(#seta-borda)" stroke-width=".5" stroke-linejoin="miter" stroke-miterlimit="14"/></svg><span>Voltar</span></a></div>
   </main>
 </body>
 </html>
