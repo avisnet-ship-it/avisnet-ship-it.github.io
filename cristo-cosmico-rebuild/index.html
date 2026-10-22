@@ -330,6 +330,8 @@
     .rodape .chip:hover .seta g { filter: none; }
     @keyframes seta-giro { from { transform: rotateX(0deg); } to { transform: rotateX(360deg); } }
     @media (prefers-reduced-motion: reduce) { .rodape .chip:hover .seta { animation: none; } }
+    /* ---------- Aço escovado: os botões de compra logo abaixo do autor ---------- */
+    .topo .compra { margin: 1.5rem auto 0; padding: 0; }
   </style>
   <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#0a1a45","meio":"#2a7fb0","horizonte":"#f6e7c1","montanha":"#16304f","chao":"#6b3a22","chave":"#fff6e6","faixa":"#bff4ff","quente":"#f1c03b","acento":"#c46535"}'></script>
 </head>
@@ -380,6 +382,17 @@
     <h1>O Cristo Cósmico</h1>
     <p class="autor">Autor: Sena JG (Obra Canalizada):</p>
 
+    <nav class="compra" aria-label="Onde comprar o livro">
+      <a class="btn btn-primario" href="https://www.amazon.com.br/dp/B0GBVGFB5H">
+        <span>Livro no Kindle <span class="sem-quebra">(e-book)</span></span>
+        <small>amazon.com.br</small>
+      </a>
+      <a class="btn btn-secundario" href="https://www.amazon.com.br/dp/6501898501">
+        Livro Impresso
+        <small>amazon.com.br</small>
+      </a>
+    </nav>
+
     <a class="capa" href="https://www.amazon.com.br/dp/B0GBVGFB5H" title="Ler este Livro">
       <picture>
         <source type="image/webp"
@@ -392,17 +405,6 @@
   </header>
 
   <main>
-    <nav class="compra" aria-label="Onde comprar o livro">
-      <a class="btn btn-primario" href="https://www.amazon.com.br/dp/B0GBVGFB5H">
-        <span>Livro no Kindle <span class="sem-quebra">(e-book)</span></span>
-        <small>amazon.com.br</small>
-      </a>
-      <a class="btn btn-secundario" href="https://www.amazon.com.br/dp/6501898501">
-        Livro Impresso
-        <small>amazon.com.br</small>
-      </a>
-    </nav>
-
     <section class="descricao" aria-labelledby="titulo-descricao">
       <h2 id="titulo-descricao">Descrição</h2>
 

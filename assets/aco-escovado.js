@@ -1,7 +1,8 @@
 // Botões de aço escovado: cada a.btn vira um elipsoide sólido achatado, com a largura e a altura exatas do
 // botão retangular, desenhado em WebGL como uma malha 3D (borda arredondada de sabonete gasto, faces abauladas).
-// Ao passar o mouse, gira em torno do eixo X, no mesmo sentido das setas Voltar/Back, e reflete uma paisagem
-// fixa no mundo, nas cores da página. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
+// Gira sozinho desde a entrada da página, em torno do eixo X, no mesmo sentido das setas Voltar/Back, e reflete
+// uma paisagem fixa no mundo, nas cores da página. Com o mouse, o dedo ou o foco do teclado em cima, freia e para
+// de frente; ao sair, volta a girar. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
 // é o mesmo texto gravado no metal.
 // Sem WebGL, com o alto contraste do Windows ou se o contexto 3D se perder, fica o botão original.
 // Uso: <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu": "#…", "meio": …}'></script> no <head>;
@@ -221,11 +222,11 @@ void main() {
       gl.uniform3fv(U({ ceu: 'uCeu', meio: 'uMeio', horizonte: 'uHor', montanha: 'uMont', chao: 'uChao', chave: 'uChave', faixa: 'uFaixa', quente: 'uQuente', acento: 'uAcento' }[k]), lin(paleta[k]));
     gl.uniform3fv(U('uEsmalte'), esmalte(css));
     const tex = gl.createTexture();
-    const e = { btn, cv, gl, U, tex, ang: 0, vel: 0, hover: false, alvo: null, recuo: null, rodando: false };
+    const e = { btn, cv, gl, U, tex, ang: 0, vel: 0, parar: false, alvo: null, recuo: null, rodando: false, visivel: true };
 
     e.mede = function () {
       const r = btn.getBoundingClientRect(), cs = getComputedStyle(btn);
-      const w = r.width, h = r.height, dpr = Math.min(3, window.devicePixelRatio || 1);
+      const w = r.width, h = r.height, dpr = Math.min(2, window.devicePixelRatio || 1);
       const R = Math.round(h * 0.17 * 10) / 10, D = Math.round(h * 0.045 * 10) / 10;   // espessura total ≈ 0,43 da altura no centro
       const m = malha(w / 2, h / 2, R, D);
       gl.bindBuffer(gl.ARRAY_BUFFER, bPos); gl.bufferData(gl.ARRAY_BUFFER, m.pos, gl.STATIC_DRAW);
@@ -259,47 +260,49 @@ void main() {
     return e;
   }
 
-  // Física do giro. Com o mouse em cima, acelera até a velocidade de cruzeiro. Ao sair, termina a volta e
-  // freia suave, parando exatamente de frente (múltiplo de 360°); a frenagem é recalculada a cada quadro,
-  // então nunca há tranco. Um toque rápido (menos de 20° de giro) só volta macio para a posição de frente.
-  const VOLTA = 2 * Math.PI, W = VOLTA / PERIODO, FREIO = W / 1.0, FREIO_MAX = W / 0.6;
+  // Física do giro. Sem nada em cima, acelera até a velocidade de cruzeiro e gira sem parar. Com o mouse, o dedo
+  // ou o foco do teclado em cima (e.parar), freia suave e para de frente: na face da frente ou na de trás, que
+  // também traz o texto gravado (múltiplo de 180°). A frenagem é recalculada a cada quadro, então nunca há
+  // tranco; se o botão mal começou a girar (menos de 20° depois de uma face), só volta macio para ela.
+  const MEIA = Math.PI, VOLTA = 2 * Math.PI, W = VOLTA / PERIODO, FREIO = W / 0.5, FREIO_MAX = W / 0.3;
   function avanca(e, dt) {
-    if (e.hover) {
+    if (!e.parar) {
       e.alvo = null; e.recuo = null;
-      e.vel += (W - e.vel) * (1 - Math.exp(-dt / 0.2));
-      e.ang += e.vel * dt;
+      e.vel += (W - e.vel) * (1 - Math.exp(-dt / 0.25));
+      e.ang = (e.ang + e.vel * dt) % VOLTA;
       return true;
     }
     if (e.alvo == null && e.recuo == null) {
-      const dentro = e.ang - Math.floor(e.ang / VOLTA) * VOLTA;
+      const dentro = e.ang - Math.floor(e.ang / MEIA) * MEIA;
+      if (dentro < 1e-6 && e.vel < 1e-3) { e.ang -= dentro; e.vel = 0; return false; }
       if (dentro < 20 * Math.PI / 180 && e.vel < 0.6 * W) e.recuo = { a0: e.ang, base: e.ang - dentro, t: 0 };
       else {
-        e.alvo = Math.ceil(e.ang / VOLTA - 1e-9) * VOLTA;
-        if (e.alvo - e.ang < e.vel * e.vel / (2 * FREIO_MAX)) e.alvo += VOLTA;
+        e.alvo = Math.ceil(e.ang / MEIA - 1e-9) * MEIA;
+        while (e.alvo - e.ang < e.vel * e.vel / (2 * FREIO_MAX)) e.alvo += MEIA;
       }
     }
     if (e.recuo) {
       const r = e.recuo; r.t += dt;
-      const u = Math.min(1, r.t / 0.45), k = u * u * (3 - 2 * u);
+      const u = Math.min(1, r.t / 0.35), k = u * u * (3 - 2 * u);
       e.ang = r.a0 + (r.base - r.a0) * k; e.vel = 0;
-      if (u >= 1) { e.ang = 0; e.recuo = null; return false; }
+      if (u >= 1) { e.ang = r.base % VOLTA; e.recuo = null; return false; }
       return true;
     }
     const resta = e.alvo - e.ang;
     if (resta > e.vel * e.vel / (2 * FREIO) + 1e-6) e.vel += (Math.max(e.vel, 0.5 * W) - e.vel) * (1 - Math.exp(-dt / 0.3));
     else e.vel = Math.max(0, e.vel - e.vel * e.vel / (2 * Math.max(resta, 1e-6)) * dt);
     e.ang += e.vel * dt;
-    if (e.ang >= e.alvo - 2e-4 || (e.vel < 0.01 && e.alvo - e.ang < 0.01)) { e.ang = 0; e.vel = 0; e.alvo = null; return false; }
+    if (e.ang >= e.alvo - 2e-4 || (e.vel < 0.01 && e.alvo - e.ang < 0.01)) { e.ang = e.alvo % VOLTA; e.vel = 0; e.alvo = null; return false; }
     return true;
   }
 
   function passo(e, ts) {
     const dt = Math.min(0.05, (ts - (e.t0 || ts)) / 1000); e.t0 = ts;
-    e.rodando = avanca(e, dt);
-    if (!e.rodando) e.t0 = 0;
+    const segue = avanca(e, dt);
     e.desenha();
-    if (e.rodando) requestAnimationFrame(t => passo(e, t));
+    if (segue && e.visivel) requestAnimationFrame(t => passo(e, t)); else { e.rodando = false; e.t0 = 0; }
   }
+  function liga(e) { if (!e.rodando && e.visivel) { e.rodando = true; requestAnimationFrame(t => passo(e, t)); } }
 
   window.acoEscovado = function (paleta, seletor) {
     const st = document.createElement('style');
@@ -312,6 +315,10 @@ void main() {
     document.head.appendChild(st);
     const parado = matchMedia('(prefers-reduced-motion: reduce)');
     const lista = [];
+    const decide = e => { e.parar = e.mouse || e.foco || parado.matches; liga(e); };
+    const olho = 'IntersectionObserver' in window ? new IntersectionObserver(vs => vs.forEach(v => {
+      const e = lista.find(x => x.btn === v.target); if (e) { e.visivel = v.isIntersecting; liga(e); }
+    })) : null;
     document.querySelectorAll(seletor || 'a.btn').forEach(btn => {
       const css = getComputedStyle(btn);
       const e = prepara(btn, paleta, { backgroundColor: css.backgroundColor, color: css.color });
@@ -321,15 +328,17 @@ void main() {
       e.cv.addEventListener('webglcontextlost', () => { e.rodando = false; e.cv.remove(); btn.classList.remove('aco-btn'); });
       e.mede();
       new ResizeObserver(() => e.mede()).observe(btn);
-      btn.addEventListener('pointerenter', ev => {
-        if (ev.pointerType === 'touch' || parado.matches) return;
-        e.hover = true; if (!e.rodando) { e.rodando = true; requestAnimationFrame(t => passo(e, t)); }
-      });
-      btn.addEventListener('pointerleave', () => { e.hover = false; });
+      btn.addEventListener('pointerenter', () => { e.mouse = true; decide(e); });
+      btn.addEventListener('pointerleave', () => { e.mouse = false; decide(e); });
+      btn.addEventListener('focus', () => { e.foco = btn.matches(':focus-visible'); decide(e); });
+      btn.addEventListener('blur', () => { e.foco = false; decide(e); });
       lista.push(e);
+      if (olho) olho.observe(btn);
+      decide(e);
     });
     // se uma fonte chegar depois, o texto gravado é refeito com ela
     if (document.fonts) document.fonts.addEventListener('loadingdone', () => lista.forEach(e => e.mede()));
+    parado.addEventListener('change', () => lista.forEach(decide));
     window.acoEscovado.botoes = lista;
     window.acoEscovado.avanca = avanca;
     return lista.length;
