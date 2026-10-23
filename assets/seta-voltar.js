@@ -1,12 +1,37 @@
 // Seta de metal do botão "Voltar" / "Back": gira sozinha em 3D, em torno do eixo horizontal que passa pelo centro dela
 // (rotateX, em projeção paralela, sem perspectiva: o centro da seta não sai do lugar em nenhum ângulo). Com o mouse, o
-// dedo ou o foco do teclado em cima do botão, freia suave e para de frente; ao sair, volta a girar. Fora da tela, não
-// gasta nada. Quem pede menos movimento no sistema (prefers-reduced-motion) não vê o giro.
+// dedo ou o foco do teclado em cima do botão, freia suave e para de frente; ao sair, volta a girar. No celular e no
+// tablet, depois que a pessoa rola a página, ela também para quando é o botão mais perto do meio da tela. Fora da tela,
+// não gasta nada. Quem pede menos movimento no sistema (prefers-reduced-motion) não vê o giro.
 // Fonte: tools/seta-voltar.js no privado; o tools/aplica_seta_gira.py copia para /assets/.
 (function () {
   'use strict';
   const PERIODO = 1.8;   // segundos por volta
   const VOLTA = 2 * Math.PI, W = VOLTA / PERIODO, FREIO = W / 0.5, FREIO_MAX = W / 0.3;
+
+  // No celular e no tablet (sem mouse), o botão mais perto do meio da tela faz o papel do mouse em cima; vale depois que a
+  // pessoa rola a página, então os botões entram girando, como no computador. Os botões de metal e a seta do Voltar
+  // entram na mesma lista, para haver um só "mais perto do meio" na página; botões lado a lado param juntos.
+  // O mesmo código está no tools/aco-escovado.js: o primeiro dos dois que rodar cria a lista.
+  const centro = window.centroDaTela || (window.centroDaTela = (function () {
+    const semMouse = matchMedia('(hover: none)'), itens = [];
+    let rolou = false, pedido = 0;
+    function confere() {
+      pedido = 0;
+      const meio = innerHeight / 2;
+      const ds = itens.map(it => {
+        const r = it.el.getBoundingClientRect();
+        return r.width > 0 && r.bottom > 0 && r.top < innerHeight ? Math.abs(r.top + r.height / 2 - meio) : Infinity;
+      });
+      const menor = Math.min(...ds);
+      itens.forEach((it, i) => it.marca(rolou && semMouse.matches && ds[i] - menor < 8));
+    }
+    const agenda = () => { if (!pedido) pedido = requestAnimationFrame(confere); };
+    addEventListener('scroll', () => { rolou = true; agenda(); }, { passive: true });
+    addEventListener('resize', agenda);
+    semMouse.addEventListener('change', agenda);
+    return { junta(el, marca) { itens.push({ el, marca }); agenda(); } };
+  })());
 
   // Acelera até a velocidade de cruzeiro e gira sem parar; com algo em cima (e.parar), freia e para de frente (múltiplo de
   // 360°). A frenagem é recalculada a cada quadro, então nunca há tranco; se a seta mal começou a girar (menos de 20°),
@@ -56,7 +81,7 @@
   function inicia() {
     const calmo = matchMedia('(prefers-reduced-motion: reduce)');
     const lista = [];
-    const decide = e => { e.parar = !!(e.mouse || e.foco || calmo.matches); liga(e); };
+    const decide = e => { e.parar = !!(e.mouse || e.foco || e.centro || calmo.matches); liga(e); };
     const olho = 'IntersectionObserver' in window ? new IntersectionObserver(vs => vs.forEach(v => {
       const e = lista.find(x => x.a === v.target); if (e) { e.visivel = v.isIntersecting; liga(e); }
     })) : null;
@@ -65,10 +90,12 @@
       const e = { a, svg, ang: 0, vel: 0, parar: false, alvo: null, recuo: null, rodando: false, visivel: !olho };
       a.addEventListener('pointerenter', () => { e.mouse = true; decide(e); });
       a.addEventListener('pointerleave', () => { e.mouse = false; decide(e); });
-      a.addEventListener('focus', () => { e.foco = a.matches(':focus-visible'); decide(e); });
+      // navegador antigo, sem :focus-visible (Safari antes de 2022): qualquer foco para a seta
+      a.addEventListener('focus', () => { try { e.foco = a.matches(':focus-visible'); } catch (_) { e.foco = true; } decide(e); });
       a.addEventListener('blur', () => { e.foco = false; decide(e); });
       lista.push(e);
       if (olho) olho.observe(a);
+      centro.junta(a, sim => { if (e.centro !== sim) { e.centro = sim; decide(e); } });
       decide(e);
     });
     calmo.addEventListener('change', () => lista.forEach(decide));

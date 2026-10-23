@@ -1,8 +1,13 @@
-// Botões de aço escovado: cada a.btn vira um elipsoide sólido achatado, com a largura e a altura exatas do
-// botão retangular, desenhado em WebGL como uma malha 3D (borda arredondada de sabonete gasto, faces abauladas).
+// Botões de metal: cada a.btn vira um elipsoide sólido achatado, com a largura e a altura exatas do botão
+// retangular, desenhado em WebGL como uma malha 3D (borda arredondada de sabonete gasto, faces abauladas). O metal
+// vem da paleta de cada página: aço escovado (entrada e Cristo Cósmico, em português e em inglês), ouro liso
+// (Cotidiano, Everyday, Dinheiro e Money), cobre (Celeiro e Barn), prata (Solução e The Solution), o céu psicodélico
+// do fim de Matrix (Universos e Parallel) e o espelho plano que reflete a cidade à beira-mar com a águia (Faça Sucesso,
+// Succeed On Kindle e os botões deles no Cotidiano e no Everyday).
 // Gira sozinho desde a entrada da página, em torno do eixo X, no mesmo sentido das setas Voltar/Back, e reflete
-// uma paisagem fixa no mundo, nas cores da página. Com o mouse, o dedo ou o foco do teclado em cima, freia e para
-// de frente; ao sair, volta a girar. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
+// uma paisagem fixa no mundo. Com o mouse, o dedo ou o foco do teclado em cima, freia e para de frente; ao sair,
+// volta a girar. No celular e no tablet, depois que a pessoa rola a página, o botão mais perto do meio da tela também
+// para. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
 // é o mesmo texto gravado no metal.
 // Sem WebGL, com o alto contraste do Windows ou se o contexto 3D se perder, fica o botão original.
 // Uso: <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu": "#…", "meio": …}'></script> no <head>;
@@ -11,6 +16,30 @@
 (function () {
   'use strict';
   const PERIODO = 2.4;   // segundos por volta
+
+  // No celular e no tablet (sem mouse), o botão mais perto do meio da tela faz o papel do mouse em cima; vale depois que a
+  // pessoa rola a página, então os botões entram girando, como no computador. Os botões de metal e a seta do Voltar
+  // entram na mesma lista, para haver um só "mais perto do meio" na página; botões lado a lado param juntos.
+  // O mesmo código está no tools/seta-voltar.js: o primeiro dos dois que rodar cria a lista.
+  const centro = window.centroDaTela || (window.centroDaTela = (function () {
+    const semMouse = matchMedia('(hover: none)'), itens = [];
+    let rolou = false, pedido = 0;
+    function confere() {
+      pedido = 0;
+      const meio = innerHeight / 2;
+      const ds = itens.map(it => {
+        const r = it.el.getBoundingClientRect();
+        return r.width > 0 && r.bottom > 0 && r.top < innerHeight ? Math.abs(r.top + r.height / 2 - meio) : Infinity;
+      });
+      const menor = Math.min(...ds);
+      itens.forEach((it, i) => it.marca(rolou && semMouse.matches && ds[i] - menor < 8));
+    }
+    const agenda = () => { if (!pedido) pedido = requestAnimationFrame(confere); };
+    addEventListener('scroll', () => { rolou = true; agenda(); }, { passive: true });
+    addEventListener('resize', agenda);
+    semMouse.addEventListener('change', agenda);
+    return { junta(el, marca) { itens.push({ el, marca }); agenda(); } };
+  })());
 
   // vértice: gira a peça em torno de X (o topo se afasta quando o ângulo cresce, como no rotateX do CSS)
   const VS = `
@@ -591,7 +620,7 @@ let _aguia = null;
     document.head.appendChild(st);
     const parado = matchMedia('(prefers-reduced-motion: reduce)');
     const lista = [];
-    const decide = e => { e.parar = e.mouse || e.foco || parado.matches; liga(e); };
+    const decide = e => { e.parar = e.mouse || e.foco || e.centro || parado.matches; liga(e); };
     const olho = 'IntersectionObserver' in window ? new IntersectionObserver(vs => vs.forEach(v => {
       const e = lista.find(x => x.btn === v.target); if (e) { e.visivel = v.isIntersecting; liga(e); }
     })) : null;
@@ -612,10 +641,12 @@ let _aguia = null;
       new ResizeObserver(() => e.mede()).observe(btn);
       btn.addEventListener('pointerenter', () => { e.mouse = true; decide(e); });
       btn.addEventListener('pointerleave', () => { e.mouse = false; decide(e); });
-      btn.addEventListener('focus', () => { e.foco = btn.matches(':focus-visible'); decide(e); });
+      // navegador antigo, sem :focus-visible (Safari antes de 2022): qualquer foco para o botão
+      btn.addEventListener('focus', () => { try { e.foco = btn.matches(':focus-visible'); } catch (_) { e.foco = true; } decide(e); });
       btn.addEventListener('blur', () => { e.foco = false; decide(e); });
       lista.push(e);
       if (olho) olho.observe(btn);
+      centro.junta(btn, sim => { if (e.centro !== sim) { e.centro = sim; decide(e); } });
       decide(e);
     });
     // se uma fonte chegar depois, o texto gravado é refeito com ela
