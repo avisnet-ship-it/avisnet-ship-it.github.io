@@ -71,6 +71,9 @@ uniform float uPsi;              // 0 = paisagem; 1 = céu psicodélico (nuvens 
 uniform float uCidade;           // 1 = cidade ultramoderna à beira-mar: arranha-céus, céu e mar azuis
 uniform sampler2D uAguiaT;          // a águia refletida no céu do espelho da cidade (unidade de textura 1)
 uniform vec4 uAguia;             // centro (azimute, elevação) e tamanho (largura, altura) da águia no céu, em radianos; largura 0 = sem águia
+uniform sampler2D uFotoT;          // a foto da cidade à beira-mar (unidade de textura 2)
+uniform vec4 uFoto;              // janela da foto no céu: meia largura em azimute, elevação embaixo e no alto (radianos), x = 0: sem
+                                 // foto; w = 1: a águia também é foto
 uniform vec2 uOlho;              // olho a distância finita (distância, deslocamento para baixo), em px; 0 = projeção paralela
 uniform float uBrilho;           // ganho do reflexo do ambiente e das luzes (reluzente)
 uniform float uRelevo;           // força do baixo-relevo das letras
@@ -78,6 +81,13 @@ uniform vec3 uCeu, uMeio, uHor, uMont, uChao, uChave, uFaixa, uQuente, uAcento;
 varying vec3 vPo, vNo;
 const float PI = 3.14159265;
 vec3 paraMundo(vec3 o, float c, float s) { return vec3(o.x, o.y * c + o.z * s, -o.y * s + o.z * c); }
+// as fotos já vêm prontas para a tela: desfaz a curva de cor do final (refeita no fim) e o ganho do espelho, para a cidade e
+// a águia saírem do espelho como na foto
+vec3 desfaz(vec3 y) {
+  y = clamp(y, 0.0, 0.97);
+  vec3 a = 2.43 * y - 2.51, b = 0.59 * y - 0.03, c = 0.14 * y;
+  return (-b - sqrt(b * b - 4.0 * a * c)) / (2.0 * a) / (uBrilho * 0.92);
+}
 
 float hash(vec3 p) { p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
 float ruido(vec3 x) {
@@ -122,35 +132,49 @@ vec3 ambiente(vec3 d) {
   vec3 c;
   if (uPsi > 0.0) e += 0.22;   // céu de Matrix: o horizonte desce, a face reflete mais céu que gramado
   if (uCidade > 0.0) {
-    // céu azul profundo no alto, claro e enevoado perto do horizonte, com faixas finas de cirros
-    c = mix(uHor, uMeio, smoothstep(0.0, 0.42, e));
-    c = mix(c, uCeu, smoothstep(0.30, 1.30, e));
-    float cir = ruido(vec3(f * 2.6, e * 8.0, 1.7)) * 0.6 + ruido(vec3(f * 6.0, e * 20.0, 4.1)) * 0.4;
-    c = mix(c, vec3(1.0), smoothstep(0.52, 0.88, cir) * smoothstep(0.06, 0.55, e) * 0.5);
-    c += uHor * 0.45 * exp(-abs(e) * 8.0);
-    // duas fileiras de arranha-céus: a de trás, baixa e enevoada; a da frente, alta, de vidro escuro
-    vec4 t2 = torre(f + 0.37, e, 44.0, 17.0, 0.55, 1.0);
-    vec3 g2 = vidro(t2, e, mix(uMont, uHor, 0.55), mix(uMeio, uHor, 0.6), 0.5);
-    c = mix(c, g2, t2.x * 0.92);
-    vec4 t1 = torre(f, e, 17.0, 3.0, 1.0, 1.0);
-    vec3 g1 = vidro(t1, e, uMont, mix(uMeio, uHor, 0.3), 1.0);
-    g1 = mix(g1, uHor, 0.10 * (1.0 - t1.y));   // névoa leve no pé das torres
-    c = mix(c, g1, t1.x);
-    // a grande águia, em voo alto, à frente da cidade
+    // a foto da cidade à beira-mar, quando chega: cobre a janela dela no céu, com a borda fundida na cidade desenhada; no
+    // miolo da janela, a cidade desenhada nem é calculada (o botão fica mais leve)
+    float borda = 0.0; vec3 cf = vec3(0.0);
+    if (uFoto.x > 0.0) {
+      vec2 uf = vec2(f / (2.0 * uFoto.x) + 0.5, (uFoto.z - e) / (uFoto.z - uFoto.y));
+      if (uf.x > 0.0 && uf.x < 1.0 && uf.y > 0.0 && uf.y < 1.0) {
+        borda = smoothstep(0.0, 0.08, uf.x) * smoothstep(0.0, 0.08, 1.0 - uf.x) * smoothstep(0.0, 0.10, uf.y) * smoothstep(0.0, 0.06, 1.0 - uf.y);
+        cf = desfaz(pow(texture2D(uFotoT, uf).rgb, vec3(2.2)));
+      }
+    }
+    if (borda < 1.0) {
+      // céu azul profundo no alto, claro e enevoado perto do horizonte, com faixas finas de cirros
+      c = mix(uHor, uMeio, smoothstep(0.0, 0.42, e));
+      c = mix(c, uCeu, smoothstep(0.30, 1.30, e));
+      float cir = ruido(vec3(f * 2.6, e * 8.0, 1.7)) * 0.6 + ruido(vec3(f * 6.0, e * 20.0, 4.1)) * 0.4;
+      c = mix(c, vec3(1.0), smoothstep(0.52, 0.88, cir) * smoothstep(0.06, 0.55, e) * 0.5);
+      c += uHor * 0.45 * exp(-abs(e) * 8.0);
+      // duas fileiras de arranha-céus: a de trás, baixa e enevoada; a da frente, alta, de vidro escuro
+      vec4 t2 = torre(f + 0.37, e, 44.0, 17.0, 0.55, 1.0);
+      vec3 g2 = vidro(t2, e, mix(uMont, uHor, 0.55), mix(uMeio, uHor, 0.6), 0.5);
+      c = mix(c, g2, t2.x * 0.92);
+      vec4 t1 = torre(f, e, 17.0, 3.0, 1.0, 1.0);
+      vec3 g1 = vidro(t1, e, uMont, mix(uMeio, uHor, 0.3), 1.0);
+      g1 = mix(g1, uHor, 0.10 * (1.0 - t1.y));   // névoa leve no pé das torres
+      c = mix(c, g1, t1.x);
+      // o mar: azul profundo, com o reflexo das torres, ondulação e brilho do sol em riscos
+      if (e < 0.0) {
+        float ee = -e, onda = 0.006 * ruido(vec3(f * 40.0, ee * 60.0, 2.0)) + 0.003 * ruido(vec3(f * 110.0, ee * 140.0, 5.0));
+        vec3 mar = mix(uChao * 1.5, uChao * 0.4, smoothstep(0.0, 0.8, ee)) + uHor * 0.35 * exp(-ee * 14.0);
+        vec4 r1 = torre(f, ee * 0.96 + onda, 17.0, 3.0, 1.0, 1.0), r2 = torre(f + 0.37, ee + onda, 44.0, 17.0, 0.55, 1.0);
+        mar = mix(mar, vidro(r2, ee, mix(uMont, uHor, 0.55), mix(uMeio, uHor, 0.6), 0.5) * 0.7, r2.x * 0.35 * exp(-ee * 5.0));
+        mar = mix(mar, vidro(r1, ee, uMont, mix(uMeio, uHor, 0.3), 1.0) * 0.7, r1.x * 0.5 * exp(-ee * 4.0));
+        mar += uQuente * 1.3 * pow(ruido(vec3(f * 30.0, ee * 230.0, 2.0)), 7.0) * exp(-ee * 8.0);
+        c = mar;
+      }
+      c = mix(c, cf, borda);
+    } else c = cf;
+    // a grande águia, em voo alto, à frente da cidade e do mar: o desenho e, quando chega, a foto
     vec2 ua = vec2((f - uAguia.x) / uAguia.z + 0.5, 0.5 - (e - uAguia.y) / uAguia.w);
     if (uAguia.z > 0.0 && ua.x > 0.0 && ua.x < 1.0 && ua.y > 0.0 && ua.y < 1.0) {
       vec4 g = texture2D(uAguiaT, ua, 0.4);   // desvio de nível: a águia fica suave, sem borda de desenho
-      c = mix(c, mix(pow(g.rgb, vec3(2.2)), uMeio, 0.05) * 1.1, smoothstep(0.0, 0.9, g.a));
-    }
-    // o mar: azul profundo, com o reflexo das torres, ondulação e brilho do sol em riscos
-    if (e < 0.0) {
-      float ee = -e, onda = 0.006 * ruido(vec3(f * 40.0, ee * 60.0, 2.0)) + 0.003 * ruido(vec3(f * 110.0, ee * 140.0, 5.0));
-      vec3 mar = mix(uChao * 1.5, uChao * 0.4, smoothstep(0.0, 0.8, ee)) + uHor * 0.35 * exp(-ee * 14.0);
-      vec4 r1 = torre(f, ee * 0.96 + onda, 17.0, 3.0, 1.0, 1.0), r2 = torre(f + 0.37, ee + onda, 44.0, 17.0, 0.55, 1.0);
-      mar = mix(mar, vidro(r2, ee, mix(uMont, uHor, 0.55), mix(uMeio, uHor, 0.6), 0.5) * 0.7, r2.x * 0.35 * exp(-ee * 5.0));
-      mar = mix(mar, vidro(r1, ee, uMont, mix(uMeio, uHor, 0.3), 1.0) * 0.7, r1.x * 0.5 * exp(-ee * 4.0));
-      mar += uQuente * 1.3 * pow(ruido(vec3(f * 30.0, ee * 230.0, 2.0)), 7.0) * exp(-ee * 8.0);
-      c = mar;
+      vec3 ga = uFoto.w > 0.0 ? desfaz(pow(g.rgb, vec3(2.2))) : mix(pow(g.rgb, vec3(2.2)), uMeio, 0.05) * 1.1;
+      c = mix(c, ga, smoothstep(0.0, 0.9, g.a));
     }
   } else if (uPsi > 0.0) {
     // céu psicodélico do nascer do sol do fim de Matrix Revolutions: sol quase branco no horizonte, faixas de nuvens
@@ -434,6 +458,21 @@ let _aguia = null;
   const rgb = s => (s.match(/[\d.]+/g) || []).map(Number);
   const luminancia = ([r, g, b]) => [r, g, b].reduce((acc, v, i) => acc + [0.2126, 0.7152, 0.0722][i] * Math.pow(v / 255, 2.2), 0);
   const pot = n => Math.pow(2, Math.ceil(Math.log2(Math.max(2, n))));
+  // textura de uma imagem na unidade dada, com mipmaps (os lados da imagem são potências de 2); a que estava na unidade (o
+  // desenho, quando a foto chega) é apagada
+  function textura(gl, unidade, im) {
+    gl.activeTexture(gl.TEXTURE0 + unidade);
+    const velha = gl.getParameter(gl.TEXTURE_BINDING_2D); if (velha) gl.deleteTexture(velha);
+    gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im); gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.activeTexture(gl.TEXTURE0);
+  }
+  // cada foto é baixada uma vez só, para todos os botões da página
+  const _fotos = {};
+  const carrega = url => _fotos[url] || (_fotos[url] = new Promise((ok, falha) => { const im = new Image(); im.onload = () => ok(im); im.onerror = falha; im.src = url; }));
 
   // cor do esmalte: a mais escura entre o texto, o fundo e as cores do degradê do botão original, escurecida até
   // ler bem no metal claro
@@ -514,20 +553,19 @@ let _aguia = null;
     gl.uniform1f(U('uLiso'), paleta.liso || 0); gl.uniform1f(U('uOnda'), paleta.onda || 0); gl.uniform1f(U('uPsi'), paleta.psi || 0); gl.uniform1f(U('uCidade'), paleta.cidade || 0);
     gl.uniform1f(U('uBrilho'), paleta.brilho || 1); gl.uniform1f(U('uRelevo'), paleta.relevo || 0.5);
     const tex = gl.createTexture();
-    gl.uniform1i(U('uAguiaT'), 1);
+    gl.uniform1i(U('uAguiaT'), 1); gl.uniform1i(U('uFotoT'), 2); gl.uniform4fv(U('uFoto'), [0, 0, 0, 0]);
     if (paleta.aguia) {   // [azimute, elevação, largura, altura] da águia no céu refletido
       if (!_aguia) _aguia = desenhaAguia(1024, 512);
-      gl.activeTexture(gl.TEXTURE1);
-      const ta = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, ta);
-      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, _aguia); gl.generateMipmap(gl.TEXTURE_2D);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      textura(gl, 1, _aguia);
       gl.uniform4fv(U('uAguia'), paleta.aguia);
-      gl.activeTexture(gl.TEXTURE0);
     } else gl.uniform4fv(U('uAguia'), [0, 0, 0, 1]);
     const e = { btn, cv, gl, U, tex, ang: 0, vel: 0, parar: false, alvo: null, recuo: null, rodando: false, visivel: true,
                 abaulado: paleta.abaulado === undefined ? 0.045 : paleta.abaulado, olho: paleta.olho || 0, inclina: paleta.inclina || 0 };
+    // espelho da cidade com fotos: a cidade (paleta.foto, na janela paleta.janela do céu) e a águia (paleta.fotoAguia) entram
+    // quando chegam; até lá, e se uma delas não carregar, fica o desenho
+    const foto = e.foto = [0, 0, 0, 0];   // o uFoto; fica no botão para o verificador conferir que as fotos entraram
+    if (paleta.foto) carrega(paleta.foto).then(im => { textura(gl, 2, im); foto.splice(0, 3, ...paleta.janela); gl.uniform4fv(U('uFoto'), foto); if (e.n) e.desenha(); }, () => {});
+    if (paleta.fotoAguia) carrega(paleta.fotoAguia).then(im => { textura(gl, 1, im); foto[3] = 1; gl.uniform4fv(U('uFoto'), foto); if (e.n) e.desenha(); }, () => {});
 
     e.mede = function () {
       ajusta(btn);
