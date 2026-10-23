@@ -126,8 +126,20 @@
     .livro { display: flex; flex-direction: column; align-items: center; }
     .livro a.capa { display: block; }
     .livro img { display: block; width: auto; height: 248px; border-radius: 4px; box-shadow: 0 20px 44px -14px rgba(0, 0, 0, 0.75); transition: transform 0.2s ease; }
-    .livro a.capa:hover img { transform: translateY(-3px); }
+    /* com o mouse em qualquer ponto do card (a capa, o título, o botão), ou com o foco do teclado num link dele, a capa
+       sobe um pouco (regras separadas: o navegador que não conhece :has fica só com a do mouse) */
+    .livro:hover a.capa img { transform: translateY(-3px); }
+    .livro:has(:focus-visible) a.capa img { transform: translateY(-3px); }
     h3 { margin: 1rem 0 0.2rem; font-size: 1.12rem; line-height: 1.25; }
+    /* o título de cada livro é link para a página dele: sublinhado; com o mouse em qualquer ponto do card, ou com o foco
+       do teclado num link dele, fica dourado e com o sublinhado mais grosso, como com o mouse em cima do título (regras
+       separadas: o navegador que não conhece :has fica só com a do mouse) */
+    .livro h3 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .livro:hover h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
+    .livro:has(:focus-visible) h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
+    /* quando a capa sobe, ela é pintada por cima do que não tem posição: o título, o autor e a etiqueta ganham posição,
+       para ficar por cima da sombra da capa (senão a sombra escurece o título) */
+    .livro h3, .livro .autor, .livro .tag { position: relative; }
     .autor { margin: 0 0 0.8rem; color: var(--texto-suave); }
     .tag { display: inline-block; margin: -0.4rem 0 0.7rem; padding: 0.1rem 0.6rem; border: 1px solid rgba(241, 192, 59, 0.6); border-radius: 999px; font-size: 0.78rem; color: var(--ouro); }
     .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.85); font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
@@ -149,7 +161,8 @@
     .ir-cotidiano a:hover { background: rgba(255, 255, 255, 0.12); }
     .voltar { display: flex; justify-content: center; margin: 1rem 0 0; }
     h1 a { color: inherit; text-decoration: none; }
-    @media (prefers-reduced-motion: reduce) { .btn, .livro img { transition: none; } .btn:hover, .livro a.capa:hover img { transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .btn, .livro img { transition: none; } .btn:hover, .livro:hover a.capa img { transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .livro:has(:focus-visible) a.capa img { transform: none; } }
     .btn-cristo { background: #a9502a; color: #fff; }
     .btn-universos { background: #ffe600; color: #1a0050; }
     .btn-solucao { background: #1a3cb4; color: #fff; }
@@ -216,7 +229,7 @@
             <img src="/assets/cristo-frente.jpg" width="413" height="623" alt="Capa do livro O Cristo Cósmico, de Sena JG: faixa terracota no alto com o nome Sena JG e, sobre um fundo azul-marinho com uma mandala de luz azul e turquesa, o título e o subtítulo Despertando a Consciência Solar na Humanidade." loading="lazy">
           </picture>
         </a>
-        <h3>O Cristo Cósmico</h3>
+        <h3><a href="/cristo-cosmico-rebuild/">O Cristo Cósmico</a></h3>
       </li>
       <li class="livro">
         <a class="btn btn-celeiro" href="/o-celeiro-dessa-vida/" aria-label="Conheça o livro O Celeiro dessa Vida">Conheça o livro</a>
@@ -226,7 +239,7 @@
             <img src="/assets/celeiro.jpg" width="416" height="668" alt="Capa do livro O Celeiro dessa Vida, de Sena JG: caminho de terra numa colina ensolarada, com carroças cheias de frutas e sacos de grãos e, ao fundo, as colunas de um templo grego sob céu azul; no alto, o subtítulo Fundamentos para uma Vida Inteira; o título está na vertical, à direita, ao lado do nome SENA JG, numa faixa dourada vertical." loading="lazy">
           </picture>
         </a>
-        <h3>O Celeiro dessa Vida</h3>
+        <h3><a href="/o-celeiro-dessa-vida/">O Celeiro dessa Vida</a></h3>
       </li>
       <li class="livro">
         <a class="btn btn-solucao" href="/neurociencia/" aria-label="Conheça o livro A Solução de Tudo na Vida">Conheça o livro</a>
@@ -236,7 +249,7 @@
             <img src="/assets/solucao-frente.jpg" width="400" height="600" alt="Capa do livro A Solução de Tudo na Vida, de Sena JG: céu azul de nuvens e raios dourados, com um cérebro dourado e uma ampulheta no centro; no alto, Tesouros para uma Vida; subtítulo Estratégias para vencer qualquer desafio, ansiedade e autossabotagem, neurociência aplicada à vida prática." loading="lazy">
           </picture>
         </a>
-        <h3>A Solução de Tudo na Vida</h3>
+        <h3><a href="/neurociencia/">A Solução de Tudo na Vida</a></h3>
       </li>
       <li class="livro">
         <a class="btn btn-universos" href="/universos.paralelos/" aria-label="Conheça o livro Como A Realidade Funciona?">Conheça o livro</a>
@@ -246,7 +259,7 @@
             <img src="/assets/universos-frente.jpg" width="268" height="402" alt="Capa do livro Como A Realidade Funciona?, de JGS: estrela dourada de luz sobre fundo escuro com bolhas transparentes, faixas azuis e uma rachadura; o título em letras inclinadas e o subtítulo De Forma Simples e Vivencial - Melhore sua Vida." loading="lazy">
           </picture>
         </a>
-        <h3>Como A Realidade Funciona?</h3>
+        <h3><a href="/universos.paralelos/">Como A Realidade Funciona?</a></h3>
         <p class="autor">Autor: JGS</p>
       </li>
       </ul>
