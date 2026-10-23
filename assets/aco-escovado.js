@@ -6,7 +6,7 @@
 // Succeed On Kindle e os botões deles no Cotidiano e no Everyday).
 // Gira sozinho desde a entrada da página, em torno do eixo X, no mesmo sentido das setas Voltar/Back, e reflete
 // uma paisagem fixa no mundo. Com o mouse, o dedo ou o foco do teclado em cima, freia e para de frente; ao sair,
-// volta a girar. No celular e no tablet, depois que a pessoa rola a página, o botão mais perto do meio da tela também
+// volta a girar. No celular e no tablet, depois que a pessoa rola a página, o botão que chega ao meio da tela também
 // para. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
 // é o mesmo texto gravado no metal.
 // Sem WebGL, com o alto contraste do Windows ou se o contexto 3D se perder, fica o botão original.
@@ -17,27 +17,32 @@
   'use strict';
   const PERIODO = 2.4;   // segundos por volta
 
-  // No celular e no tablet (sem mouse), o botão mais perto do meio da tela faz o papel do mouse em cima; vale depois que a
-  // pessoa rola a página, então os botões entram girando, como no computador. Os botões de metal e a seta do Voltar
-  // entram na mesma lista, para haver um só "mais perto do meio" na página; botões lado a lado param juntos.
+  // No celular e no tablet (com o dedo), o botão que chega ao meio da tela faz o papel do mouse em cima: entre os que estão
+  // na faixa do meio (até um quinto da altura da tela acima ou abaixo dele), o mais perto para; fora da faixa, todos giram.
+  // Vale depois que a pessoa rola a página, então os botões entram girando, como no computador. Os botões de metal e a seta
+  // do Voltar entram na mesma lista, para haver um só "mais perto do meio" na página; botões lado a lado param juntos.
+  // O dedo: vale o que o aparelho diz (sem mouse) e, além disso, o primeiro toque na tela; aparelhos Samsung dizem ter mouse
+  // mesmo sem ter (o Samsung Internet), e o toque corrige; um mouse de verdade em movimento desliga a regra.
   // O mesmo código está no tools/seta-voltar.js: o primeiro dos dois que rodar cria a lista.
   const centro = window.centroDaTela || (window.centroDaTela = (function () {
     const semMouse = matchMedia('(hover: none)'), itens = [];
-    let rolou = false, pedido = 0;
+    let dedo = semMouse.matches, rolou = false, pedido = 0;
     function confere() {
       pedido = 0;
-      const meio = innerHeight / 2;
+      const meio = innerHeight / 2, faixa = innerHeight / 5;
       const ds = itens.map(it => {
-        const r = it.el.getBoundingClientRect();
-        return r.width > 0 && r.bottom > 0 && r.top < innerHeight ? Math.abs(r.top + r.height / 2 - meio) : Infinity;
+        const r = it.el.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - meio);
+        return r.width > 0 && d <= faixa ? d : Infinity;
       });
       const menor = Math.min(...ds);
-      itens.forEach((it, i) => it.marca(rolou && semMouse.matches && ds[i] - menor < 8));
+      itens.forEach((it, i) => it.marca(rolou && dedo && ds[i] - menor < 8));
     }
     const agenda = () => { if (!pedido) pedido = requestAnimationFrame(confere); };
     addEventListener('scroll', () => { rolou = true; agenda(); }, { passive: true });
     addEventListener('resize', agenda);
-    semMouse.addEventListener('change', agenda);
+    addEventListener('touchstart', () => { if (!dedo) { dedo = true; agenda(); } }, { passive: true });
+    addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && dedo && !semMouse.matches) { dedo = false; agenda(); } }, { passive: true });
+    semMouse.addEventListener('change', () => { dedo = semMouse.matches; agenda(); });
     return { junta(el, marca) { itens.push({ el, marca }); agenda(); } };
   })());
 

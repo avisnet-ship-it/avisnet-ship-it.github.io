@@ -1,7 +1,7 @@
 // Seta de metal do botão "Voltar" / "Back": gira sozinha em 3D, em torno do eixo horizontal que passa pelo centro dela
 // (rotateX, em projeção paralela, sem perspectiva: o centro da seta não sai do lugar em nenhum ângulo). Com o mouse, o
 // dedo ou o foco do teclado em cima do botão, freia suave e para de frente; ao sair, volta a girar. No celular e no
-// tablet, depois que a pessoa rola a página, ela também para quando é o botão mais perto do meio da tela. Fora da tela,
+// tablet, depois que a pessoa rola a página, ela também para quando chega ao meio da tela. Fora da tela,
 // não gasta nada. Quem pede menos movimento no sistema (prefers-reduced-motion) não vê o giro.
 // Fonte: tools/seta-voltar.js no privado; o tools/aplica_seta_gira.py copia para /assets/.
 (function () {
@@ -9,27 +9,32 @@
   const PERIODO = 1.8;   // segundos por volta
   const VOLTA = 2 * Math.PI, W = VOLTA / PERIODO, FREIO = W / 0.5, FREIO_MAX = W / 0.3;
 
-  // No celular e no tablet (sem mouse), o botão mais perto do meio da tela faz o papel do mouse em cima; vale depois que a
-  // pessoa rola a página, então os botões entram girando, como no computador. Os botões de metal e a seta do Voltar
-  // entram na mesma lista, para haver um só "mais perto do meio" na página; botões lado a lado param juntos.
+  // No celular e no tablet (com o dedo), o botão que chega ao meio da tela faz o papel do mouse em cima: entre os que estão
+  // na faixa do meio (até um quinto da altura da tela acima ou abaixo dele), o mais perto para; fora da faixa, todos giram.
+  // Vale depois que a pessoa rola a página, então os botões entram girando, como no computador. Os botões de metal e a seta
+  // do Voltar entram na mesma lista, para haver um só "mais perto do meio" na página; botões lado a lado param juntos.
+  // O dedo: vale o que o aparelho diz (sem mouse) e, além disso, o primeiro toque na tela; aparelhos Samsung dizem ter mouse
+  // mesmo sem ter (o Samsung Internet), e o toque corrige; um mouse de verdade em movimento desliga a regra.
   // O mesmo código está no tools/aco-escovado.js: o primeiro dos dois que rodar cria a lista.
   const centro = window.centroDaTela || (window.centroDaTela = (function () {
     const semMouse = matchMedia('(hover: none)'), itens = [];
-    let rolou = false, pedido = 0;
+    let dedo = semMouse.matches, rolou = false, pedido = 0;
     function confere() {
       pedido = 0;
-      const meio = innerHeight / 2;
+      const meio = innerHeight / 2, faixa = innerHeight / 5;
       const ds = itens.map(it => {
-        const r = it.el.getBoundingClientRect();
-        return r.width > 0 && r.bottom > 0 && r.top < innerHeight ? Math.abs(r.top + r.height / 2 - meio) : Infinity;
+        const r = it.el.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - meio);
+        return r.width > 0 && d <= faixa ? d : Infinity;
       });
       const menor = Math.min(...ds);
-      itens.forEach((it, i) => it.marca(rolou && semMouse.matches && ds[i] - menor < 8));
+      itens.forEach((it, i) => it.marca(rolou && dedo && ds[i] - menor < 8));
     }
     const agenda = () => { if (!pedido) pedido = requestAnimationFrame(confere); };
     addEventListener('scroll', () => { rolou = true; agenda(); }, { passive: true });
     addEventListener('resize', agenda);
-    semMouse.addEventListener('change', agenda);
+    addEventListener('touchstart', () => { if (!dedo) { dedo = true; agenda(); } }, { passive: true });
+    addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && dedo && !semMouse.matches) { dedo = false; agenda(); } }, { passive: true });
+    semMouse.addEventListener('change', () => { dedo = semMouse.matches; agenda(); });
     return { junta(el, marca) { itens.push({ el, marca }); agenda(); } };
   })());
 
