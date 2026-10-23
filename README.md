@@ -9,6 +9,7 @@ Páginas do site do autor Sena JG, publicadas em <https://senajg.com.br/>.
 | `/` e `/en/` | página do autor, obras humanistas (pt / en) |
 | `/cotidiano/` e `/en/everyday/` | livros de finanças e cotidiano (pt / en) |
 | `/<pasta>/` — os 12 livros (lista abaixo) | **pastas deste repositório** |
+| `/o-cristo-cosmico/`, `/universos-paralelos/`, `/a-solucao-para-tudo/`, `/solution-neuroscience-book/` e `/succeed-on-kindle/` — os endereços antigos dos livros | páginas de redirecionamento: levam na hora à página atual de cada livro (fora do `sitemap.xml`) |
 
 ## Os 12 livros (pasta = endereço)
 
