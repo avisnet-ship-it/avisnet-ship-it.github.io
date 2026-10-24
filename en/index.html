@@ -137,10 +137,16 @@
     .livro h3 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
     .livro:hover h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
     .livro:has(:focus-visible) h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
-    /* quando a capa sobe, ela é pintada por cima do que não tem posição: o título, o autor e a etiqueta ganham posição,
-       para ficar por cima da sombra da capa (senão a sombra escurece o título) */
-    .livro h3, .livro .autor, .livro .tag { position: relative; }
+    /* quando a capa sobe, ela é pintada por cima do que não tem posição: o título com o autor (a .obra) e a etiqueta
+       ganham posição, para ficar por cima da sombra da capa (senão a sombra escurece o título) */
+    .livro .obra, .livro .tag { position: relative; }
     .autor { margin: 0 0 0.8rem; color: var(--texto-suave); }
+    /* o autor faz parte do link do título (decisão do autor, rev.42): o link do título cobre também a linha do autor, que
+       fica dourada junto com o título, sem sublinhado; o leitor de tela continua ouvindo o título como link e o autor como
+       texto (regras separadas: o navegador que não conhece :has fica só com a do mouse) */
+    .livro .obra h3 a::after { content: ""; position: absolute; inset: 0; }
+    .livro:hover .obra .autor { color: var(--ouro); }
+    .livro:has(:focus-visible) .obra .autor { color: var(--ouro); }
     .tag { display: inline-block; margin: -0.4rem 0 0.7rem; padding: 0.1rem 0.6rem; border: 1px solid rgba(241, 192, 59, 0.6); border-radius: 999px; font-size: 0.78rem; color: var(--ouro); }
     .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.85); font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
     .btn:hover { transform: translateY(-1px); }
@@ -229,7 +235,7 @@
             <img src="/assets/cosmic.jpg" width="446" height="685" alt="Cover of the book The Cosmic Christ, by Sena JG: a luminous blue six-pointed star over a dark blue background, with the title in white, the subtitle Awakening the Solar Consciousness Within Humanity, and the author name." loading="lazy">
           </picture>
         </a>
-        <h3><a href="/the-cosmic-christ/">The Cosmic Christ</a></h3>
+        <div class="obra"><h3><a href="/the-cosmic-christ/">The Cosmic Christ</a></h3></div>
       </li>
       <li class="livro">
         <a class="btn btn-celeiro" href="/the-barn-of-this-life/" aria-label="Discover the book The Barn Of This Life">Discover the book</a>
@@ -239,7 +245,7 @@
             <img src="/assets/barn.jpg" width="400" height="572" alt="Cover of the book The Barn Of This Life, by Sena JG: a Greek temple on a sunlit hill, golden wheat and a cart with sacks and fruit under a blue sky; the title is in white script and the subtitle is Foundations for a Whole Life." loading="lazy">
           </picture>
         </a>
-        <h3><a href="/the-barn-of-this-life/">The Barn Of This Life</a></h3>
+        <div class="obra"><h3><a href="/the-barn-of-this-life/">The Barn Of This Life</a></h3></div>
       </li>
       <li class="livro">
         <a class="btn btn-solucao" href="/neuroscience.solution/" aria-label="Discover the book The Solution to Everything in Life">Discover the book</a>
@@ -249,7 +255,7 @@
             <img src="/assets/solution-cover.jpg" width="400" height="600" alt="Cover of the book The Solution to Everything in Life, by Sena JG: a blue sky of clouds and golden light rays, with a golden brain and hourglass at the center; subtitle Practical Neuroscience to Overcome Anxiety, Break Self-Sabotage Patterns, and Win Any Inner Battle." loading="lazy">
           </picture>
         </a>
-        <h3><a href="/neuroscience.solution/">The Solution to Everything in Life</a></h3>
+        <div class="obra"><h3><a href="/neuroscience.solution/">The Solution to Everything in Life</a></h3></div>
       </li>
       <li class="livro">
         <a class="btn btn-universos" href="/parallel.universes/" aria-label="Discover the book How Does The Reality Work?">Discover the book</a>
@@ -259,8 +265,8 @@
             <img src="/assets/reality.jpg" width="506" height="729" alt="Cover of the book How Does The Reality Work?, by JGS: a collage of cosmic light, translucent cubes, circles of the flower of life and blue stripes, with the title in tilted white letters and the subtitle In a Simple and Vivential Way - Improve your Life." loading="lazy">
           </picture>
         </a>
-        <h3><a href="/parallel.universes/">How Does The Reality Work?</a></h3>
-        <p class="autor">Author: JGS</p>
+        <div class="obra"><h3><a href="/parallel.universes/">How Does The Reality Work?</a></h3>
+        <p class="autor">Author: JGS</p></div>
       </li>
       </ul>
     </section>

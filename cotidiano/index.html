@@ -125,10 +125,16 @@
     .livro h3 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
     .livro:hover h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
     .livro:has(:focus-visible) h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
-    /* quando a capa sobe, ela é pintada por cima do que não tem posição: o título, o autor e a etiqueta ganham posição,
-       para ficar por cima da sombra da capa (senão a sombra escurece o título) */
-    .livro h3, .livro .autor, .livro .tag { position: relative; }
+    /* quando a capa sobe, ela é pintada por cima do que não tem posição: o título com o autor (a .obra) e a etiqueta
+       ganham posição, para ficar por cima da sombra da capa (senão a sombra escurece o título) */
+    .livro .obra, .livro .tag { position: relative; }
     .autor { margin: 0 0 0.8rem; color: var(--texto-suave); }
+    /* o autor faz parte do link do título (decisão do autor, rev.42): o link do título cobre também a linha do autor, que
+       fica dourada junto com o título, sem sublinhado; o leitor de tela continua ouvindo o título como link e o autor como
+       texto (regras separadas: o navegador que não conhece :has fica só com a do mouse) */
+    .livro .obra h3 a::after { content: ""; position: absolute; inset: 0; }
+    .livro:hover .obra .autor { color: var(--ouro); }
+    .livro:has(:focus-visible) .obra .autor { color: var(--ouro); }
     .tag { display: inline-block; margin: -0.4rem 0 0.7rem; padding: 0.1rem 0.6rem; border: 1px solid rgba(241, 192, 59, 0.6); border-radius: 999px; font-size: 0.78rem; color: var(--ouro); }
     .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.85); font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
     .btn:hover { transform: translateY(-1px); }
@@ -222,8 +228,8 @@
             <img src="/assets/dinheiro.jpg" width="400" height="600" alt="Capa do livro Dinheiro Volume 1 — Agora Sim!, de José G Sena: título em letras douradas sobre um fundo verde brilhante, com pilhas de notas de dólar e moedas de ouro; subtítulo O Erro Financeiro que Ninguém te contou!" loading="lazy">
           </picture>
         </a>
-        <h3><a href="/dinheiro/" aria-label="Dinheiro Volume 1 — Agora Sim!">Dinheiro Vol. 1 — Agora Sim!</a></h3>
-        <p class="autor">Autor: José G Sena</p>
+        <div class="obra"><h3><a href="/dinheiro/" aria-label="Dinheiro Volume 1 — Agora Sim!">Dinheiro Vol. 1 — Agora Sim!</a></h3>
+        <p class="autor">Autor: José G Sena</p></div>
       </li>
       <li class="livro">
         <a class="btn btn-kindle" href="/sucesso.kindle/" aria-label="Conheça o livro Faça Sucesso no Kindle">Conheça o livro</a>
@@ -233,8 +239,8 @@
             <img src="/assets/sucesso.jpg" width="400" height="600" alt="Capa do livro Faça Sucesso no Kindle: Segredos da Amazon revelados, de José G Sena: título em amarelo sobre fundo azul-escuro, com cifrões dourados, uma pilha de livros e uma seta de crescimento subindo." loading="lazy">
           </picture>
         </a>
-        <h3><a href="/sucesso.kindle/">Faça Sucesso no Kindle</a></h3>
-        <p class="autor">Autor: José G Sena</p>
+        <div class="obra"><h3><a href="/sucesso.kindle/">Faça Sucesso no Kindle</a></h3>
+        <p class="autor">Autor: José G Sena</p></div>
       </li>
       </ul>
     </section>
