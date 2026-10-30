@@ -136,7 +136,9 @@
       color: var(--azul-noite);
       text-decoration: none;
     }
-    .idiomas { display: flex; gap: 0.4rem; }
+    /* os dois botões do seletor do mesmo tamanho, com o nome da língua no meio, entre as duas bandeiras (pedido do autor, rev.51) */
+    .idiomas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .idiomas a { justify-content: space-between; }
     .idiomas a {
       display: inline-flex;
       align-items: center;
@@ -437,19 +439,31 @@
 
 <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="flag-br" viewBox="0 0 30 21">
+    <symbol id="flag-br" viewBox="0 0 30 21" preserveAspectRatio="xMidYMid slice">
       <rect width="30" height="21" fill="#009c3b"/>
       <polygon points="15,2.2 27.6,10.5 15,18.8 2.4,10.5" fill="#ffdf00"/>
       <circle cx="15" cy="10.5" r="5.2" fill="#002776"/>
       <path d="M9.9 9.6c3.3-.6 7.2.1 10.1 1.9" stroke="#fff" stroke-width="1" fill="none"/>
     </symbol>
-    <symbol id="flag-us" viewBox="0 0 30 21">
-      <rect width="30" height="21" fill="#fff"/>
-      <g fill="#b22234"><rect y="0" width="30" height="1.62"/><rect y="3.23" width="30" height="1.62"/><rect y="6.46" width="30" height="1.62"/><rect y="9.69" width="30" height="1.62"/><rect y="12.92" width="30" height="1.62"/><rect y="16.15" width="30" height="1.62"/><rect y="19.38" width="30" height="1.62"/></g>
-      <rect width="12.5" height="11.3" fill="#3c3b6e"/>
-      <g fill="#fff"><circle cx="2.2" cy="2" r=".55"/><circle cx="5.2" cy="2" r=".55"/><circle cx="8.2" cy="2" r=".55"/><circle cx="11" cy="2" r=".55"/><circle cx="3.7" cy="4.4" r=".55"/><circle cx="6.7" cy="4.4" r=".55"/><circle cx="9.7" cy="4.4" r=".55"/><circle cx="2.2" cy="6.8" r=".55"/><circle cx="5.2" cy="6.8" r=".55"/><circle cx="8.2" cy="6.8" r=".55"/><circle cx="11" cy="6.8" r=".55"/><circle cx="3.7" cy="9.2" r=".55"/><circle cx="6.7" cy="9.2" r=".55"/><circle cx="9.7" cy="9.2" r=".55"/></g>
+    <symbol id="flag-pt" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice">
+      <rect width="12" height="20" fill="#006600"/>
+      <rect x="12" width="18" height="20" fill="#ff0000"/>
+      <g fill="none" stroke="#ffff00">
+        <circle cx="12" cy="10" r="4.65" stroke-width=".7"/>
+        <ellipse cx="12" cy="10" rx="4.65" ry="1.5" stroke-width=".5"/>
+        <ellipse cx="12" cy="10" rx="4.65" ry="1.5" stroke-width=".5" transform="rotate(-30 12 10)"/>
+      </g>
+      <path d="M9.03 6.57h5.94v3.98a2.97 2.97 0 0 1-5.94 0z" fill="#ff0000"/>
+      <path d="M9.53 7.1h4.94v3.47a2.47 2.47 0 0 1-4.94 0z" fill="#fff"/>
+      <g fill="#003399"><rect x="11.5" y="7.55" width="1" height="1.25"/><rect x="11.5" y="9.35" width="1" height="1.25"/><rect x="11.5" y="11.15" width="1" height="1.25"/><rect x="10.2" y="9.35" width="1" height="1.25"/><rect x="12.8" y="9.35" width="1" height="1.25"/></g>
     </symbol>
-    <symbol id="flag-uk" viewBox="0 0 60 30">
+    <symbol id="flag-us" viewBox="0 0 24.7 13" preserveAspectRatio="xMinYMid slice">
+      <rect width="24.7" height="13" fill="#fff"/>
+      <g fill="#b22234"><rect y="0" width="24.7" height="1"/><rect y="2" width="24.7" height="1"/><rect y="4" width="24.7" height="1"/><rect y="6" width="24.7" height="1"/><rect y="8" width="24.7" height="1"/><rect y="10" width="24.7" height="1"/><rect y="12" width="24.7" height="1"/></g>
+      <rect width="9.88" height="7" fill="#3c3b6e"/>
+      <g fill="#fff"><circle cx="0.82" cy="0.7" r=".3"/><circle cx="2.47" cy="0.7" r=".3"/><circle cx="4.12" cy="0.7" r=".3"/><circle cx="5.76" cy="0.7" r=".3"/><circle cx="7.41" cy="0.7" r=".3"/><circle cx="9.06" cy="0.7" r=".3"/><circle cx="1.65" cy="1.4" r=".3"/><circle cx="3.29" cy="1.4" r=".3"/><circle cx="4.94" cy="1.4" r=".3"/><circle cx="6.59" cy="1.4" r=".3"/><circle cx="8.23" cy="1.4" r=".3"/><circle cx="0.82" cy="2.1" r=".3"/><circle cx="2.47" cy="2.1" r=".3"/><circle cx="4.12" cy="2.1" r=".3"/><circle cx="5.76" cy="2.1" r=".3"/><circle cx="7.41" cy="2.1" r=".3"/><circle cx="9.06" cy="2.1" r=".3"/><circle cx="1.65" cy="2.8" r=".3"/><circle cx="3.29" cy="2.8" r=".3"/><circle cx="4.94" cy="2.8" r=".3"/><circle cx="6.59" cy="2.8" r=".3"/><circle cx="8.23" cy="2.8" r=".3"/><circle cx="0.82" cy="3.5" r=".3"/><circle cx="2.47" cy="3.5" r=".3"/><circle cx="4.12" cy="3.5" r=".3"/><circle cx="5.76" cy="3.5" r=".3"/><circle cx="7.41" cy="3.5" r=".3"/><circle cx="9.06" cy="3.5" r=".3"/><circle cx="1.65" cy="4.2" r=".3"/><circle cx="3.29" cy="4.2" r=".3"/><circle cx="4.94" cy="4.2" r=".3"/><circle cx="6.59" cy="4.2" r=".3"/><circle cx="8.23" cy="4.2" r=".3"/><circle cx="0.82" cy="4.9" r=".3"/><circle cx="2.47" cy="4.9" r=".3"/><circle cx="4.12" cy="4.9" r=".3"/><circle cx="5.76" cy="4.9" r=".3"/><circle cx="7.41" cy="4.9" r=".3"/><circle cx="9.06" cy="4.9" r=".3"/><circle cx="1.65" cy="5.6" r=".3"/><circle cx="3.29" cy="5.6" r=".3"/><circle cx="4.94" cy="5.6" r=".3"/><circle cx="6.59" cy="5.6" r=".3"/><circle cx="8.23" cy="5.6" r=".3"/><circle cx="0.82" cy="6.3" r=".3"/><circle cx="2.47" cy="6.3" r=".3"/><circle cx="4.12" cy="6.3" r=".3"/><circle cx="5.76" cy="6.3" r=".3"/><circle cx="7.41" cy="6.3" r=".3"/><circle cx="9.06" cy="6.3" r=".3"/></g>
+    </symbol>
+    <symbol id="flag-uk" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice">
       <clipPath id="uk-c"><rect width="60" height="30"/></clipPath>
       <g clip-path="url(#uk-c)">
         <rect width="60" height="30" fill="#012169"/>
@@ -467,10 +481,12 @@
       <a href="./" hreflang="pt-BR" lang="pt-BR" aria-current="page">
         <svg class="bandeira" aria-hidden="true"><use href="#flag-br"/></svg>
         <span>Português</span>
+        <svg class="bandeira" aria-hidden="true"><use href="#flag-pt"/></svg>
       </a>
       <a href="/neuroscience.solution/" hreflang="en" lang="en">
-        <svg class="bandeira" aria-hidden="true"><use href="#flag-us"/></svg><svg class="bandeira" aria-hidden="true"><use href="#flag-uk"/></svg>
+        <svg class="bandeira" aria-hidden="true"><use href="#flag-us"/></svg>
         <span>English</span>
+        <svg class="bandeira" aria-hidden="true"><use href="#flag-uk"/></svg>
       </a>
     </nav>
   </header>

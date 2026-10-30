@@ -26,7 +26,7 @@ Em preparação: **v4.0.0**, desde a SenaJG-rev.45, de 29/10/2026: o domínio in
 5. A Solução de Tudo na Vida — `neurociencia/`
 6. The Solution to Everything in Life — `neuroscience.solution/`
 7. Como A Realidade Funciona? — `universos.paralelos/`
-8. How Does The Reality Work? — `parallel.universes/`
+8. How does The Reality work? — `parallel.universes/`
 9. Dinheiro Vol. 1 - Agora Sim! — `dinheiro/`
 10. Money Vol. 1 — `money/`
 11. Faça Sucesso no Kindle — `sucesso.kindle/`

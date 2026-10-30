@@ -76,7 +76,7 @@
           "@type": "ListItem",
           "position": 4,
           "url": "https://senajg.com.br/parallel.universes/",
-          "name": "How Does The Reality Work?"
+          "name": "How does The Reality work?"
         }
       ]
     }
@@ -105,7 +105,9 @@
     a:focus-visible { outline: 3px solid var(--ouro); outline-offset: 4px; }
 
     .barra { display: flex; justify-content: flex-end; max-width: 72rem; margin: 0 auto; padding: 0.9rem 1.25rem 0; }
-    .idiomas { display: flex; gap: 0.4rem; }
+    /* os dois botões do seletor do mesmo tamanho, com o nome da língua no meio, entre as duas bandeiras (pedido do autor, rev.51) */
+    .idiomas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .idiomas a { justify-content: space-between; }
     .idiomas a { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.75rem; border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 999px; background: rgba(255, 255, 255, 0.06); color: var(--texto); font-size: 0.9rem; text-decoration: none; }
     .idiomas a[aria-current="page"] { background: #fff; border-color: #fff; color: #10123a; font-weight: 700; }
     .bandeira { width: 21px; height: 15px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
@@ -123,6 +125,8 @@
 
     .livros { display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 2rem 1.5rem; margin: 0 auto; padding: 0; list-style: none; }
     .livros.n2 { max-width: 34rem; } .livros.n3 { max-width: 52rem; }
+    /* com 4 livros, de cerca de 680 a 900 px de largura, 2 e 2, e não 3 numa linha e 1 sozinho embaixo (decisão do autor, rev.51) */
+    @media (max-width: 60rem) { .livros.n4 { max-width: 34rem; } }
     .livro { display: flex; flex-direction: column; align-items: center; }
     .livro a.capa { display: block; }
     .livro img { display: block; width: auto; height: 248px; border-radius: 4px; box-shadow: 0 20px 44px -14px rgba(0, 0, 0, 0.75); transition: transform 0.2s ease; }
@@ -176,26 +180,42 @@
     .btn-dinheiro { background: linear-gradient(160deg, #ffe58a, #e0a800); color: #1a1300; }
     .btn-kindle { background: linear-gradient(160deg, #ffe073, #f2a900); color: #141000; }
     .livro > .btn:first-child { margin: 0 0 1.4rem; }
+
+    /* ---------- fundo animado em canvas ---------- */
+    #cosmos { position: fixed; inset: 0; width: 100%; height: 100%; max-height: 2160px; z-index: -1; pointer-events: none; }
   </style>
   <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#000052","meio":"#1f8f8a","horizonte":"#f6e7c1","montanha":"#2a1446","chao":"#3a0f2e","chave":"#ffffff","faixa":"#9ff0ea","quente":"#f1c03b","acento":"#e0337f"}'></script>
 </head>
 <body>
+<canvas id="cosmos" aria-hidden="true"></canvas>
 
 <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="flag-br" viewBox="0 0 30 21">
+    <symbol id="flag-br" viewBox="0 0 30 21" preserveAspectRatio="xMidYMid slice">
       <rect width="30" height="21" fill="#009c3b"/>
       <polygon points="15,2.2 27.6,10.5 15,18.8 2.4,10.5" fill="#ffdf00"/>
       <circle cx="15" cy="10.5" r="5.2" fill="#002776"/>
       <path d="M9.9 9.6c3.3-.6 7.2.1 10.1 1.9" stroke="#fff" stroke-width="1" fill="none"/>
     </symbol>
-    <symbol id="flag-us" viewBox="0 0 30 21">
-      <rect width="30" height="21" fill="#fff"/>
-      <g fill="#b22234"><rect y="0" width="30" height="1.62"/><rect y="3.23" width="30" height="1.62"/><rect y="6.46" width="30" height="1.62"/><rect y="9.69" width="30" height="1.62"/><rect y="12.92" width="30" height="1.62"/><rect y="16.15" width="30" height="1.62"/><rect y="19.38" width="30" height="1.62"/></g>
-      <rect width="12.5" height="11.3" fill="#3c3b6e"/>
-      <g fill="#fff"><circle cx="2.2" cy="2" r=".55"/><circle cx="5.2" cy="2" r=".55"/><circle cx="8.2" cy="2" r=".55"/><circle cx="11" cy="2" r=".55"/><circle cx="3.7" cy="4.4" r=".55"/><circle cx="6.7" cy="4.4" r=".55"/><circle cx="9.7" cy="4.4" r=".55"/><circle cx="2.2" cy="6.8" r=".55"/><circle cx="5.2" cy="6.8" r=".55"/><circle cx="8.2" cy="6.8" r=".55"/><circle cx="11" cy="6.8" r=".55"/><circle cx="3.7" cy="9.2" r=".55"/><circle cx="6.7" cy="9.2" r=".55"/><circle cx="9.7" cy="9.2" r=".55"/></g>
+    <symbol id="flag-pt" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice">
+      <rect width="12" height="20" fill="#006600"/>
+      <rect x="12" width="18" height="20" fill="#ff0000"/>
+      <g fill="none" stroke="#ffff00">
+        <circle cx="12" cy="10" r="4.65" stroke-width=".7"/>
+        <ellipse cx="12" cy="10" rx="4.65" ry="1.5" stroke-width=".5"/>
+        <ellipse cx="12" cy="10" rx="4.65" ry="1.5" stroke-width=".5" transform="rotate(-30 12 10)"/>
+      </g>
+      <path d="M9.03 6.57h5.94v3.98a2.97 2.97 0 0 1-5.94 0z" fill="#ff0000"/>
+      <path d="M9.53 7.1h4.94v3.47a2.47 2.47 0 0 1-4.94 0z" fill="#fff"/>
+      <g fill="#003399"><rect x="11.5" y="7.55" width="1" height="1.25"/><rect x="11.5" y="9.35" width="1" height="1.25"/><rect x="11.5" y="11.15" width="1" height="1.25"/><rect x="10.2" y="9.35" width="1" height="1.25"/><rect x="12.8" y="9.35" width="1" height="1.25"/></g>
     </symbol>
-    <symbol id="flag-uk" viewBox="0 0 60 30">
+    <symbol id="flag-us" viewBox="0 0 24.7 13" preserveAspectRatio="xMinYMid slice">
+      <rect width="24.7" height="13" fill="#fff"/>
+      <g fill="#b22234"><rect y="0" width="24.7" height="1"/><rect y="2" width="24.7" height="1"/><rect y="4" width="24.7" height="1"/><rect y="6" width="24.7" height="1"/><rect y="8" width="24.7" height="1"/><rect y="10" width="24.7" height="1"/><rect y="12" width="24.7" height="1"/></g>
+      <rect width="9.88" height="7" fill="#3c3b6e"/>
+      <g fill="#fff"><circle cx="0.82" cy="0.7" r=".3"/><circle cx="2.47" cy="0.7" r=".3"/><circle cx="4.12" cy="0.7" r=".3"/><circle cx="5.76" cy="0.7" r=".3"/><circle cx="7.41" cy="0.7" r=".3"/><circle cx="9.06" cy="0.7" r=".3"/><circle cx="1.65" cy="1.4" r=".3"/><circle cx="3.29" cy="1.4" r=".3"/><circle cx="4.94" cy="1.4" r=".3"/><circle cx="6.59" cy="1.4" r=".3"/><circle cx="8.23" cy="1.4" r=".3"/><circle cx="0.82" cy="2.1" r=".3"/><circle cx="2.47" cy="2.1" r=".3"/><circle cx="4.12" cy="2.1" r=".3"/><circle cx="5.76" cy="2.1" r=".3"/><circle cx="7.41" cy="2.1" r=".3"/><circle cx="9.06" cy="2.1" r=".3"/><circle cx="1.65" cy="2.8" r=".3"/><circle cx="3.29" cy="2.8" r=".3"/><circle cx="4.94" cy="2.8" r=".3"/><circle cx="6.59" cy="2.8" r=".3"/><circle cx="8.23" cy="2.8" r=".3"/><circle cx="0.82" cy="3.5" r=".3"/><circle cx="2.47" cy="3.5" r=".3"/><circle cx="4.12" cy="3.5" r=".3"/><circle cx="5.76" cy="3.5" r=".3"/><circle cx="7.41" cy="3.5" r=".3"/><circle cx="9.06" cy="3.5" r=".3"/><circle cx="1.65" cy="4.2" r=".3"/><circle cx="3.29" cy="4.2" r=".3"/><circle cx="4.94" cy="4.2" r=".3"/><circle cx="6.59" cy="4.2" r=".3"/><circle cx="8.23" cy="4.2" r=".3"/><circle cx="0.82" cy="4.9" r=".3"/><circle cx="2.47" cy="4.9" r=".3"/><circle cx="4.12" cy="4.9" r=".3"/><circle cx="5.76" cy="4.9" r=".3"/><circle cx="7.41" cy="4.9" r=".3"/><circle cx="9.06" cy="4.9" r=".3"/><circle cx="1.65" cy="5.6" r=".3"/><circle cx="3.29" cy="5.6" r=".3"/><circle cx="4.94" cy="5.6" r=".3"/><circle cx="6.59" cy="5.6" r=".3"/><circle cx="8.23" cy="5.6" r=".3"/><circle cx="0.82" cy="6.3" r=".3"/><circle cx="2.47" cy="6.3" r=".3"/><circle cx="4.12" cy="6.3" r=".3"/><circle cx="5.76" cy="6.3" r=".3"/><circle cx="7.41" cy="6.3" r=".3"/><circle cx="9.06" cy="6.3" r=".3"/></g>
+    </symbol>
+    <symbol id="flag-uk" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice">
       <clipPath id="uk-c"><rect width="60" height="30"/></clipPath>
       <g clip-path="url(#uk-c)">
         <rect width="60" height="30" fill="#012169"/>
@@ -212,10 +232,12 @@
       <a href="/" hreflang="pt-BR" lang="pt-BR">
         <svg class="bandeira" aria-hidden="true"><use href="#flag-br"/></svg>
         <span>Português</span>
+        <svg class="bandeira" aria-hidden="true"><use href="#flag-pt"/></svg>
       </a>
       <a href="/en/" hreflang="en" lang="en" aria-current="page">
-        <svg class="bandeira" aria-hidden="true"><use href="#flag-us"/></svg><svg class="bandeira" aria-hidden="true"><use href="#flag-uk"/></svg>
+        <svg class="bandeira" aria-hidden="true"><use href="#flag-us"/></svg>
         <span>English</span>
+        <svg class="bandeira" aria-hidden="true"><use href="#flag-uk"/></svg>
       </a>
     </nav>
   </header>
@@ -258,14 +280,14 @@
         <div class="obra"><h3><a href="/neuroscience.solution/">The Solution to Everything in Life</a></h3></div>
       </li>
       <li class="livro">
-        <a class="btn btn-universos" href="/parallel.universes/" aria-label="Discover the book How Does The Reality Work?">Discover the book</a>
+        <a class="btn btn-universos" href="/parallel.universes/" aria-label="Discover the book How does The Reality work?">Discover the book</a>
         <a class="capa" href="/parallel.universes/" tabindex="-1" aria-hidden="true">
           <picture>
             <source type="image/webp" srcset="/assets/reality.webp">
-            <img src="/assets/reality.jpg" width="506" height="729" alt="Cover of the book How Does The Reality Work?, by JGS: a collage of cosmic light, translucent cubes, circles of the flower of life and blue stripes, with the title in tilted white letters and the subtitle In a Simple and Vivential Way - Improve your Life." loading="lazy">
+            <img src="/assets/reality.jpg" width="506" height="729" alt="Cover of the book How does The Reality work?, by JGS: a collage of cosmic light, translucent cubes, circles of the flower of life and blue stripes, with the title in tilted white letters and the subtitle In a Simple and Vivential Way - Improve your Life." loading="lazy">
           </picture>
         </a>
-        <div class="obra"><h3><a href="/parallel.universes/">How Does The Reality Work?</a></h3>
+        <div class="obra"><h3><a href="/parallel.universes/">How does The Reality work?</a></h3>
         <p class="autor">Author: JGS</p></div>
       </li>
       </ul>
@@ -279,5 +301,119 @@
       <a href="/en/everyday/">Everyday Matters — Finance and Organization</a>
     </nav>
   </main>
+<script>
+/* Fundo cósmico — código próprio, sem bibliotecas. Respeita "reduzir movimento",
+   pausa com a aba oculta e limita a resolução para poupar bateria. */
+(() => {
+  const MODO = "cec";               // "bgc" = bolhas galácticas, "cec" = céu estelar, "cmp" = tudo junto
+  // Densidade: 1 = versão original; padrão 10. Para experimentar, abra a página com ?d=1, ?d=2.5, ?d=3 ...
+  const D = Math.min(10, Math.max(0.5, parseFloat(new URLSearchParams(location.search).get("d")) || 10));
+  const comBolhas = MODO !== "cec", comCometas = MODO !== "bgc", deriva = MODO !== "bgc";
+  const tela = document.getElementById("cosmos"), g = tela.getContext("2d");
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)");
+  const A = (a, b) => a + Math.random() * (b - a);
+  let L, H, dpr, estrelas = [], bolhas = [], cadentes = [], raf = 0, antes = 0, proxCadente = 0;
+
+  function galaxia(r) {               // desenha uma vez a bolha com a galáxia dentro
+    const s = document.createElement("canvas"), k = Math.ceil(r * 2 * dpr);
+    s.width = s.height = k;
+    const c = s.getContext("2d"); c.scale(dpr, dpr);
+    const corpo = c.createRadialGradient(r * 0.65, r * 0.6, r * 0.05, r, r, r);
+    corpo.addColorStop(0, "rgba(255,255,255,0.10)");
+    corpo.addColorStop(0.7, "rgba(120,170,255,0.04)");
+    corpo.addColorStop(0.93, "rgba(170,220,255,0.20)");
+    corpo.addColorStop(1, "rgba(170,220,255,0)");
+    c.fillStyle = corpo; c.beginPath(); c.arc(r, r, r, 0, 7); c.fill();
+    const tom = A(170, 320), bracos = 2 + (Math.random() * 2 | 0);
+    c.save(); c.translate(r, r); c.rotate(A(0, 6.3)); c.scale(1, A(0.4, 0.85));
+    const nucleo = c.createRadialGradient(0, 0, 0, 0, 0, r * 0.28);
+    nucleo.addColorStop(0, `hsla(${tom},90%,92%,0.9)`); nucleo.addColorStop(1, `hsla(${tom},90%,60%,0)`);
+    c.fillStyle = nucleo; c.beginPath(); c.arc(0, 0, r * 0.28, 0, 7); c.fill();
+    for (let i = 0; i < 260; i++) {
+      const d = Math.pow(Math.random(), 0.75) * r * 0.62;
+      const ang = (i % bracos) * 6.283 / bracos + d / (r * 0.62) * 3.4 + A(-0.35, 0.35);
+      c.fillStyle = `hsla(${tom + A(-35, 35)},85%,${A(65, 90)}%,${A(0.2, 0.8)})`;
+      c.fillRect(Math.cos(ang) * d, Math.sin(ang) * d, A(0.5, 1.4), A(0.5, 1.4));
+    }
+    c.restore();
+    c.strokeStyle = "rgba(255,255,255,0.22)"; c.lineWidth = 1.2;
+    c.beginPath(); c.arc(r, r, r * 0.8, 3.6, 4.5); c.stroke();     // reflexo da bolha
+    return s;
+  }
+
+  function montar() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    L = innerWidth; H = Math.min(innerHeight, 2160);   // acima da altura de um monitor 4K (a janela do Google), o fundo para de crescer
+    tela.width = L * dpr; tela.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(L * H / (MODO === "cec" ? 1900 : MODO === "cmp" ? 2200 : 2800) * D);
+    estrelas = Array.from({ length: n }, () => ({
+      x: A(0, L), y: A(0, H), z: A(0.2, 1),          // z = profundidade (perto = maior e mais rápida)
+      a: A(0.25, 0.95), f: A(0.4, 1.8), p: A(0, 6.3)
+    }));
+    bolhas = [];
+    if (comBolhas) {
+      const qt = Math.round((L < 700 ? 5 : 9) * D);
+      for (let i = 0; i < qt; i++) {
+        const r = A(20, L < 700 ? 50 : 80);
+        bolhas.push({ r, x: A(0, L), y: A(0, H), vx: A(-0.05, 0.05), vy: A(-0.11, -0.03),
+                      fase: A(0, 6.3), alfa: A(0.35, 0.6), img: galaxia(r) });
+      }
+    }
+  }
+
+  function quadro(t) {
+    const passo = antes ? Math.min(50, t - antes) / 16.7 : 0; antes = t;
+    const s = t / 1000;
+    g.clearRect(0, 0, L, H);
+    g.fillStyle = "#fff";
+    for (const e of estrelas) {
+      if (deriva) { e.x -= 0.06 * e.z * passo; if (e.x < 0) e.x += L; }   // leve deriva em profundidade
+      g.globalAlpha = e.a * (0.6 + 0.4 * Math.sin(s * e.f + e.p));
+      const t2 = 0.4 + e.z * (deriva ? 1.5 : 1.1);
+      g.fillRect(e.x, e.y, t2, t2);
+    }
+    for (const b of bolhas) {
+      b.x += (b.vx + Math.sin(s * 0.2 + b.fase) * 0.04) * passo; b.y += b.vy * passo;
+      if (b.y < -b.r * 2) { b.y = H + b.r; b.x = A(0, L); }
+      if (b.x < -b.r * 2) b.x = L + b.r; else if (b.x > L + b.r * 2) b.x = -b.r;
+      g.globalAlpha = b.alfa;
+      g.drawImage(b.img, b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+    }
+    if (comCometas) {
+      if (t > proxCadente && cadentes.length < 5) {          // nasce em qualquer ponto da metade de cima
+        const sentido = Math.random() < 0.5 ? -1 : 1;        // -1 = vai para a esquerda, 1 = para a direita
+        cadentes.push({
+          x: sentido < 0 ? A(L * 0.25, L * 1.15) : A(-L * 0.15, L * 0.75),
+          y: A(-20, H * 0.55), v: A(7, 11), vida: 1, sentido
+        });
+        proxCadente = t + A(9000, 16000) / D;
+      }
+      cadentes = cadentes.filter(c => {
+        const cx = c.sentido * c.v * 0.9, cy = c.v * 0.45;
+        const rastro = g.createLinearGradient(c.x, c.y, c.x - cx * 12, c.y - cy * 12);
+        rastro.addColorStop(0, `rgba(255,255,255,${0.85 * c.vida})`); rastro.addColorStop(1, "rgba(255,255,255,0)");
+        g.globalAlpha = 1; g.strokeStyle = rastro; g.lineWidth = 1.6;
+        g.beginPath(); g.moveTo(c.x, c.y); g.lineTo(c.x - cx * 12, c.y - cy * 12); g.stroke();
+        c.x += cx * passo; c.y += cy * passo; c.vida -= 0.012 * passo;
+        return c.vida > 0 && c.x > -100 && c.x < L + 100 && c.y < H + 100;
+      });
+    }
+    g.globalAlpha = 1;
+  }
+
+  function ciclo(t) { quadro(t); raf = requestAnimationFrame(ciclo); }
+  function iniciar() {
+    cancelAnimationFrame(raf); antes = 0;
+    if (calmo.matches || document.hidden) { quadro(0); return; }   // sem movimento: só um quadro parado
+    proxCadente = performance.now() + 1500;
+    raf = requestAnimationFrame(ciclo);
+  }
+  let espera;
+  addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(() => { montar(); iniciar(); }, 200); });
+  document.addEventListener("visibilitychange", iniciar);
+  if (calmo.addEventListener) calmo.addEventListener("change", iniciar);
+  montar(); iniciar();
+})();
+</script>
 </body>
 </html>
