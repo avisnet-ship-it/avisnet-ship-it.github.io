@@ -5,247 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sena JG — Everyday Matters — Finance and Organization</title>
   <meta name="description" content="Everyday Matters — Finance and Organization — Make Money Series">
-  <link rel="canonical" href="https://senajg.com.br/en/everyday/">
-  <link rel="alternate" hreflang="pt-BR" href="https://senajg.com.br/cotidiano/">
-  <link rel="alternate" hreflang="en" href="https://senajg.com.br/en/everyday/">
-  <link rel="alternate" hreflang="x-default" href="https://senajg.com.br/cotidiano/">
 
-  <meta name="theme-color" content="#06061a">
-  <meta name="color-scheme" content="dark">
+  <!-- Esta página foi para o senajg.com, o site em inglês (rev.55). O GitHub Pages não permite redirecionamento 301;
+       a combinação abaixo (refresh imediato + canonical) é tratada pelo Google como redirecionamento permanente e
+       transfere os sinais para a nova URL. -->
+  <link rel="canonical" href="https://senajg.com/everyday/">
+  <meta http-equiv="refresh" content="0; url=https://senajg.com/everyday/">
+  <script>location.replace("https://senajg.com/everyday/" + location.search + location.hash);</script>
+
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Sena JG">
+  <meta property="og:title" content="Sena JG — Everyday Matters — Finance and Organization">
+  <meta property="og:description" content="Everyday Matters — Finance and Organization — Make Money Series">
+  <meta property="og:url" content="https://senajg.com/everyday/">
+  <meta property="og:image" content="https://senajg.com.br/assets/money.jpg">
+
   <link rel="icon" href="/assets/dolar.ico" sizes="16x16 32x32 48x48">
   <link rel="icon" href="/assets/dolar-48.png" sizes="48x48" type="image/png">
   <link rel="icon" href="/assets/dolar-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="/assets/dolar-180.png">
-
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="pt_BR">
-  <meta property="og:site_name" content="Sena JG">
-  <meta property="og:title" content="Sena JG — Everyday Matters — Finance and Organization">
-  <meta property="og:description" content="Everyday Matters — Finance and Organization — Make Money Series">
-  <meta property="og:url" content="https://senajg.com.br/en/everyday/">
-  <meta property="og:image" content="https://senajg.com.br/assets/money.jpg">
-  <meta name="twitter:card" content="summary">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap">
-
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "name": "Sena JG — Everyday Matters — Finance and Organization",
-      "url": "https://senajg.com.br/en/everyday/",
-      "inLanguage": "en"
-    },
-    {
-      "@type": "Person",
-      "name": "Sena JG",
-      "url": "https://senajg.com.br/",
-      "sameAs": [
-        "https://www.amazon.com.br/stores/Sena-JG/author/B0GCL39X52",
-        "https://www.amazon.com/stores/Sena-JG/author/B0GCL39X52"
-      ]
-    },
-    {
-      "@type": "ItemList",
-      "name": "Make Money Series",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "url": "https://senajg.com.br/money/",
-          "name": "Money Vol. 1 — Now Yes!"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "url": "https://senajg.com.br/succeed.on.kindle/",
-          "name": "Succeed On Kindle"
-        }
-      ]
-    }
-  ]
-}
-  </script>
-
   <style>
-    :root {
-      --fundo: #06061a; --texto: #eef1f8; --texto-suave: #c4cbe0; --ouro: #f1c03b;
-      --fonte-display: "Audiowide", "Trebuchet MS", system-ui, sans-serif;
-      --fonte-texto: Arial, Helvetica, "Liberation Sans", sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body {
-      margin: 0; min-height: 100vh; color: var(--texto); background-color: var(--fundo);
-      background-image:
-        radial-gradient(ellipse 60% 55% at 15% 10%, rgba(36, 161, 156, 0.30), transparent 70%),
-        radial-gradient(ellipse 60% 55% at 85% 15%, rgba(200, 0, 90, 0.28), transparent 70%),
-        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0, 0, 130, 0.45), transparent 70%);
-      background-attachment: fixed; font-family: var(--fonte-texto); line-height: 1.5;
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      color: #eef1f8;
+      background: #06061a;
+      font-family: Georgia, "Times New Roman", serif;
+      text-align: center;
     }
-    .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
-    img { max-width: 100%; height: auto; }
-    a:focus-visible { outline: 3px solid var(--ouro); outline-offset: 4px; }
-
-    .barra { display: flex; justify-content: flex-end; max-width: 72rem; margin: 0 auto; padding: 0.9rem 1.25rem 0; }
-    /* os dois botões do seletor do mesmo tamanho, com o nome da língua no meio, entre as duas bandeiras (pedido do autor, rev.51) */
-    .idiomas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }   /* colunas sempre iguais (rev.54) */
-    .idiomas a { justify-content: space-between; }
-    .idiomas a { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.75rem; border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 999px; background: rgba(255, 255, 255, 0.06); color: var(--texto); font-size: 0.9rem; text-decoration: none; }
-    .idiomas a[aria-current="page"] { background: #fff; border-color: #fff; color: #10123a; font-weight: 700; }
-    .bandeira { height: 24px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
-    /* as quatro bandeiras do mesmo tamanho, na proporção da do Brasil (34 x 24), sem esticar: as outras ficam cortadas nas
-       pontas (pedido do autor, rev.54) */
-    .bandeira.br, .bandeira.pt, .bandeira.us, .bandeira.uk { width: 33.9px; }
-    /* o nome da língua sempre no meio do botão, com as bandeiras de larguras diferentes: três colunas, as das pontas iguais (rev.53) */
-    .idiomas a { display: inline-grid; grid-template-columns: 1fr auto 1fr; }
-    .idiomas a > svg:first-child { justify-self: start; } .idiomas a > span { grid-column: 2; } .idiomas a > svg:last-child { grid-column: 3; justify-self: end; }
-    /* em celulares estreitos, as bandeiras ficam menores, ainda do mesmo tamanho entre si, e o botão mais justo, para o
-       seletor caber na tela e o "Sena JG" ficar numa linha (rev.53) */
-    @media (max-width: 400px) { .bandeira { height: 20px; } .bandeira.br, .bandeira.pt, .bandeira.us, .bandeira.uk { width: 28.2px; }
-      nav.idiomas { gap: 0.3rem; } nav.idiomas a { padding-left: 0.45rem; padding-right: 0.45rem; column-gap: 0.25rem; } }
-    @media (max-width: 340px) { .bandeira { height: 16px; } .bandeira.br, .bandeira.pt, .bandeira.us, .bandeira.uk { width: 22.6px; }
-      nav.idiomas { gap: 0.25rem; } nav.idiomas a { padding-left: 0.35rem; padding-right: 0.35rem; column-gap: 0.2rem; } }
-
-    .pagina { max-width: 72rem; margin: 0 auto; padding: 0.75rem 1rem 2.5rem; text-align: center; }
-    h1 { margin: 0; font-family: var(--fonte-display); font-weight: 400; font-size: clamp(2.5rem, 9vw, 4rem); line-height: 1.1; color: #fff; text-shadow: 0 0 26px rgba(79, 209, 232, 0.45), 0 2px 0 var(--fundo); }
-    .sub { margin: 0.5rem 0 1.75rem; font-size: 1.1rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ouro); }
-
-    .secao { margin: 0 0 2.5rem; }
-    .secao-titulo { margin: 0 0 0.3rem; font-size: 0.95rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--texto-suave); }
-    .serie { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 0 0 1.5rem; font-size: 1.5rem; font-weight: 700; }
-    .serie::before, .serie::after { content: ""; flex: 0 1 8rem; height: 1px; background: linear-gradient(90deg, transparent, var(--ouro), transparent); }
-    .serie a { color: #fff; text-decoration: none; }
-    .serie a:hover { text-decoration: underline; text-underline-offset: 4px; }
-
-    .livros { display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 2rem 1.5rem; margin: 0 auto; padding: 0; list-style: none; }
-    .livros.n2 { max-width: 34rem; } .livros.n3 { max-width: 52rem; }
-    /* com 4 livros, de cerca de 680 a 900 px de largura, 2 e 2, e não 3 numa linha e 1 sozinho embaixo (decisão do autor, rev.51) */
-    @media (max-width: 60rem) { .livros.n4 { max-width: 34rem; } }
-    .livro { display: flex; flex-direction: column; align-items: center; }
-    .livro a.capa { display: block; }
-    .livro img { display: block; width: auto; height: 248px; border-radius: 4px; box-shadow: 0 20px 44px -14px rgba(0, 0, 0, 0.75); transition: transform 0.2s ease; }
-    /* com o mouse em qualquer ponto do card (a capa, o título, o botão), ou com o foco do teclado num link dele, a capa
-       sobe um pouco (regras separadas: o navegador que não conhece :has fica só com a do mouse) */
-    .livro:hover a.capa img { transform: translateY(-3px); }
-    .livro:has(:focus-visible) a.capa img { transform: translateY(-3px); }
-    h3 { margin: 1rem 0 0.2rem; font-size: 1.12rem; line-height: 1.25; }
-    /* o título de cada livro é link para a página dele: sublinhado; com o mouse em qualquer ponto do card, ou com o foco
-       do teclado num link dele, fica dourado e com o sublinhado mais grosso, como com o mouse em cima do título (regras
-       separadas: o navegador que não conhece :has fica só com a do mouse) */
-    .livro h3 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-    .livro:hover h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
-    .livro:has(:focus-visible) h3 a { color: var(--ouro); text-decoration-thickness: 2px; }
-    /* quando a capa sobe, ela é pintada por cima do que não tem posição: o título com o autor (a .obra) e a etiqueta
-       ganham posição, para ficar por cima da sombra da capa (senão a sombra escurece o título) */
-    .livro .obra, .livro .tag { position: relative; }
-    .autor { margin: 0 0 0.8rem; color: var(--texto-suave); }
-    /* o autor faz parte do link do título (decisão do autor, rev.42): o link do título cobre também a linha do autor, que
-       fica dourada junto com o título, sem sublinhado; o leitor de tela continua ouvindo o título como link e o autor como
-       texto (regras separadas: o navegador que não conhece :has fica só com a do mouse) */
-    .livro .obra h3 a::after { content: ""; position: absolute; inset: 0; }
-    .livro:hover .obra .autor { color: var(--ouro); }
-    .livro:has(:focus-visible) .obra .autor { color: var(--ouro); }
-    .tag { display: inline-block; margin: -0.4rem 0 0.7rem; padding: 0.1rem 0.6rem; border: 1px solid rgba(241, 192, 59, 0.6); border-radius: 999px; font-size: 0.78rem; color: var(--ouro); }
-    .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.85); font-weight: 700; text-decoration: none; transition: transform 0.2s ease; }
-    .btn:hover { transform: translateY(-1px); }
-    .livro .btn { margin-top: auto; } /* botões na mesma altura, mesmo quando um título quebra em duas linhas */
-
-    .autor-amazon { display: flex; justify-content: center; margin: -0.5rem 0 2.5rem; }
-    .chip { display: inline-block; padding: 0.5rem 1.1rem; border: 1px solid rgba(241, 192, 59, 0.7); border-radius: 999px; color: var(--ouro); font-size: 0.95rem; font-weight: 700; text-decoration: none; }
-    .chip:hover { background: rgba(241, 192, 59, 0.12); }
-    .divisor { max-width: 40rem; margin: 0 auto 2.25rem; border: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); }
-    /* Livros seculares ficam numa página própria, aberta só por este botão */
-    .ir-cotidiano { display: flex; justify-content: center; margin: 0 0 1rem; }
-    .ir-cotidiano a {
-      display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.75rem 1.4rem;
-      border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px; background: rgba(255, 255, 255, 0.06);
-      color: var(--texto); font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
-    }
-    .ir-cotidiano a::after { content: "→"; color: var(--ouro); }
-    .ir-cotidiano a:hover { background: rgba(255, 255, 255, 0.12); }
-    .voltar { display: flex; justify-content: center; margin: 1rem 0 0; }
-    h1 a { color: inherit; text-decoration: none; }
-    @media (prefers-reduced-motion: reduce) { .btn, .livro img { transition: none; } .btn:hover, .livro:hover a.capa img { transform: none; } }
-    @media (prefers-reduced-motion: reduce) { .livro:has(:focus-visible) a.capa img { transform: none; } }
-    .voltar .chip { padding-left: 0.6rem; padding-right: 0.6rem; }
-    .voltar .seta { width: 1.89em; height: 1.26em; vertical-align: -0.27em; width: 2.625cap; height: 1.75cap; vertical-align: -0.375cap; margin-right: 0.45em; overflow: visible; transform-origin: 50% 50%; }
-    .voltar .seta.gira g { filter: none; }
-    .marca:hover, .marca:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; border-radius: 6px; background: color-mix(in srgb, currentColor 16%, transparent); box-shadow: 0 0 0 6px color-mix(in srgb, currentColor 16%, transparent); }
-    .btn-cristo { background: #a9502a; color: #fff; }
-    .btn-universos { background: #ffe600; color: #1a0050; }
-    .btn-solucao { background: #1a3cb4; color: #fff; }
-    .btn-celeiro { background: #1f4f7a; color: #fff; }
-    .btn-dinheiro { background: linear-gradient(160deg, #ffe58a, #e0a800); color: #1a1300; }
-    .btn-kindle { background: linear-gradient(160deg, #ffe073, #f2a900); color: #141000; }
-    .livro > .btn:first-child { margin: 0 0 1.4rem; }
+    a { color: #f1c03b; font-weight: 700; overflow-wrap: anywhere; }
+    a:focus-visible { outline: 3px solid #4fd1e8; outline-offset: 4px; }
   </style>
-  <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#3a5f9e","meio":"#9cb8de","horizonte":"#fff1d0","montanha":"#4a3a22","chao":"#6a4a1e","chave":"#fff0d0","faixa":"#ffffff","quente":"#ffd45c","acento":"#ff9a3c","metal":"#ffe39e","brilho":1.1,"liso":1,"onda":0.09,"relevo":1.7,"por":{"btn-kindle":{"ceu":"#0a46c8","meio":"#3f8fe6","horizonte":"#bfe0ff","montanha":"#0c2442","chao":"#0a68c8","chave":"#ffffff","faixa":"#dff1ff","quente":"#fff6d6","acento":"#7fd0ff","metal":"#f4f6f8","liso":1,"onda":0,"abaulado":0,"olho":0.34,"inclina":0.24,"cidade":1,"aguia":[0,0.3,0.55,0.275],"foto":"/assets/mirror-city.webp","janela":[1.1,-0.364,0.736],"fotoAguia":"/assets/mirror-eagle.webp","brilho":1.2,"relevo":1.7}}}'></script>
-  <script src="/assets/seta-voltar.js" defer></script>
 </head>
 <body>
-
-<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="flag-br" viewBox="0 0 824 583.685" preserveAspectRatio="xMidYMid slice"><rect width="824" height="583.685" fill="#009440"/><path fill="#ffcb00" d="M411.84 69.62L69.06 291.8L411.84 513.98L754.62 291.8L411.84 69.62L411.84 69.62Z"/><path fill="#302681" d="M414 147.5C494.73 147.5 560.2 212.97 560.2 293.7C560.2 374.43 494.73 439.9 414 439.9C333.27 439.9 267.8 374.43 267.8 293.7C267.8 212.97 333.27 147.5 414 147.5L414 147.5Z"/><path fill="#fff" fill-rule="evenodd" d="M455.27 241.37L457.34 246.57L462.92 246.93L458.61 250.49L460 255.91L455.27 252.92L450.55 255.91L451.93 250.49L447.63 246.93L453.21 246.57L455.27 241.37L455.27 241.37ZM447.99 277.4L449.47 281.13L453.49 281.39L450.39 283.96L451.39 287.86L447.99 285.7L444.59 287.86L445.59 283.96L442.49 281.39L446.5 281.13L447.99 277.4L447.99 277.4ZM294.99 259.47L297.05 264.67L302.63 265.02L298.32 268.59L299.71 274.01L294.99 271.02L290.26 274.01L291.64 268.59L287.34 265.02L292.92 264.67L294.99 259.47L294.99 259.47ZM358.83 292.08L360.57 296.47L365.28 296.77L361.64 299.78L362.81 304.35L358.83 301.83L354.84 304.35L356.01 299.78L352.38 296.77L357.08 296.47L358.83 292.08L358.83 292.08ZM320.18 314.95L321.29 317.75L324.29 317.94L321.98 319.86L322.72 322.77L320.18 321.17L317.64 322.77L318.38 319.86L316.07 317.94L319.07 317.75L320.18 314.95L320.18 314.95ZM307.74 320.37L309.8 325.56L315.38 325.92L311.08 329.49L312.46 334.91L307.74 331.92L303.01 334.91L304.4 329.49L300.09 325.92L305.67 325.56L307.74 320.37L307.74 320.37ZM291.1 334.18L292.84 338.56L297.55 338.86L293.91 341.88L295.08 346.45L291.1 343.92L287.11 346.45L288.28 341.88L284.64 338.86L289.35 338.56L291.1 334.18L291.1 334.18ZM336 335.3L337.74 339.69L342.45 339.99L338.81 343L339.98 347.57L336 345.05L332.01 347.57L333.18 343L329.54 339.99L334.25 339.69L336 335.3L336 335.3ZM332.83 351.98L334.32 355.72L338.33 355.98L335.24 358.54L336.23 362.44L332.83 360.29L329.44 362.44L330.43 358.54L327.33 355.98L331.35 355.72L332.83 351.98L332.83 351.98ZM354.23 364.64L356.3 369.84L361.88 370.19L357.57 373.76L358.96 379.18L354.23 376.19L349.51 379.18L350.89 373.76L346.59 370.19L352.17 369.84L354.23 364.64L354.23 364.64ZM411.19 404.19L411.98 406.19L414.13 406.33L412.47 407.7L413 409.78L411.19 408.63L409.38 409.78L409.91 407.7L408.25 406.33L410.4 406.19L411.19 404.19L411.19 404.19ZM413.36 309.53L415.1 313.91L419.81 314.21L416.17 317.23L417.34 321.8L413.36 319.27L409.37 321.8L410.54 317.23L406.9 314.21L411.61 313.91L413.36 309.53L413.36 309.53ZM426.55 321.87L428.29 326.25L433 326.55L429.36 329.56L430.53 334.13L426.55 331.61L422.56 334.13L423.73 329.56L420.1 326.55L424.8 326.25L426.55 321.87L426.55 321.87ZM405.7 335.66L406.81 338.46L409.81 338.65L407.49 340.57L408.24 343.48L405.7 341.87L403.15 343.48L403.9 340.57L401.58 338.65L404.58 338.46L405.7 335.66L405.7 335.66ZM396.07 324.77L397.56 328.51L401.57 328.77L398.48 331.33L399.47 335.23L396.07 333.08L392.68 335.23L393.67 331.33L390.58 328.77L394.59 328.51L396.07 324.77L396.07 324.77ZM412.13 351.76L414.19 356.96L419.77 357.32L415.47 360.88L416.86 366.3L412.13 363.31L407.41 366.3L408.79 360.88L404.49 357.32L410.07 356.96L412.13 351.76L412.13 351.76ZM443.02 369.81L444.5 373.55L448.52 373.81L445.42 376.38L446.42 380.27L443.02 378.12L439.62 380.27L440.62 376.38L437.52 373.81L441.53 373.55L443.02 369.81L443.02 369.81ZM454.84 386.62L456.58 391L461.29 391.31L457.66 394.32L458.83 398.89L454.84 396.36L450.85 398.89L452.02 394.32L448.39 391.31L453.1 391L454.84 386.62L454.84 386.62ZM468 373.44L469.49 377.18L473.5 377.44L470.4 380L471.4 383.9L468 381.75L464.61 383.9L465.6 380L462.5 377.44L466.52 377.18L468 373.44L468 373.44ZM485.2 399.24L486.68 402.98L490.7 403.24L487.6 405.8L488.6 409.7L485.2 407.55L481.8 409.7L482.8 405.8L479.7 403.24L483.71 402.98L485.2 399.24L485.2 399.24ZM485.37 383.12L487.11 387.51L491.81 387.81L488.18 390.82L489.35 395.39L485.37 392.87L481.38 395.39L482.55 390.82L478.92 387.81L483.62 387.51L485.37 383.12L485.37 383.12ZM484.97 370.1L486.46 373.84L490.47 374.1L487.37 376.66L488.37 380.56L484.97 378.41L481.57 380.56L482.57 376.66L479.47 374.1L483.49 373.84L484.97 370.1L484.97 370.1ZM499.21 370.24L500.7 373.98L504.71 374.24L501.62 376.8L502.61 380.7L499.21 378.55L495.82 380.7L496.81 376.8L493.72 374.24L497.73 373.98L499.21 370.24L499.21 370.24ZM512.68 363.15L514.42 367.54L519.13 367.84L515.5 370.85L516.67 375.42L512.68 372.9L508.7 375.42L509.87 370.85L506.23 367.84L510.94 367.54L512.68 363.15L512.68 363.15ZM519.5 351.71L521.24 356.1L525.95 356.4L522.32 359.41L523.49 363.98L519.5 361.46L515.51 363.98L516.68 359.41L513.05 356.4L517.76 356.1L519.5 351.71L519.5 351.71ZM513.79 336.28L515.86 341.48L521.44 341.83L517.13 345.4L518.52 350.82L513.79 347.83L509.07 350.82L510.45 345.4L506.15 341.83L511.73 341.48L513.79 336.28L513.79 336.28ZM534.9 339.79L536.38 343.53L540.4 343.78L537.3 346.35L538.3 350.25L534.9 348.1L531.5 350.25L532.5 346.35L529.4 343.78L533.41 343.53L534.9 339.79L534.9 339.79ZM278.15 239.59C276.26 244.33 274.61 249.2 273.21 254.18C290.32 251.55 307.82 250.17 325.62 250.17C412.44 250.17 492.13 282.62 553.88 336.31C555.36 331.45 556.59 326.49 557.56 321.43C495.61 268.08 415.81 235.86 328.89 235.86C311.67 235.86 294.73 237.15 278.15 239.59Z"/><path fill="#009440" d="M297.46 244.75L297.46 244.72C297.32 243.17 296.06 241.98 294.46 242.13C292.85 242.28 291.86 243.65 292 245.2L292 245.22C292.14 246.78 293.4 247.97 295.01 247.82C296.61 247.67 297.61 246.3 297.46 244.75ZM289.92 245.44L289.92 245.42C289.68 242.84 291.52 240.54 294.31 240.29C297.11 240.03 299.31 241.93 299.54 244.5L299.54 244.53C299.78 247.1 297.94 249.4 295.15 249.66C292.35 249.92 290.16 248.02 289.92 245.44ZM310.9 243.74C311.88 243.7 312.41 243.15 312.38 242.39L312.38 242.36C312.34 241.5 311.72 241.09 310.75 241.13L308.76 241.23L308.88 243.84L310.9 243.74ZM306.68 239.51L310.83 239.32C311.99 239.27 312.9 239.55 313.52 240.12C314.05 240.61 314.36 241.31 314.4 242.16L314.4 242.19C314.47 243.66 313.72 244.62 312.58 245.1L314.95 248.24L312.61 248.35L310.53 245.53L310.5 245.53L308.96 245.6L309.09 248.51L307.09 248.6L306.68 239.51ZM325.37 246.27C327.01 246.26 328.11 245.16 328.11 243.54L328.11 243.52C328.11 241.91 327 240.78 325.36 240.78L323.81 240.78L323.82 246.27L325.37 246.27ZM321.81 238.98L325.36 238.97C328.21 238.97 330.2 240.93 330.2 243.49L330.2 243.51C330.21 246.07 328.24 248.07 325.38 248.07L321.83 248.08L321.81 238.98ZM337.75 239.14L344.6 239.42L344.53 241.2L339.66 241L339.58 242.84L343.87 243.02L343.79 244.8L339.51 244.62L339.43 246.53L344.37 246.73L344.29 248.51L337.37 248.23L337.75 239.14ZM352.19 239.87L354.34 240.05L356.39 244.09L359.1 240.45L361.25 240.64L360.49 249.7L358.5 249.54L359 243.62L356.12 247.27L356.07 247.27L353.87 243.22L353.37 249.1L351.42 248.94L352.19 239.87ZM382.83 243.45L389.6 244.6L389.3 246.36L384.49 245.54L384.18 247.36L388.41 248.08L388.11 249.84L383.88 249.12L383.56 251L388.43 251.83L388.13 253.58L381.3 252.42L382.83 243.45ZM413.86 254.65C414.83 254.9 415.55 254.47 415.74 253.72L415.75 253.69C415.97 252.82 415.49 252.2 414.52 251.95L413.02 251.56L412.33 254.26L413.86 254.65ZM411.53 249.31L415.13 250.24C417.24 250.78 418.19 252.36 417.72 254.16L417.71 254.19C417.19 256.22 415.33 256.87 413.35 256.36L411.88 255.98L411.2 258.62L409.26 258.12L411.53 249.31ZM431.54 259.56C432.47 259.85 433.16 259.52 433.39 258.79L433.4 258.76C433.66 257.94 433.22 257.34 432.29 257.05L430.39 256.45L429.61 258.95L431.54 259.56ZM429.02 254.13L432.99 255.38C434.1 255.72 434.86 256.3 435.25 257.05C435.58 257.69 435.62 258.45 435.37 259.27L435.36 259.3C434.92 260.7 433.88 261.34 432.65 261.4L433.79 265.17L431.56 264.47L430.57 261.11L430.55 261.1L429.07 260.63L428.2 263.41L426.29 262.81L429.02 254.13ZM452.04 266.91L452.05 266.88C452.6 265.42 451.99 263.8 450.48 263.23C448.97 262.66 447.48 263.46 446.93 264.92L446.92 264.94C446.37 266.4 446.98 268.02 448.49 268.59C449.99 269.16 451.49 268.37 452.04 266.91ZM444.95 264.23L444.96 264.2C445.87 261.78 448.53 260.52 451.16 261.51C453.79 262.51 454.93 265.18 454.02 267.6L454.01 267.62C453.09 270.04 450.44 271.3 447.81 270.31C445.18 269.32 444.04 266.65 444.95 264.23ZM463.82 271.68L463.83 271.66C464.88 269.29 467.58 268.17 470.1 269.29C471.6 269.95 472.32 270.75 472.86 271.88L471.1 272.76C470.69 271.94 470.26 271.38 469.29 270.95C467.96 270.36 466.38 271.07 465.76 272.48L465.75 272.51C465.07 274.03 465.62 275.61 467.1 276.26C467.76 276.56 468.43 276.65 469.04 276.52L469.57 275.34L467.73 274.52L468.43 272.94L472.04 274.54L470.44 278.15C469.26 278.5 467.82 278.57 466.3 277.9C463.71 276.75 462.73 274.14 463.82 271.68ZM485.46 281.7C486.33 282.14 487.07 281.93 487.42 281.25L487.43 281.22C487.82 280.46 487.49 279.79 486.62 279.35L484.85 278.45L483.66 280.78L485.46 281.7ZM483.88 275.93L487.59 277.82C488.62 278.34 489.27 279.04 489.53 279.85C489.75 280.53 489.67 281.29 489.28 282.05L489.27 282.08C488.6 283.38 487.48 283.85 486.25 283.7L486.75 287.61L484.67 286.55L484.26 283.06L484.23 283.05L482.85 282.35L481.53 284.94L479.75 284.04L483.88 275.93ZM500.53 284.76L506.48 288.18L505.59 289.73L501.37 287.3L500.44 288.89L504.16 291.03L503.27 292.58L499.56 290.44L498.6 292.09L502.88 294.56L501.99 296.1L495.99 292.64L500.53 284.76ZM511.38 300.27L513.14 299.72C513.46 300.73 513.95 301.56 514.82 302.12C515.51 302.56 516.1 302.56 516.39 302.11L516.41 302.08C516.68 301.66 516.56 301.27 515.49 300.12C514.21 298.74 513.48 297.67 514.46 296.15L514.48 296.13C515.37 294.74 517.08 294.54 518.64 295.55C519.75 296.26 520.48 297.23 520.85 298.35L519.16 299.05C518.79 298.15 518.3 297.43 517.66 297.02C517.01 296.6 516.49 296.68 516.25 297.05L516.23 297.07C515.91 297.58 516.13 297.95 517.24 299.14C518.53 300.55 519.04 301.67 518.18 303L518.17 303.02C517.19 304.54 515.48 304.64 513.84 303.58C512.68 302.84 511.77 301.68 511.38 300.27ZM525.73 309.8L527.52 309.33C527.79 310.36 528.24 311.2 529.09 311.81C529.75 312.29 530.34 312.31 530.65 311.87L530.67 311.85C530.96 311.44 530.86 311.05 529.85 309.85C528.63 308.4 527.96 307.3 529.01 305.83L529.03 305.81C529.99 304.47 531.7 304.35 533.21 305.43C534.29 306.2 534.97 307.19 535.29 308.33L533.57 308.96C533.23 308.03 532.79 307.3 532.16 306.85C531.54 306.41 531.01 306.46 530.75 306.82L530.73 306.84C530.39 307.32 530.59 307.71 531.64 308.95C532.86 310.42 533.32 311.56 532.4 312.85L532.38 312.87C531.33 314.34 529.62 314.37 528.03 313.23C526.9 312.42 526.05 311.23 525.73 309.8ZM547.84 322.45L547.86 322.44C548.83 321.21 548.75 319.49 547.49 318.48C546.23 317.48 544.56 317.77 543.59 319L543.57 319.01C542.6 320.23 542.68 321.96 543.94 322.97C545.2 323.97 546.87 323.67 547.84 322.45ZM541.92 317.73L541.93 317.71C543.54 315.69 546.46 315.3 548.66 317.05C550.85 318.8 551.12 321.7 549.51 323.72L549.49 323.74C547.88 325.76 544.97 326.15 542.77 324.4C540.58 322.65 540.3 319.75 541.92 317.73Z"/></symbol>
-    <symbol id="flag-pt" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><rect width="600" height="400" fill="#f00"/><rect width="240" height="400" fill="#060"/><g fill="#ff0" fill-rule="evenodd" stroke="#000" stroke-width="0.57" stroke-linecap="round" stroke-linejoin="round"><path d="m318.24,262.04c-30.21-0.91-168.74-87.38-169.69-101.15l7.65-12.76c13.74,19.97,155.36,104.06,169.27,101.08l-7.23,12.82"/><path d="m154.59,146.4c-2.71,7.29,36.15,31.32,82.9,59.75,46.75,28.43,87.06,46.01,90.05,43.49,0.18-0.33,1.47-2.54,1.35-2.52-0.56,0.84-1.92,1.11-4.05,0.5-12.63-3.64-45.58-18.77-86.37-43.51-40.8-24.74-76.29-47.54-81.81-57.23-0.38-0.67-0.66-1.9-0.6-2.85l-0.13-0-1.17,2.05-0.16,0.32h-0zm164.36,116.04c-0.51,0.93-1.47,0.96-3.28,0.76-11.3-1.25-45.59-17.93-86.16-42.21-47.21-28.26-86.2-54.01-81.97-60.74l1.15-2.03,0.23,0.07c-3.8,11.4,76.95,57.58,81.7,60.52,46.72,28.95,86.11,45.85,89.6,41.46l-1.27,2.18v-0z"/><path d="m240.17,169.23c30.24-0.24,67.55-4.13,89.02-12.69l-4.63-7.52c-12.69,7.02-50.21,11.64-84.65,12.34-40.74-0.37-69.49-4.17-83.9-13.84l-4.37,8c26.48,11.21,53.62,13.59,88.52,13.7"/><path d="m330.44,156.71c-0.74,1.18-14.74,6.01-35.37,9.58-13.99,2.13-32.23,3.96-55,3.98-21.63,0.02-39.3-1.52-52.68-3.33-21.66-3.4-32.83-8.12-36.97-9.79,0.4-0.79,0.65-1.34,1.03-2.07,11.89,4.74,23.12,7.59,36.28,9.62,13.29,1.8,30.75,3.36,52.28,3.34,22.66-0.02,40.71-1.98,54.62-4.05,21.16-3.41,32.71-7.8,34.33-9.84l1.49,2.58h-0zm-4.06-7.62c-2.29,1.84-13.72,5.89-33.82,9.1-13.41,1.92-30.47,3.64-52.27,3.66-20.7,0.02-37.62-1.38-50.48-3.25-20.41-2.67-31.28-7.48-35.2-8.88,0.39-0.67,0.79-1.34,1.19-2.01,3.05,1.53,13.53,5.79,34.23,8.72,12.72,1.8,29.66,3.15,50.26,3.13,21.69-0.02,38.55-1.78,51.88-3.69,20.2-2.78,31.08-7.95,32.73-9.24l1.47,2.45v0z"/><path d="m140.88,205.66c18.6,10,59.91,15.04,98.99,15.39,35.59,0.06,81.96-5.5,99.3-14.69l-0.48-10.01c-5.42,8.48-55.11,16.61-99.21,16.28-44.09-0.33-85.04-7.14-98.69-15.96l0.08,8.99"/><path d="m340.12,204.22,0,2.39c-2.61,3.12-18.95,7.83-39.44,11.14-15.6,2.39-35.93,4.19-61.26,4.19-24.07,0-43.26-1.72-58.15-4-23.53-3.43-38.58-9.43-41.6-11.22l0.01-2.79c9.07,6.03,33.66,10.45,41.92,11.8,14.79,2.27,33.87,3.97,57.82,3.97,25.22,0,45.43-1.79,60.93-4.17,14.7-2.12,35.64-7.65,39.77-11.32h0zm0.01-8.49,0,2.39c-2.61,3.11-18.95,7.82-39.44,11.14-15.6,2.39-35.93,4.19-61.26,4.19-24.07,0-43.26-1.71-58.15-4-23.53-3.42-38.58-9.42-41.6-11.22l0.01-2.79c9.07,6.03,33.66,10.45,41.92,11.8,14.79,2.27,33.87,3.98,57.82,3.98,25.22,0,45.43-1.79,60.93-4.17,14.7-2.12,35.64-7.65,39.77-11.32l0,0z"/><path d="m239.79,260.32c-42.77-0.25-79.42-11.66-87.16-13.54l5.64,8.83c13.67,5.75,49.42,14.32,81.93,13.37,32.5-0.95,60.91-3.47,80.93-13.21l5.79-9.16c-13.64,6.42-60.07,13.64-87.12,13.71"/><path stroke-width="0.55" d="m323.3,253.72c-0.85,1.3-1.72,2.58-2.6,3.83-9.44,3.33-24.32,6.82-30.6,7.84-12.82,2.64-32.66,4.59-50.27,4.6-37.89-0.55-68.91-7.97-83.5-14.3l-1.18-2.02,0.19-0.3,2,0.77c25.95,9.28,55.09,12.99,82.7,13.65,17.54,0.06,35.09-2.01,49.29-4.55,21.77-4.36,30.57-7.65,33.27-9.14l0.69-0.39h-0zm5.02-8.28c0.02,0.03,0.04,0.05,0.07,0.08-0.64,1.07-1.29,2.17-1.96,3.26-5.04,1.8-18.7,5.8-38.66,8.59-13.15,1.79-21.32,3.53-47.48,4.03-49.02-1.25-80.75-10.83-88.29-13.2l-1.12-2.14c28.41,7.42,57.42,12.59,89.41,13.12,23.93-0.51,34.11-2.27,47.15-4.05,23.27-3.62,35-7.45,38.52-8.56-0.04-0.06-0.1-0.13-0.15-0.2l2.52-0.94-0,0z"/><path d="m328.83,197.76c0.14,28.14-14.26,53.39-25.86,64.53-16.41,15.76-38.16,25.9-63.57,26.36-28.37,0.52-55.12-17.97-62.3-26.1-14.03-15.88-25.45-36.06-25.82-63.24,1.74-30.71,13.79-52.1,31.27-66.77s40.74-21.81,60.12-21.3c22.36,0.59,48.48,11.56,66.52,33.33,11.82,14.27,16.94,29.75,19.63,53.19zm-89.19-96.34c54.48,0,99.3,44.34,99.3,98.7,0,54.36-44.81,98.7-99.3,98.7s-98.92-44.34-98.92-98.7,44.44-98.7,98.92-98.7"/><path d="m239.91,101.08c54.53,0,99.01,44.48,99.01,99.02,0,54.54-44.48,99.02-99.01,99.02-54.53,0-99.01-44.48-99.01-99.02s44.48-99.02,99.01-99.02zm-96.83,99.02c0,53.26,43.74,96.84,96.83,96.84,53.1,0,96.83-43.58,96.83-96.84,0-53.26-43.74-96.84-96.83-96.84s-96.83,43.58-96.83,96.84z"/><path d="m239.99,109.31c49.73,0,90.69,40.82,90.69,90.7,0,49.88-40.96,90.7-90.69,90.7s-90.69-40.82-90.69-90.7c0-49.88,40.96-90.7,90.69-90.7zm-88.52,90.7c0,48.69,39.98,88.52,88.52,88.52s88.52-39.84,88.52-88.52c0-48.69-39.98-88.53-88.52-88.53-48.54,0-88.52,39.84-88.52,88.53z"/><path d="m243.98,100.68-8.49,0,0.01,198.96,8.51,0z"/><path d="m243.13,99.55h2.16l0.02,201.25h-2.16l-0.02-201.25zm-8.42,0h2.18l0,201.25h-2.18v-201.25z"/><path d="m338.99,203.94,0-7.36-5.99-5.58-34-9-49-5-59,3-42,10-8.48,6.28,0,7.36l21.48-9.64,51-8h49l36,4,25,6z"/><path d="m239.95,184.77c23.38-0.04,46.07,2.22,64.06,5.72,18.57,3.71,31.64,8.36,36.1,13.57l-0.01,2.58c-5.39-6.49-22.97-11.25-36.52-13.97-17.86-3.47-40.39-5.72-63.65-5.67-24.54,0.05-47.39,2.37-64.98,5.8-14.12,2.8-32.95,8.37-35.3,13.86v-2.69c1.29-3.8,15.31-9.48,34.98-13.42,17.73-3.46,40.62-5.74,65.3-5.79zm0.01-8.49c23.38-0.04,46.07,2.22,64.06,5.72,18.57,3.71,31.64,8.36,36.1,13.57l-0.01,2.58c-5.39-6.49-22.97-11.25-36.52-13.97-17.86-3.48-40.39-5.72-63.65-5.67-24.54,0.04-47.28,2.37-64.88,5.8-13.63,2.58-33.23,8.37-35.41,13.86v-2.69c1.29-3.76,15.6-9.64,34.98-13.42,17.73-3.46,40.62-5.74,65.3-5.79z"/><path d="m239.48,132.96c36.85-0.18,68.99,5.15,83.69,12.69l5.36,9.28c-12.78-6.89-47.46-14.05-89-12.98-33.85,0.21-70.03,3.73-88.18,13.41l6.4-10.71c14.89-7.72,50.02-11.64,81.72-11.68"/><path d="m239.97,140.62c21.02-0.06,41.33,1.13,57.48,4.04,15.04,2.8,29.39,7,31.44,9.26l1.59,2.81c-4.99-3.26-17.4-6.88-33.34-9.91-16.01-3.01-36.3-4-57.2-3.95-23.72-0.08-42.15,1.17-57.97,3.93-16.73,3.13-28.33,7.6-31.2,9.73l1.56-2.97c5.56-2.84,14.39-6.26,29.22-8.93,16.36-2.99,34.98-3.88,58.42-4.01h-0zm-0.01-8.48c20.11-0.05,39.97,1.07,55.45,3.85,12.21,2.38,24.28,6.09,28.7,9.39l2.33,3.7c-3.95-4.39-18.84-8.56-31.97-10.89-15.36-2.65-34.4-3.7-54.51-3.87-21.11,0.06-40.62,1.35-55.75,4.11-14.44,2.75-23.76,6-27.7,8.54l2.05-3.09c5.44-2.86,14.23-5.5,25.3-7.65,15.25-2.78,34.88-4.04,56.11-4.09z"/><path d="m289.15,241.26c-18.22-3.4-36.47-3.89-49.22-3.74-61.41,0.72-81.24,12.61-83.67,16.21l-4.59-7.48c15.63-11.33,49.07-17.69,88.59-17.04,20.52,0.34,38.22,1.7,53.12,4.58l-4.24,7.47"/><path stroke-width="0.55" d="m239.58,236.46c17.08,0.25,33.85,0.96,50.03,3.98l-1.17,2.07c-15.03-2.77-31.05-3.84-48.8-3.75-22.66-0.18-45.59,1.94-65.54,7.67-6.3,1.75-16.72,5.8-17.78,9.15l-1.17-1.92c0.34-1.98,6.64-6.08,18.41-9.39,22.86-6.55,44.24-7.65,66.02-7.8v0zm0.78-8.6c17.7,0.33,35.98,1.15,53.74,4.67l-1.22,2.15c-16.04-3.18-31.37-4.25-52.41-4.57-22.73,0.04-46.85,1.66-68.78,8.04-7.08,2.06-19.3,6.52-19.7,10.05l-1.17-2.07c0.27-3.21,10.84-7.39,20.36-10.16,22.1-6.42,46.27-8.08,69.19-8.12z"/><path d="M327.58,247.38,320.2,258.83,299,240,244,203,182,169,149.81,157.99,156.67,145.27,159,144l20,5,66,34,38,24,32,23,13,15z"/><path d="m148.65,158.29c5.65-3.83,47.14,14.65,90.56,40.83,43.3,26.25,84.68,55.92,80.94,61.47l-1.23,1.93-0.56,0.44c0.12-0.09,0.74-0.85-0.06-2.91-1.84-6.07-31.2-29.49-79.89-58.9-47.48-28.31-87.04-45.37-91-40.49l1.25-2.39h-0zm180.44,88.93c3.57-7.05-34.92-36.04-82.63-64.27-48.81-27.67-83.99-43.95-90.42-39.09l-1.43,2.6c-0.01,0.14,0.05-0.18,0.35-0.41,1.17-1.02,3.11-0.95,3.98-0.97,11.06,0.17,42.67,14.71,87.01,40.13,19.43,11.31,82.07,51.49,81.83,62.79,0.02,0.97,0.08,1.17-0.28,1.65l1.59-2.42v-0z"/></g><g><path fill="#fff" stroke="#000" stroke-width="0.67" stroke-linejoin="bevel" d="m180.6,211.01c0,16.27,6.66,30.99,17.46,41.74,10.81,10.78,25.51,17.58,41.81,17.58,16.38,0,31.25-6.65,42.02-17.39,10.77-10.73,17.44-25.55,17.45-41.88h-0v-79.19l-118.74-0.14,0.01,79.28h0z"/><path fill="#f00" stroke="#000" stroke-width="0.51" d="m182.82,211.12v0.04c0,15.56,6.44,29.72,16.77,40.01,10.35,10.3,24.61,16.71,40.21,16.71,15.68,0,29.91-6.36,40.22-16.63,10.31-10.27,16.7-24.43,16.7-40.04h-0v-76.83l-113.84-0.02-0.07,76.75m91.02-53.75,0,48.89-0.04,5.17h0c0,1.36-0.08,2.91-0.24,4.23-0.93,7.73-4.48,14.47-9.75,19.71-6.16,6.14-14.67,9.94-24.05,9.94-9.33,0-17.64-3.94-23.83-10.1-6.35-6.32-10.03-14.99-10.03-23.95l-0.01-54.02,67.94,0.12,0,0z"/><g id="pt-castle3"><g id="pt-castle" fill="#ff0" stroke="#000" stroke-width="0.5"><path stroke="none" d="m190.19,154.43c0.13-5.52,4.05-6.83,4.08-6.85,0.03-0.02,4.23,1.41,4.22,6.9l-8.3-0.05"/><path d="m186.81,147.69-0.68,6.34,4.14,0.01c0.04-5.25,3.97-6.12,4.07-6.1,0.09-0.01,3.99,1.16,4.09,6.1h4.15l-0.75-6.39-15.02,0.04v0z"/><path d="m185.85,154.06h16.95c0.36,0,0.65,0.35,0.65,0.78,0,0.43-0.29,0.78-0.65,0.78h-16.95c-0.36,0-0.65-0.35-0.65-0.78,0-0.43,0.29-0.78,0.65-0.78z"/><path d="m192.01,154.03c0.02-3.31,2.26-4.25,2.27-4.25,0,0,2.34,0.97,2.36,4.25h-4.63"/><path d="m186.21,145.05h16.25c0.34,0,0.62,0.32,0.62,0.7,0,0.39-0.28,0.7-0.62,0.7h-16.25c-0.34,0-0.62-0.32-0.62-0.7,0-0.39,0.28-0.7,0.62-0.7z"/><path d="m186.55,146.47h15.54c0.33,0,0.6,0.32,0.6,0.7,0,0.39-0.27,0.7-0.6,0.7h-15.54c-0.33,0-0.6-0.32-0.6-0.7,0-0.39,0.27-0.7,0.6-0.7z"/><path d="m191.57,135.88,1.23,0v0.87h0.9v-0.89l1.26,0v0.89h0.9v-0.89h1.26l-0,2.01c0,0.32-0.25,0.52-0.55,0.52h-4.41c-0.3,0-0.57-0.24-0.57-0.53l-0-1.99h0z"/><path d="m196.19,138.57,0.28,6.45-4.3-0.02,0.28-6.45,3.74,0.02"/><path id="pt-cp1" d="m190.94,141.56,0.13,3.48-4.13,0,0.12-3.48h3.88-0z"/><use href="#pt-cp1" x="10.61"/><path id="pt-cp2" d="m186.3,139.04,1.2,0v0.87h0.88v-0.89l1.23,0v0.89h0.88v-0.89l1.23,0-0,2.01c0,0.31-0.25,0.52-0.54,0.52h-4.32c-0.29,0-0.56-0.24-0.56-0.53l-0-1.99h0z"/><use href="#pt-cp2" x="10.61"/><path fill="#000" stroke="none" d="m193.9,140.61c-0.03-0.63,0.88-0.63,0.87,0v1.54h-0.87v-1.54"/><path id="pt-cp3" fill="#000" stroke="none" d="m188.57,142.84c-0-0.61,0.84-0.62,0.83,0v1.19h-0.83v-1.19"/><use href="#pt-cp3" x="10.64"/></g><use href="#pt-castle" y="46.32"/><use href="#pt-castle" transform="matrix(0.7,-0.71,0.71,0.7,-35.34,275.11)"/></g><use href="#pt-castle" x="45.71"/><use href="#pt-castle3" transform="matrix(-1,0,0,1,479.79,0)"/><g id="pt-quina"><path fill="#039" d="m232.64,202.41v0.01c0,2.21,0.85,4.23,2.21,5.69,1.37,1.47,3.25,2.38,5.3,2.38,2.07,0,3.94-0.9,5.3-2.37,1.36-1.46,2.2-3.47,2.2-5.69v-10.77l-14.99-0.01-0.03,10.77"/><path stroke="#fff" stroke-width="2.97" stroke-linecap="round" d="M236.07,195.74v0M244.39,195.74v0M240.22,199.74v0M236.07,203.92v0M244.38,203.91v0"/></g><use href="#pt-quina" y="-26.02"/><use href="#pt-quina" x="-20.8"/><use href="#pt-quina" x="20.75"/><use href="#pt-quina" y="25.78"/></g></symbol>
-    <symbol id="flag-us" viewBox="0 0 7410 3900" preserveAspectRatio="xMinYMid slice"><path d="M0,0h7410v3900H0" fill="#bb133e"/><path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#FFF" stroke-width="300"/><path d="M0,0h2964v2100H0" fill="#002147"/><g fill="#FFF"><g id="us-s18"><g id="us-s9"><g id="us-s5"><g id="us-s4"><path id="us-s" d="M247,90 317.534230,307.082039 132.873218,172.917961H361.126782L176.465770,307.082039z"/><use href="#us-s" y="420"/><use href="#us-s" y="840"/><use href="#us-s" y="1260"/></g><use href="#us-s" y="1680"/></g><use href="#us-s4" x="247" y="210"/></g><use href="#us-s9" x="494"/></g><use href="#us-s18" x="988"/><use href="#us-s9" x="1976"/><use href="#us-s5" x="2470"/></g></symbol>
-    <symbol id="flag-uk" viewBox="0 0 50 30" preserveAspectRatio="xMidYMid slice"><clipPath id="uk-t"><path d="M25,15h25v15zv15h-25zh-25v-15zv-15h25z"/></clipPath><path d="M0,0v30h50v-30z" fill="#012169"/><path d="M0,0 50,30M50,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 50,30M50,0 0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M-1 11h22v-12h8v12h22v8h-22v12h-8v-12h-22z" fill="#C8102E" stroke="#FFF" stroke-width="2"/></symbol>
-  </defs>
-</svg>
-  <header class="barra">
-    <nav class="idiomas" aria-label="Language">
-      <a href="/en/everyday/" hreflang="en" lang="en" aria-current="page">
-        <svg class="bandeira us" aria-hidden="true"><use href="#flag-us"/></svg>
-        <span>English</span>
-        <svg class="bandeira uk" aria-hidden="true"><use href="#flag-uk"/></svg>
-      </a>
-      <a href="/cotidiano/" hreflang="pt-BR" lang="pt-BR">
-        <svg class="bandeira br" aria-hidden="true"><use href="#flag-br"/></svg>
-        <span>Português</span>
-        <svg class="bandeira pt" aria-hidden="true"><use href="#flag-pt"/></svg>
-      </a>
-    </nav>
-  </header>
-
-  <main class="pagina">
-    <h1><a class="marca" href="/en/">Sena JG</a></h1>
-    <p class="sub">Everyday Matters — Finance and Organization</p>
-
-    <section class="secao">
-      <p class="serie"><a href="https://www.amazon.com/dp/B0GL62JZQ4">Make Money Series</a></p>
-      <ul class="livros n2">
-      <li class="livro">
-        <a class="btn btn-dinheiro" href="/money/" aria-label="Discover the book Money Volume 1 — Now Yes!">Discover the book</a>
-        <a class="capa" href="/money/" tabindex="-1" aria-hidden="true">
-          <picture>
-            <source type="image/webp" srcset="/assets/money.webp">
-            <img src="/assets/money.jpg" width="400" height="600" alt="Cover of the book Money Volume 1 — Now Yes!, by José G Sena: gold title on a glowing green background, with stacks of dollar bills and gold coins; subtitle The Financial Mistake Nobody Told You!" loading="lazy">
-          </picture>
-        </a>
-        <div class="obra"><h3><a href="/money/" aria-label="Money Volume 1 — Now Yes!">Money Vol. 1 — Now Yes!</a></h3>
-        <p class="autor">Author: José G Sena</p></div>
-      </li>
-      <li class="livro">
-        <a class="btn btn-kindle" href="/succeed.on.kindle/" aria-label="Discover the book Succeed On Kindle">Discover the book</a>
-        <a class="capa" href="/succeed.on.kindle/" tabindex="-1" aria-hidden="true">
-          <picture>
-            <source type="image/webp" srcset="/assets/succeed.webp">
-            <img src="/assets/succeed.jpg" width="400" height="600" alt="Cover of the book Succeed On Kindle: Amazon Secrets Revealed, by José G Sena: yellow title on a dark blue background, with golden dollar signs, a stack of books and a rising growth arrow." loading="lazy">
-          </picture>
-        </a>
-        <div class="obra"><h3><a href="/succeed.on.kindle/">Succeed On Kindle</a></h3>
-        <p class="autor">Author: José G Sena</p></div>
-      </li>
-      </ul>
-    </section>
-
-    <div class="voltar"><a class="chip" href="/en/"><svg class="seta" viewBox="0 0 30 20" aria-hidden="true"><defs><linearGradient id="seta-cima" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcf1d4"/><stop offset=".45" stop-color="#f4d06c"/><stop offset="1" stop-color="#deb136"/></linearGradient><linearGradient id="seta-baixo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6c561b"/><stop offset=".35" stop-color="#5d4a20"/><stop offset=".75" stop-color="#9f7f2f"/><stop offset="1" stop-color="#f7d989"/></linearGradient><linearGradient id="seta-crista" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".7" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="seta-borda" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#f4cd62" stop-opacity=".45"/><stop offset="1" stop-color="#544315" stop-opacity=".95"/></linearGradient><filter id="seta-sombra" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy=".8" stdDeviation=".7" flood-color="#000" flood-opacity=".5"/></filter></defs><g filter="url(#seta-sombra)"><path d="M3.4 8.6Q13.6 2.2 29.4 0.9C24.6 3.5 21.6 7.1 19.4 10L1.35 10Q1.6 9.2 3.4 8.6Z" fill="url(#seta-cima)"/><path d="M1.35 10L19.4 10C21.6 12.9 24.6 16.5 29.4 19.1Q13.6 17.8 3.4 11.4Q1.6 10.8 1.35 10Z" fill="url(#seta-baixo)"/></g><path d="M2.2 10L19.4 10" stroke="url(#seta-crista)" stroke-width=".45" stroke-linecap="round"/><path d="M3.4 8.6Q13.6 2.2 29.4 0.9C24.6 3.5 21.6 7.1 19.4 10C21.6 12.9 24.6 16.5 29.4 19.1Q13.6 17.8 3.4 11.4Q0.6 10 3.4 8.6Z" fill="none" stroke="url(#seta-borda)" stroke-width=".5" stroke-linejoin="miter" stroke-miterlimit="14"/></svg><span>Back</span></a></div>
+  <main>
+    <h1>Sena JG — Everyday Matters — Finance and Organization</h1>
+    <p>This page has moved to:</p>
+    <p><a href="https://senajg.com/everyday/">https://senajg.com/everyday/</a></p>
   </main>
 </body>
 </html>
