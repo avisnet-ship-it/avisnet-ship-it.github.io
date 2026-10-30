@@ -15,21 +15,21 @@ Em preparação: **v4.0.0**, desde a SenaJG-rev.45, de 29/10/2026: o domínio in
 | `/` e `/en/` | página do autor, obras humanistas (pt / en) |
 | `/cotidiano/` e `/en/everyday/` | livros de finanças e cotidiano (pt / en) |
 | `/<pasta>/` — os 12 livros (lista abaixo) | **pastas deste repositório** |
-| `/o-cristo-cosmico/`, `/universos-paralelos/`, `/a-solucao-para-tudo/`, `/solution-neuroscience-book/` e `/succeed-on-kindle/` — os endereços antigos dos livros | páginas de redirecionamento: levam na hora à página atual de cada livro (fora do `sitemap.xml`) |
+| `/cristo-cosmico-rebuild/`, `/universos-paralelos/`, `/universos.paralelos/`, `/a-solucao-para-tudo/`, `/neurociencia/`, `/dinheiro/`, `/sucesso.kindle/`, `/solution-neuroscience-book/` e `/succeed-on-kindle/` — os endereços antigos dos livros | páginas de redirecionamento: levam na hora à página atual de cada livro (fora do `sitemap.xml`) |
 
 ## Os 12 livros (pasta = endereço)
 
-1. O Cristo Cósmico — `cristo-cosmico-rebuild/`
+1. O Cristo Cósmico — `o-cristo-cosmico/`
 2. The Cosmic Christ — `the-cosmic-christ/`
 3. O Celeiro dessa Vida — `o-celeiro-dessa-vida/`
 4. The Barn Of This Life — `the-barn-of-this-life/`
-5. A Solução de Tudo na Vida — `neurociencia/`
+5. A Solução de Tudo na Vida — `a-solucao-de-tudo-na-vida/`
 6. The Solution to Everything in Life — `neuroscience.solution/`
-7. Como A Realidade Funciona? — `universos.paralelos/`
+7. Como A Realidade Funciona? — `como-a-realidade-funciona/`
 8. How does The Reality work? — `parallel.universes/`
-9. Dinheiro Vol. 1 - Agora Sim! — `dinheiro/`
+9. Dinheiro Vol. 1 - Agora Sim! — `dinheiro-vol-1/`
 10. Money Vol. 1 — `money/`
-11. Faça Sucesso no Kindle — `sucesso.kindle/`
+11. Faça Sucesso no Kindle — `faca-sucesso-no-kindle/`
 12. Succeed On Kindle — `succeed.on.kindle/`
 
 ## Arquivos
