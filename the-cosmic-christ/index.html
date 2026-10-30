@@ -303,7 +303,7 @@
     .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
     .barra-idiomas { display: flex; justify-content: flex-end; max-width: 60rem; margin: 0 auto; padding: 0.75rem 1rem 0; }
     /* os dois botões do seletor do mesmo tamanho, com o nome da língua no meio, entre as duas bandeiras (pedido do autor, rev.51) */
-    .idiomas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .idiomas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }   /* colunas sempre iguais (rev.54) */
     .idiomas a { justify-content: space-between; }
     .idiomas a {
       display: inline-flex; align-items: center; gap: 0.35rem;
@@ -313,17 +313,20 @@
     }
     .idiomas a[aria-current="page"] { background: var(--ouro); border-color: var(--ouro); color: var(--navy-950); }
     .bandeira { height: 24px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2); }
-    /* as bandeiras inteiras, com 24 px de altura, cada uma na proporção oficial (pedido do autor, rev.53) */
-    .bandeira.br { width: 33.9px; } .bandeira.pt { width: 36px; } .bandeira.us { width: 45.6px; } .bandeira.uk { width: 40px; }
+    /* as quatro bandeiras do mesmo tamanho, na proporção da do Brasil (34 x 24), sem esticar: as outras ficam cortadas nas
+       pontas (pedido do autor, rev.54) */
+    .bandeira.br, .bandeira.pt, .bandeira.us, .bandeira.uk { width: 33.9px; }
     /* o nome da língua sempre no meio do botão, com as bandeiras de larguras diferentes: três colunas, as das pontas iguais (rev.53) */
     .idiomas a { display: inline-grid; grid-template-columns: 1fr auto 1fr; }
     .idiomas a > svg:first-child { justify-self: start; } .idiomas a > span { grid-column: 2; } .idiomas a > svg:last-child { grid-column: 3; justify-self: end; }
-    /* em celulares estreitos, as bandeiras ficam menores, ainda inteiras e na proporção oficial, e o botão mais justo, para o
+    /* em celulares estreitos, as bandeiras ficam menores, ainda do mesmo tamanho entre si, e o botão mais justo, para o
        seletor caber na tela e o "Sena JG" ficar numa linha (rev.53) */
-    @media (max-width: 400px) { .bandeira { height: 20px; } .bandeira.br { width: 28.2px; } .bandeira.pt { width: 30px; } .bandeira.us { width: 38px; } .bandeira.uk { width: 33.3px; }
+    @media (max-width: 400px) { .bandeira { height: 20px; } .bandeira.br, .bandeira.pt, .bandeira.us, .bandeira.uk { width: 28.2px; }
       nav.idiomas { gap: 0.3rem; } nav.idiomas a { padding-left: 0.45rem; padding-right: 0.45rem; column-gap: 0.25rem; } }
-    @media (max-width: 340px) { .bandeira { height: 16px; } .bandeira.br { width: 22.6px; } .bandeira.pt { width: 24px; } .bandeira.us { width: 30.4px; } .bandeira.uk { width: 26.7px; }
+    @media (max-width: 340px) { .bandeira { height: 16px; } .bandeira.br, .bandeira.pt, .bandeira.us, .bandeira.uk { width: 22.6px; }
       nav.idiomas { gap: 0.25rem; } nav.idiomas a { padding-left: 0.35rem; padding-right: 0.35rem; column-gap: 0.2rem; } }
+    /* com o "Sena JG" no alto, os nomes das línguas somem até 540 px, para os botões ficarem iguais e o "Sena JG" numa linha (rev.54) */
+    @media (max-width: 540px) { .idiomas span { display: none; } }
     @media (max-width: 420px) { .idiomas span { display: none; } .idiomas a { padding: 0.4rem 0.55rem; } }
 
     /* ---------- fundo animado em canvas ---------- */
