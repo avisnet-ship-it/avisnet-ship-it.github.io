@@ -9,7 +9,9 @@
 // volta a girar. No celular e no tablet, depois que a pessoa rola a página, o botão que chega ao meio da tela também
 // para. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
 // é o mesmo texto gravado no metal.
-// Sem WebGL, com o alto contraste do Windows ou se o contexto 3D se perder, fica o botão original.
+// Sem WebGL, sem placa de vídeo (WebGL desenhado por software, como no teste ao vivo do Search Console; rev.61), com o
+// alto contraste do Windows ou se o contexto 3D se perder, fica o botão original. window.acoEscovadoSoftware = true
+// (antes do script) força o metal mesmo por software: é o que o tools/verifica_site.js faz para conferir o metal.
 // Uso: <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu": "#…", "meio": …}'></script> no <head>;
 // a paleta (ceu, meio, horizonte, montanha, chao, chave, faixa, quente, acento) vem do gen_solucao.py (ACO).
 // Fonte: tools/aco-escovado.js no privado; o tools/aplica_aco_escovado.py copia para /assets/.
@@ -528,10 +530,20 @@ let _aguia = null;
     return cv;
   }
 
+  // nome do desenhista do WebGL: SwiftShader (Chrome sem placa), llvmpipe/softpipe (Linux), Microsoft Basic Render Driver
+  function semPlaca(gl) {
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    const nome = String(gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER) || '');
+    return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(nome);
+  }
+
   function prepara(btn, paleta, css) {
     const cv = document.createElement('canvas');
     const gl = cv.getContext('webgl', { premultipliedAlpha: true, antialias: true, alpha: true, depth: true });
     if (!gl) return null;
+    // sem placa de vídeo (desenho por software, como no teste ao vivo do Search Console), fica o botão original: o 3D
+    // por software leva dezenas de segundos para entrar na captura de tela e estoura o tempo do teste do Google
+    if (!window.acoEscovadoSoftware && semPlaca(gl)) return null;
     const prog = gl.createProgram();
     for (const [tipo, src] of [[gl.VERTEX_SHADER, VS], [gl.FRAGMENT_SHADER, FS]]) {
       const sh = gl.createShader(tipo); gl.shaderSource(sh, src); gl.compileShader(sh);
