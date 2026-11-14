@@ -448,6 +448,13 @@
   </style>
   <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#0e2a8f","meio":"#3b72e0","horizonte":"#dbe9ff","montanha":"#14306e","chao":"#0a1a45","chave":"#ffffff","faixa":"#cfe3ff","quente":"#ffd45c","acento":"#7fb2ff","metal":"#fbf9f5","brilho":1.15,"liso":1,"onda":0.09,"relevo":1.7}'></script>
   <script src="/assets/seta-voltar.js" defer></script>
+  <style>
+    .contato { margin: 0.35rem auto 0; font-size: 0.85rem; opacity: 0.85; }
+    .contato a { color: inherit; text-decoration: underline; text-underline-offset: 0.15em; }
+    .sub + .contato { margin: -1.2rem auto 0.875rem; }
+    .marca-bloco { display: flex; flex-direction: column; align-items: flex-start; }
+    .marca-bloco .contato { margin: 0.1rem 0 0; font-size: 0.8rem; text-align: left; }
+  </style>
 </head>
 <body>
 
@@ -460,7 +467,10 @@
   </defs>
 </svg>
   <header class="barra">
-    <a class="marca" href="/">Sena JG</a>
+    <div class="marca-bloco">
+      <a class="marca" href="/">Sena JG</a>
+      <p class="contato">Contato: <a href="mailto:Sena%20JG%20%3Ccontato@senajg.com.br%3E">contato@senajg.com.br</a></p>
+    </div>
     <nav class="idiomas" aria-label="Idioma">
       <a href="https://senajg.com/the-solution-to-everything-in-life/" hreflang="en" lang="en">
         <svg class="bandeira us" aria-hidden="true"><use href="#flag-us"/></svg>

@@ -210,6 +210,13 @@
   </style>
   <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu":"#3a5f9e","meio":"#9cb8de","horizonte":"#fff1d0","montanha":"#4a3a22","chao":"#6a4a1e","chave":"#fff0d0","faixa":"#ffffff","quente":"#ffd45c","acento":"#ff9a3c","metal":"#ffe39e","brilho":1.1,"liso":1,"onda":0.09,"relevo":1.7}'></script>
   <script src="/assets/seta-voltar.js" defer></script>
+  <style>
+    .contato { margin: 0.35rem auto 0; font-size: 0.85rem; opacity: 0.85; }
+    .contato a { color: inherit; text-decoration: underline; text-underline-offset: 0.15em; }
+    .sub + .contato { margin: -1.2rem auto 0.875rem; }
+    .marca-bloco { display: flex; flex-direction: column; align-items: flex-start; }
+    .marca-bloco .contato { margin: 0.1rem 0 0; font-size: 0.8rem; text-align: left; }
+  </style>
 </head>
 <body>
 
@@ -222,7 +229,10 @@
   </defs>
 </svg>
   <header class="barra">
-    <a class="marca" href="/cotidiano/">Sena JG</a>
+    <div class="marca-bloco">
+      <a class="marca" href="/cotidiano/">Sena JG</a>
+      <p class="contato">Contato: <a href="mailto:Sena%20JG%20%3Ccontato@senajg.com.br%3E">contato@senajg.com.br</a></p>
+    </div>
     <nav class="idiomas" aria-label="Idioma">
       <a href="https://senajg.com/money-vol-1/" hreflang="en" lang="en">
         <svg class="bandeira us" aria-hidden="true"><use href="#flag-us"/></svg>
