@@ -232,6 +232,11 @@
     .marca-bloco { display: flex; flex-direction: column; align-items: flex-start; }
     .marca-bloco .contato { margin: 0.1rem 0 0; font-size: 0.8rem; text-align: left; }
   </style>
+  <style>
+    /* o seletor de língua com o mesmo estilo em todas as páginas (rev.66); as cores são as de cada página */
+    .idiomas a, .idiomas a[aria-current="page"] { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 600; line-height: 1.2; }
+    @media (min-width: 421px) { .idiomas a { padding: 0.35rem 0.7rem; } }
+  </style>
 </head>
 <body>
 
