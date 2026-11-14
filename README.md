@@ -4,7 +4,7 @@ Páginas do site do autor Sena JG, publicadas em <https://senajg.com.br/>.
 
 ## Versão
 
-Versão atual: **v4.0.0** (SenaJG-rev.58), de 30/10/2026. Cada versão tem uma página de Release neste repositório, com o resumo do que mudou: <https://github.com/avisnet-ship-it/avisnet-ship-it.github.io/releases>.
+Versão atual: **v4.1.0** (SenaJG-rev.66), de 14/11/2026. Cada versão tem uma página de Release neste repositório, com o resumo do que mudou: <https://github.com/avisnet-ship-it/avisnet-ship-it.github.io/releases>.
 
 Desde a v4.0.0, as páginas em inglês estão no domínio internacional, <https://senajg.com/>, e os endereços delas aqui levam na hora para lá.
 
