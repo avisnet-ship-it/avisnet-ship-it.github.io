@@ -83,6 +83,20 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "O Cristo Cósmico — Quem ficará na Nova Terra (trailer, 3 min)",
+    "description": "O trailer do livro O Cristo Cósmico, de Sena JG: 3 minutos de viagem intergaláctica, com legendas.",
+    "thumbnailUrl": "https://senajg.com.br/o-cristo-cosmico/assets/video-capa-1280.webp",
+    "uploadDate": "2026-11-06",
+    "duration": "PT3M19S",
+    "embedUrl": "https://www.youtube.com/embed/ilPsQkvPU5w",
+    "url": "https://www.youtube.com/watch?v=ilPsQkvPU5w",
+    "inLanguage": "pt-BR"
+  }
+  </script>
 
   <style>
     :root {
@@ -226,6 +240,35 @@
       color: var(--ouro);
     }
     .btn-secundario:hover { background-color: rgba(241, 192, 59, 0.1); transform: translateY(-1px); }
+
+    /* ---------- Trailer (rev.68, prévias rev68b a rev68g do laboratório) ---------- */
+    /* a capa com a mesma luz do trailer, em volta toda, na proporção do tamanho dela, e mais espaço acima dela, para a luz
+       de cima não ficar espremida embaixo dos botões */
+    header.topo .capa { margin-top: 4.5rem; }
+    .capa img { box-shadow: 0 0 0 1px rgba(79, 209, 232, 0.28), 0 -26px 70px 4px rgba(36, 161, 156, 0.4),
+                0 0 80px 9px rgba(36, 161, 156, 0.42), 0 0 200px 22px rgba(36, 161, 156, 0.18); }
+    .video { max-width: 48rem; margin: 4rem auto 0; padding: 0 1rem; }
+    /* acima de 860 px, a seção fica mais larga, para o título caber numa linha sempre que houver espaço; o vídeo fica com um
+       quarto da largura da tela */
+    @media (min-width: 861px) { .video { max-width: 60rem; } .video .video-quadro { width: 25vw; max-width: 100%; margin: 0 auto; } }
+    .video-quadro { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: var(--navy-800);
+                    box-shadow: 0 0 0 1px rgba(79, 209, 232, 0.25), 0 0 36px 4px rgba(36, 161, 156, 0.38), 0 0 90px 10px rgba(36, 161, 156, 0.16); }
+    /* a fachada: a capa do trailer com a cara do player do YouTube; o player de verdade (cerca de 1,2 MB) só carrega no clique */
+    .video-quadro iframe, .video-play { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-play { padding: 0; margin: 0; background: #000; cursor: pointer; font: inherit; color: #fff; text-align: left; }
+    .video-play img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .video-titulo { position: absolute; left: 0; right: 0; top: 0; padding: 0.9rem 1.1rem 2.2rem; background: linear-gradient(rgba(0, 0, 0, 0.62), transparent);
+                    font-family: Roboto, Arial, sans-serif; font-size: clamp(0.85rem, 2.2vw, 1.15rem); font-weight: 500; line-height: 1.3;
+                    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 2px rgba(0, 0, 0, 0.6); }
+    .video-icone { position: absolute; left: 50%; top: 50%; width: 68px; height: 48px; transform: translate(-50%, -50%); }
+    .video-icone .fundo { fill: #f00; transition: fill 0.2s; }   /* o vermelho do YouTube */
+    .video-play:hover .video-icone .fundo, .video-play:focus-visible .video-icone .fundo { fill: #cc0000; }
+    .video-play:focus-visible { outline: 3px solid var(--ciano); outline-offset: -3px; }
+    .video-legenda { margin: 0.9rem 0 0; text-align: center; font-size: 0.95rem; color: var(--texto-suave); }
+    /* o título do trailer, quando não cabe numa linha, quebra antes de "e entenda" / "and understand" (decisão do autor); no
+       celular, a letra diminui um pouco, para cada parte caber numa linha, e os traços dos lados saem */
+    #titulo-video .parte { display: inline-block; }
+    @media (max-width: 520px) { #titulo-video { font-size: min(1.6rem, 5.6vw); } #titulo-video::before, #titulo-video::after { display: none; } }
 
     /* ---------- Descrição ---------- */
     .descricao {
@@ -422,8 +465,34 @@
   </header>
 
   <main>
+    <section class="video" aria-labelledby="titulo-video">
+      <h2 id="titulo-video"><span class="texto"><span class="parte">Veja o pequeno Trailer</span> <span class="parte">e entenda o Livro</span></span></h2>
+      <div class="video-quadro" data-video="ilPsQkvPU5w" data-titulo="O Cristo Cósmico — Quem ficará na Nova Terra (trailer, 3 min)">
+        <button type="button" class="video-play" aria-label="Ver o trailer: O Cristo Cósmico — Quem ficará na Nova Terra (3 min)">
+          <img src="assets/video-capa-1280.webp" srcset="assets/video-capa-640.webp 640w, assets/video-capa-1280.webp 1280w" sizes="(max-width: 860px) calc(100vw - 2rem), 25vw" width="1280" height="720" alt="Capa do trailer: uma estrela de oito pontas em luz azul e verde, sobre o espaço escuro." loading="lazy" decoding="async">
+          <span class="video-titulo" aria-hidden="true">Esse vídeo muda sua vida. 3 min. Viagem Intergaláctica. Vibração! (Versão em Português)</span>
+          <svg class="video-icone" viewBox="0 0 68 48" aria-hidden="true"><path class="fundo" d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+        </button>
+      </div>
+      <p class="video-legenda">Trailer de 3 min 19 s, com legendas</p>
+      <script>
+        // a fachada do trailer: no clique, troca a capa pelo player do YouTube (o endereço sem cookies), já tocando
+        document.querySelectorAll('.video-quadro[data-video]').forEach(function (q) {
+          var b = q.querySelector('.video-play');
+          b.addEventListener('click', function () {
+            var f = document.createElement('iframe');
+            f.src = 'https://www.youtube-nocookie.com/embed/' + q.dataset.video + '?autoplay=1&rel=0';
+            f.title = q.dataset.titulo;
+            f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin';
+            b.replaceWith(f); f.focus();
+          });
+        });
+      </script>
+    </section>
+
     <section class="descricao" aria-labelledby="titulo-descricao">
-      <h2 id="titulo-descricao">Descrição</h2>
+      <h2 id="titulo-descricao">Sinopse do Livro</h2>
 
       <p class="abertura">Em um mundo em guerra, será que os mansos realmente herdarão a Terra?<br>
         Quem merecerá desfrutar da Nova Terra de Paz, Limpa e Renovada que surgirá?<br>
