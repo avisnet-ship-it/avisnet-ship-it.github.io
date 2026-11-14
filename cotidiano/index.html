@@ -93,7 +93,7 @@
     a:focus-visible { outline: 3px solid var(--ouro); outline-offset: 4px; }
 
     .barra { display: flex; justify-content: center; max-width: 72rem; margin: 0 auto; padding: 0.9rem 1.25rem 0; }   /* o seletor no meio (pedido do autor, rev.55) */
-    @media (min-width: 760px) { .barra { position: relative; height: 0; padding: 0 1.25rem; } .barra .idiomas { position: absolute; top: 1.78rem; right: 1.25rem; } }   /* no computador, o seletor à direita, centralizado na altura do "Sena JG" (pedido do autor, rev.64); abaixo de 760 px, como no celular, no meio, acima do título; com o título à esquerda, a partir de 760 px já não há encontro com o seletor */
+    @media (min-width: 760px) { .barra { position: relative; height: 0; padding: 0 1.25rem; } .barra .idiomas { position: absolute; top: 1.78rem; right: 1.25rem; z-index: 2; } }   /* no computador, o seletor à direita, centralizado na altura do "Sena JG" (pedido do autor, rev.64); abaixo de 760 px, como no celular, no meio, acima do título; com o título à esquerda, a partir de 760 px já não há encontro com o seletor; o z-index (rev.65) o põe acima da .pagina, que a partir de 1060 px é posicionada e cobria os cliques */
     /* os dois botões do seletor do mesmo tamanho, com o nome da língua no meio, entre as duas bandeiras (pedido do autor, rev.51) */
     .idiomas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }   /* colunas sempre iguais (rev.54) */
     .idiomas a { justify-content: space-between; }
