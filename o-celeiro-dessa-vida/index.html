@@ -208,6 +208,7 @@
     .marca:hover, .marca:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; border-radius: 6px; background: color-mix(in srgb, currentColor 16%, transparent); box-shadow: 0 0 0 6px color-mix(in srgb, currentColor 16%, transparent); }
 
     @media (max-width: 860px) { .livro { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 0.5rem; } .capa { max-width: var(--capa-max-celular); } }
+    @media (min-width: 861px) { .livro { align-items: start; padding-top: 0.25rem; } }
     .compra-final { display: none; }
     @media (max-width: 860px) { .compra-final { display: grid; margin: 0 auto 2rem; } }
     @media (max-width: 420px) { .idiomas span { display: none; } .idiomas a { padding: 0.4rem 0.55rem; } }
@@ -225,7 +226,9 @@
   <style>
     .contato { margin: 0.35rem auto 0; font-size: 0.85rem; opacity: 0.85; }
     .contato a { color: inherit; text-decoration: underline; text-underline-offset: 0.15em; }
-    .sub + .contato { margin: -1.2rem auto 0.875rem; }
+    .sub-linha { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: 1.25em; row-gap: 0.25rem; margin: 0.5rem 0 0.875rem; }
+    .sub-linha .sub, .sub-linha .contato { margin: 0; }
+    @media (min-width: 1060px) { .pagina { position: relative; } .pagina > .sub-linha { position: absolute; top: 1.4rem; left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center; row-gap: 0.1rem; margin: 0; white-space: nowrap; } }
     .marca-bloco { display: flex; flex-direction: column; align-items: flex-start; }
     .marca-bloco .contato { margin: 0.1rem 0 0; font-size: 0.8rem; text-align: left; }
   </style>
@@ -272,8 +275,7 @@
         <h1 id="titulo"><span class="tit">O Celeiro dessa Vida</span></h1>
         <p class="subtitulo">Fundamentos para uma Vida Inteira</p>
         <div class="filete" aria-hidden="true">❦</div>
-        <p class="dados"><strong>Autor: Sena JG</strong><br>
-          Livro da Série: Tesouros para uma Vida</p>
+        <p class="dados"><strong>Autor: Sena JG</strong></p>
         <nav class="compra" aria-label="Onde comprar o livro">
           <a class="btn btn-a" href="https://www.amazon.com.br/dp/B0GFCN3FM4">
             <span>Livro no Kindle <span class="sem-quebra">(e-book)</span></span>

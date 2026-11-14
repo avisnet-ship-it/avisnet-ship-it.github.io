@@ -399,7 +399,9 @@
   <style>
     .contato { margin: 0.35rem auto 0; font-size: 0.85rem; opacity: 0.85; }
     .contato a { color: inherit; text-decoration: underline; text-underline-offset: 0.15em; }
-    .sub + .contato { margin: -1.2rem auto 0.875rem; }
+    .sub-linha { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: 1.25em; row-gap: 0.25rem; margin: 0.5rem 0 0.875rem; }
+    .sub-linha .sub, .sub-linha .contato { margin: 0; }
+    @media (min-width: 1060px) { .pagina { position: relative; } .pagina > .sub-linha { position: absolute; top: 1.4rem; left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center; row-gap: 0.1rem; margin: 0; white-space: nowrap; } }
     .marca-bloco { display: flex; flex-direction: column; align-items: flex-start; }
     .marca-bloco .contato { margin: 0.1rem 0 0; font-size: 0.8rem; text-align: left; }
   </style>
