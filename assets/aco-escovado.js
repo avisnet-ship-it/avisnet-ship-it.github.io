@@ -9,7 +9,8 @@
 // volta a girar. No celular e no tablet, depois que a pessoa rola a página, o botão que chega ao meio da tela também
 // para. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
 // é o mesmo texto gravado no metal.
-// Sem WebGL, sem placa de vídeo (WebGL desenhado por software, como no teste ao vivo do Search Console; rev.61), com o
+// Desde a rev.63, o metal começa depois que a página carregou e só aparece quando a placa terminou de preparar o
+// programa, sem travar a página (ver inicia). Sem WebGL, sem placa de vídeo (WebGL desenhado por software, como no teste ao vivo do Search Console; rev.61), com o
 // alto contraste do Windows ou se o contexto 3D se perder, fica o botão original. window.acoEscovadoSoftware = true
 // (antes do script) força o metal mesmo por software: é o que o tools/verifica_site.js faz para conferir o metal.
 // Uso: <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu": "#…", "meio": …}'></script> no <head>;
@@ -537,20 +538,35 @@ let _aguia = null;
     return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(nome);
   }
 
-  function prepara(btn, paleta, css) {
+  // Primeira etapa de cada botão: cria o desenho e manda preparar o programa, sem esperar por ele (rev.63). Na primeira
+  // visita, a placa de vídeo pode levar segundos para preparar (medido: 12 s no Cristo, no Windows, com o fundo animado
+  // ocupando a placa); qualquer pergunta ao programa antes da hora trava a página e as abas até acabar. Por isso o
+  // botão fica o original até a placa avisar que terminou (KHR_parallel_shader_compile), e só então vira metal.
+  function inicia() {
     const cv = document.createElement('canvas');
     const gl = cv.getContext('webgl', { premultipliedAlpha: true, antialias: true, alpha: true, depth: true });
     if (!gl) return null;
     // sem placa de vídeo (desenho por software, como no teste ao vivo do Search Console), fica o botão original: o 3D
     // por software leva dezenas de segundos para entrar na captura de tela e estoura o tempo do teste do Google
     if (!window.acoEscovadoSoftware && semPlaca(gl)) return null;
-    const prog = gl.createProgram();
+    const prog = gl.createProgram(), shs = [];
     for (const [tipo, src] of [[gl.VERTEX_SHADER, VS], [gl.FRAGMENT_SHADER, FS]]) {
       const sh = gl.createShader(tipo); gl.shaderSource(sh, src); gl.compileShader(sh);
-      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(sh)); return null; }
-      gl.attachShader(prog, sh);
+      gl.attachShader(prog, sh); shs.push(sh);
     }
-    gl.linkProgram(prog); gl.useProgram(prog);
+    gl.linkProgram(prog);
+    return { cv, gl, prog, shs, ext: gl.getExtension('KHR_parallel_shader_compile') };
+  }
+  // o programa já está pronto? (sem o recurso de preparar em segundo plano, a resposta é sempre sim)
+  const preparado = q => !q.ext || q.gl.getProgramParameter(q.prog, q.ext.COMPLETION_STATUS_KHR);
+
+  function prepara(btn, paleta, css, q) {
+    const { cv, gl, prog } = q;
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      q.shs.forEach(sh => { if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(sh)); });
+      console.error(gl.getProgramInfoLog(prog)); return null;
+    }
+    gl.useProgram(prog);
     const bPos = gl.createBuffer(), bNrm = gl.createBuffer(), bIdx = gl.createBuffer();
     for (const [nome, buf] of [['aPos', bPos], ['aNrm', bNrm]]) {
       const loc = gl.getAttribLocation(prog, nome); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
@@ -679,12 +695,17 @@ let _aguia = null;
     const olho = 'IntersectionObserver' in window ? new IntersectionObserver(vs => vs.forEach(v => {
       const e = lista.find(x => x.btn === v.target); if (e) { e.visivel = v.isIntersecting; liga(e); }
     })) : null;
+    const pendentes = [];
     document.querySelectorAll(seletor || 'a.btn').forEach(btn => {
+      const q = inicia();
+      if (q) pendentes.push({ btn, q });
+    });
+    const monta = ({ btn, q }) => {
       const css = getComputedStyle(btn);
       // paleta por botão: "por": {"btn-kindle": {...}} troca campos da paleta nos botões com essa classe (o Cotidiano
       // tem ouro e cidade na mesma página)
       const pal = Object.assign({}, paleta, ...Object.entries(paleta.por || {}).filter(([cl]) => btn.classList.contains(cl)).map(([, v]) => v));
-      const e = prepara(btn, pal, { backgroundColor: css.backgroundColor, backgroundImage: css.backgroundImage, color: css.color });
+      const e = prepara(btn, pal, { backgroundColor: css.backgroundColor, backgroundImage: css.backgroundImage, color: css.color }, q);
       if (!e) return;
       e.cv.className = 'aco-cv'; e.cv.setAttribute('aria-hidden', 'true');
       btn.classList.add('aco-btn'); btn.appendChild(e.cv);
@@ -703,19 +724,31 @@ let _aguia = null;
       if (olho) olho.observe(btn);
       centro.junta(btn, sim => { if (e.centro !== sim) { e.centro = sim; decide(e); } });
       decide(e);
-    });
+    };
+    // a cada quadro, monta os botões cujo programa já ficou pronto; os outros esperam sem travar nada
+    const confere = () => {
+      for (let i = pendentes.length - 1; i >= 0; i--) if (preparado(pendentes[i].q)) monta(pendentes.splice(i, 1)[0]);
+      if (pendentes.length) requestAnimationFrame(confere); else avisaPronto(lista.length);
+    };
+    confere();
     // se uma fonte chegar depois, o texto gravado é refeito com ela
     if (document.fonts) document.fonts.addEventListener('loadingdone', () => lista.forEach(e => e.mede()));
     parado.addEventListener('change', () => lista.forEach(decide));
     window.acoEscovado.botoes = lista;
     window.acoEscovado.avanca = avanca;
-    return lista.length;
+    return pendentes.length + lista.length;
   };
+  // window.acoEscovadoPronto: promessa que se cumpre quando todos os botões já viraram metal (ou ficaram os originais);
+  // o tools/verifica_site.js espera por ela antes de conferir
+  let avisaPronto;
+  window.acoEscovadoPronto = new Promise(r => { avisaPronto = r; });
 
   // inicia sozinho com a paleta que a página traz no próprio <script>
   const eu = document.currentScript;
   if (eu && eu.dataset.paleta) {
+    // começa depois que a página carregou e o navegador ficou livre: a página aparece primeiro, com os botões originais
     const vai = () => window.acoEscovado(JSON.parse(eu.dataset.paleta));
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', vai); else vai();
+    const depois = () => (window.requestIdleCallback ? requestIdleCallback(vai, { timeout: 1500 }) : setTimeout(vai, 50));
+    if (document.readyState === 'complete') depois(); else addEventListener('load', depois);
   }
 })();
