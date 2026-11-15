@@ -50,4 +50,6 @@ Desde a v4.0.0, as páginas em inglês estão no domínio internacional, <https:
 - `404.html` — página de erro com botão para a página inicial
 - `favicon.ico` — ícone da aba do navegador (mandala azul, 16, 32 e 48 px)
 - `apple-touch-icon.png` — ícone de 180×180 para quem salva o site na tela inicial do iPhone ou iPad
-- `assets/` — capas dos cartões e ícones das páginas principais; `aco-escovado.js` (os botões de metal que giram), `seta-voltar.js` (a seta do botão Voltar que gira) e as fotos do espelho da cidade dos botões do Kindle (`mirror-city.webp` e `mirror-eagle.webp`)
+- `assets/` — capas dos cartões e ícones das páginas principais; `aco-escovado.js` (os botões de metal que giram), `seta-voltar.js` (a seta do botão Voltar que gira), as fotos do espelho da cidade dos botões do Kindle (`mirror-city.webp` e `mirror-eagle.webp`) e o fundo da Realidade: `fundo-bolhas.js` (as imagens de universos-bolha se revezando, `universo-bolha-1.webp` a `universo-bolha-4.webp`) e `cubos-metal.webp` (os cubos de metal)
+- `sitemap-antigos.xml` — sitemap temporário dos 17 endereços antigos (rev.60), enviado só no Search Console; sai até 10/12/2026
+- `AGENTS.md` e `CLAUDE.md` — instruções para agentes de IA, que levam ao repositório privado

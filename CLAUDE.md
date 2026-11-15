@@ -1,5 +1,7 @@
 # Instruções para o Claude (e outros assistentes de código)
 
+> **Agentes de IA: comecem pelo `AGENTS.md` deste repositório, que leva ao `AGENTS.md` do privado, a memória do projeto.**
+
 Este arquivo é lido automaticamente pelo Claude Code no começo de cada sessão (padrão `CLAUDE.md`). As regras completas ficam num lugar só, no repositório privado do projeto, `avisnet-ship-it/privado`.
 
 - **Antes de qualquer coisa de versão, branch, tag ou Release, ler o `VERSIONING.md` do privado.** Quem faz o quê: o autor cria a tag anotada, com o Git, num codespace de cada repositório, e a Release, na tela do GitHub; o Claude grava os commits, cria as branches `stable/X.Y.Z` pela ferramenta do GitHub (a API), prepara os textos e os comandos e confere tudo pela leitura. O ambiente do Claude recusa enviar tags e branches pelo Git (HTTP 403).
