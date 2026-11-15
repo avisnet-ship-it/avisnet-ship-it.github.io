@@ -1,7 +1,6 @@
-// O fundo das duas Realidades (Como A Realidade Funciona? e How does The Reality work?), decidido pelo autor na prévia
-// rev66d do laboratório (14/11/2026; rev.66): sobre o fundo original, três imagens de universos-bolha (geradas pelo autor;
-// quatro desde a rev.68, prévia rev68h)
-// se revezam a 75% (o fundo original fica com 25%; fusão comum), uma troca a cada 3 s, dissolvendo em 1 s; por cima delas, a
+// O fundo das Realidades (Como A Realidade Funciona?, How does The Reality work? e a página italiana), decidido pelo autor
+// na prévia rev66d do laboratório (14/11/2026; rev.66): sobre o fundo original, as imagens de universos-bolha, geradas pelo
+// autor (três na rev.66; quatro desde a rev.68, prévia rev68h), se revezam a 75% (o fundo original fica com 25%; fusão comum), uma troca a cada 3 s, dissolvendo em 1 s; por cima delas, a
 // matriz de cubos de metal azul (35 px, a 140 px nos três eixos, 3 camadas, cada cubo girado ao acaso), desenhada uma vez
 // e publicada como imagem (parada: não usa a placa de vídeo de quem visita).
 // As imagens vêm dos atributos do próprio <script> (data-bolha1 a data-bolha4 e data-cubos), para o
