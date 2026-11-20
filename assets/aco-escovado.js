@@ -10,7 +10,10 @@
 // para. Fora da tela, não gasta nada. O texto continua no HTML (leitores de tela, busca, seleção); o que se vê
 // é o mesmo texto gravado no metal.
 // Desde a rev.63, o metal começa depois que a página carregou e só aparece quando a placa terminou de preparar o
-// programa, sem travar a página (ver inicia). Sem WebGL, sem placa de vídeo (WebGL desenhado por software, como no teste ao vivo do Search Console; rev.61), com o
+// programa, sem travar a página (ver inicia). Desde a rev.78, a paisagem refletida (céu, montanhas, chão, a cidade e o mar, o céu
+// psicodélico) vem pronta de uma imagem por paleta (assets/cena-<chave>.webp, desenhada pelo tools/gen_cenarios.js com a mesma conta
+// de antes), e o programa ficou leve: pronto em 0,3 s, e não em 16 s, no Windows com Intel Iris Xe (medido pelo autor); a foto da
+// cidade, a águia e os refletores de estúdio continuam desenhados na hora. Sem a imagem, fica o botão original. Sem WebGL, sem placa de vídeo (WebGL desenhado por software, como no teste ao vivo do Search Console; rev.61), com o
 // alto contraste do Windows ou se o contexto 3D se perder, fica o botão original. window.acoEscovadoSoftware = true
 // (antes do script) força o metal mesmo por software: é o que o tools/verifica_site.js faz para conferir o metal.
 // Uso: <script src="/assets/aco-escovado.js" defer data-paleta='{"ceu": "#…", "meio": …}'></script> no <head>;
@@ -19,6 +22,12 @@
 (function () {
   'use strict';
   const PERIODO = 2.4;   // segundos por volta
+  // a paisagem pronta de cada paleta (rev.78), na pasta deste script; a chave e o nome têm de ser os mesmos do tools/gen_cenarios.js
+  const BASE = (document.currentScript && document.currentScript.src) || location.href;
+  const CAMPOS_CENA = ['ceu', 'meio', 'horizonte', 'montanha', 'chao', 'chave', 'faixa', 'quente', 'acento'];
+  const chaveCena = p => 'v1|' + CAMPOS_CENA.map(k => String(p[k]).toLowerCase()).join(',') + '|' + (p.liso || 0) + '|' + (p.psi || 0) + '|' + (p.cidade || 0);
+  const fnv = s => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, '0'); };
+  const urlCena = p => new URL('cena-' + fnv(chaveCena(p)) + '.webp', BASE).href;
 
   // No celular e no tablet (com o dedo), o botão que chega ao meio da tela faz o papel do mouse em cima: entre os que estão
   // na faixa do meio (até um quinto da altura da tela acima ou abaixo dele), o mais perto para; fora da faixa, todos giram.
@@ -81,8 +90,10 @@ uniform vec2 uOlho;              // olho a distância finita (distância, desloc
 uniform float uBrilho;           // ganho do reflexo do ambiente e das luzes (reluzente)
 uniform float uRelevo;           // força do baixo-relevo das letras
 uniform vec3 uCeu, uMeio, uHor, uMont, uChao, uChave, uFaixa, uQuente, uAcento;
+uniform sampler2D uCena;         // a paisagem pronta (unidade de textura 3; rev.78)
 varying vec3 vPo, vNo;
 const float PI = 3.14159265;
+const float KCENA = 2.0;         // o K do tools/gen_cenarios.js: a imagem guarda (cor / K)^(1/2.2)
 vec3 paraMundo(vec3 o, float c, float s) { return vec3(o.x, o.y * c + o.z * s, -o.y * s + o.z * c); }
 // as fotos já vêm prontas para a tela: desfaz a curva de cor do final (refeita no fim) e o ganho do espelho, para a cidade e
 // a águia saírem do espelho como na foto
@@ -108,70 +119,23 @@ float caixa(float f, float e, float fc, float ec, float hf, float he) {
 }
 float foco(vec3 d, vec3 c, float raio) { return smoothstep(cos(raio * 1.6), cos(raio), dot(d, c)); }
 
-// uma fileira de arranha-céus ao longo do horizonte: x = cobertura nesta direção (borda suave), y = altura relativa dentro da
-// torre, z = posição na largura da torre, w = sorteio da torre; k = torres por volta; hs = altura; livre = onde pode haver torre
-vec4 torre(float f, float e, float k, float seed, float hs, float livre) {
-  float x = f * k, col = floor(x), cf = fract(x);
-  float h1 = hash(vec3(col, seed, 1.3)), h2 = hash(vec3(col, seed + 5.1, 5.5)), h3 = hash(vec3(col, seed + 2.3, 8.9));
-  float alt = hs * (0.05 + 0.26 * h1 * h1 + 0.07 * step(0.82, h2)) * (0.5 + ruido(vec3(f * 2.0, seed, 1.0))) * livre;
-  float lg = 0.5 + 0.45 * h2, xa = 0.5 - lg * 0.5, rl = (cf - xa) / lg;
-  float topo = alt - (h3 > 0.62 ? 0.05 * hs * clamp(rl, 0.0, 1.0) : 0.0);
-  float ax = smoothstep(xa, xa + 0.03, cf) * (1.0 - smoothstep(xa + lg - 0.03, xa + lg, cf));
-  float ay = smoothstep(0.0, 0.003, e) * (1.0 - smoothstep(topo - 0.003, topo, e));
-  return vec4(ax * ay, clamp(e / max(alt, 1e-3), 0.0, 1.0), rl, h3);
-}
-// o vidro de uma torre: escuro embaixo, refletindo o céu no alto; lado esquerdo iluminado; faixas de andares e de montantes
-vec3 vidro(vec4 t, float e, vec3 baixo, vec3 alto, float luz) {
-  vec3 g = mix(baixo, alto, 0.08 + 0.72 * t.y * t.y + 0.12 * t.w);
-  g *= 0.70 + 0.55 * luz * pow(clamp(1.0 - t.z, 0.0, 1.0), 1.4);
-  g *= 0.95 + 0.05 * smoothstep(0.3, 0.7, fract(e * 110.0)) + 0.05 * smoothstep(0.35, 0.65, fract(t.z * (5.0 + 6.0 * t.w)));
-  return g;
-}
-
-// ambiente fixo no mundo (y para cima, z para o observador): céu, montanhas assimétricas, chão e focos de luz
+// o ambiente fixo no mundo (y para cima, z para o observador). Desde a rev.78, a paisagem (céu, montanhas, chão, a cidade e o mar,
+// o céu psicodélico) vem pronta da imagem da paleta, desenhada pelo tools/gen_cenarios.js com a conta de antes; aqui, na hora,
+// só a foto da cidade, a águia e os refletores de estúdio, que são leves e têm bordas nítidas
 vec3 ambiente(vec3 d) {
   float e = asin(clamp(d.y, -1.0, 1.0));
   float f = atan(d.x, d.z);
-  vec3 c;
-  if (uPsi > 0.0) e += 0.22;   // céu de Matrix: o horizonte desce, a face reflete mais céu que gramado
+  vec3 c = pow(texture2D(uCena, vec2(f / (2.0 * PI) + 0.5, 0.5 - e / PI)).rgb, vec3(2.2)) * KCENA;
+  if (uPsi > 0.0) e += 0.22;   // céu de Matrix: o horizonte desce (a imagem já vem assim; aqui, para os refletores)
   if (uCidade > 0.0) {
-    // a foto da cidade à beira-mar, quando chega: cobre a janela dela no céu, com a borda fundida na cidade desenhada; no
-    // miolo da janela, a cidade desenhada nem é calculada (o botão fica mais leve)
-    float borda = 0.0; vec3 cf = vec3(0.0);
+    // a foto da cidade à beira-mar, quando chega: cobre a janela dela no céu, com a borda fundida na cidade desenhada
     if (uFoto.x > 0.0) {
       vec2 uf = vec2(f / (2.0 * uFoto.x) + 0.5, (uFoto.z - e) / (uFoto.z - uFoto.y));
       if (uf.x > 0.0 && uf.x < 1.0 && uf.y > 0.0 && uf.y < 1.0) {
-        borda = smoothstep(0.0, 0.08, uf.x) * smoothstep(0.0, 0.08, 1.0 - uf.x) * smoothstep(0.0, 0.10, uf.y) * smoothstep(0.0, 0.06, 1.0 - uf.y);
-        cf = desfaz(pow(texture2D(uFotoT, uf).rgb, vec3(2.2)));
+        float borda = smoothstep(0.0, 0.08, uf.x) * smoothstep(0.0, 0.08, 1.0 - uf.x) * smoothstep(0.0, 0.10, uf.y) * smoothstep(0.0, 0.06, 1.0 - uf.y);
+        c = mix(c, desfaz(pow(texture2D(uFotoT, uf).rgb, vec3(2.2))), borda);
       }
     }
-    if (borda < 1.0) {
-      // céu azul profundo no alto, claro e enevoado perto do horizonte, com faixas finas de cirros
-      c = mix(uHor, uMeio, smoothstep(0.0, 0.42, e));
-      c = mix(c, uCeu, smoothstep(0.30, 1.30, e));
-      float cir = ruido(vec3(f * 2.6, e * 8.0, 1.7)) * 0.6 + ruido(vec3(f * 6.0, e * 20.0, 4.1)) * 0.4;
-      c = mix(c, vec3(1.0), smoothstep(0.52, 0.88, cir) * smoothstep(0.06, 0.55, e) * 0.5);
-      c += uHor * 0.45 * exp(-abs(e) * 8.0);
-      // duas fileiras de arranha-céus: a de trás, baixa e enevoada; a da frente, alta, de vidro escuro
-      vec4 t2 = torre(f + 0.37, e, 44.0, 17.0, 0.55, 1.0);
-      vec3 g2 = vidro(t2, e, mix(uMont, uHor, 0.55), mix(uMeio, uHor, 0.6), 0.5);
-      c = mix(c, g2, t2.x * 0.92);
-      vec4 t1 = torre(f, e, 17.0, 3.0, 1.0, 1.0);
-      vec3 g1 = vidro(t1, e, uMont, mix(uMeio, uHor, 0.3), 1.0);
-      g1 = mix(g1, uHor, 0.10 * (1.0 - t1.y));   // névoa leve no pé das torres
-      c = mix(c, g1, t1.x);
-      // o mar: azul profundo, com o reflexo das torres, ondulação e brilho do sol em riscos
-      if (e < 0.0) {
-        float ee = -e, onda = 0.006 * ruido(vec3(f * 40.0, ee * 60.0, 2.0)) + 0.003 * ruido(vec3(f * 110.0, ee * 140.0, 5.0));
-        vec3 mar = mix(uChao * 1.5, uChao * 0.4, smoothstep(0.0, 0.8, ee)) + uHor * 0.35 * exp(-ee * 14.0);
-        vec4 r1 = torre(f, ee * 0.96 + onda, 17.0, 3.0, 1.0, 1.0), r2 = torre(f + 0.37, ee + onda, 44.0, 17.0, 0.55, 1.0);
-        mar = mix(mar, vidro(r2, ee, mix(uMont, uHor, 0.55), mix(uMeio, uHor, 0.6), 0.5) * 0.7, r2.x * 0.35 * exp(-ee * 5.0));
-        mar = mix(mar, vidro(r1, ee, uMont, mix(uMeio, uHor, 0.3), 1.0) * 0.7, r1.x * 0.5 * exp(-ee * 4.0));
-        mar += uQuente * 1.3 * pow(ruido(vec3(f * 30.0, ee * 230.0, 2.0)), 7.0) * exp(-ee * 8.0);
-        c = mar;
-      }
-      c = mix(c, cf, borda);
-    } else c = cf;
     // a grande águia, em voo alto, à frente da cidade e do mar: o desenho e, quando chega, a foto
     vec2 ua = vec2((f - uAguia.x) / uAguia.z + 0.5, 0.5 - (e - uAguia.y) / uAguia.w);
     if (uAguia.z > 0.0 && ua.x > 0.0 && ua.x < 1.0 && ua.y > 0.0 && ua.y < 1.0) {
@@ -179,48 +143,7 @@ vec3 ambiente(vec3 d) {
       vec3 ga = uFoto.w > 0.0 ? desfaz(pow(g.rgb, vec3(2.2))) : mix(pow(g.rgb, vec3(2.2)), uMeio, 0.05) * 1.1;
       c = mix(c, ga, smoothstep(0.0, 0.9, g.a));
     }
-  } else if (uPsi > 0.0) {
-    // céu psicodélico do nascer do sol do fim de Matrix Revolutions: sol quase branco no horizonte, faixas de nuvens
-    // alongadas na horizontal, em laranja e amarelo perto do sol e em verde, ciano, azul e violeta no alto; pouco rosa
-    float n1 = ruido(d * vec3(0.9, 3.4, 0.9) + 3.1), n2 = ruido(d * vec3(2.2, 7.5, 2.2) + 11.7), n3 = ruido(d * vec3(4.5, 14.0, 4.5) + 5.3);
-    float ee = abs(e) + uPsi * (0.55 * (n1 - 0.5) + 0.3 * (n2 - 0.5) + 0.1 * (n3 - 0.5));
-    c = mix(uHor, uQuente, smoothstep(0.0, 0.10, ee));
-    c = mix(c, uAcento, smoothstep(0.08, 0.24, ee));
-    c = mix(c, uFaixa, smoothstep(0.20, 0.36, ee) * (0.4 + 0.6 * n3));
-    c = mix(c, uMeio, smoothstep(0.30, 0.55, ee));
-    c = mix(c, uCeu, smoothstep(0.50, 1.0, ee));
-    c *= (0.6 + 0.8 * n2) * 0.8;
-    c += uHor * 0.25 * exp(-abs(e) * 9.0) * (0.6 + 0.8 * n3);
-    // o sol quase branco no centro do horizonte, com disco e raios
-    vec2 ds = vec2(f, e - 0.03); float rs = length(ds);
-    c += uChave * (1.7 * exp(-rs * rs * 700.0) + 0.45 * exp(-rs * 14.0) * (0.65 + 0.35 * sin(atan(ds.y, ds.x) * 18.0 + n1 * 3.0)));
-    if (e > -0.02) {
-      // arranha-céus de vidro nas laterais (o centro fica livre para o sol), claros à luz do sol, e a linha de árvores
-      float kk = f * 9.0, cl = floor(kk), cx = fract(kk);
-      float a1 = hash(vec3(cl, 4.1, 2.7)), a2 = hash(vec3(cl, 7.7, 1.9)), a3 = hash(vec3(cl, 3.3, 6.1));
-      float lado = smoothstep(0.38, 0.85, abs(f));
-      float alt = (0.07 + 0.30 * a1 * a1 + 0.06 * step(0.8, a2)) * lado;
-      float lg = 0.45 + 0.5 * a2, xa = 0.5 - lg * 0.5, rl = (cx - xa) / lg;
-      float dt = smoothstep(xa, xa + 0.03, cx) * (1.0 - smoothstep(xa + lg - 0.03, xa + lg, cx)) * smoothstep(0.0, 0.006, e) * (1.0 - smoothstep(alt - 0.006, alt, e));
-      vec3 vidro = mix(uMont, mix(uHor, vec3(1.0), 0.4), 0.18 + 0.35 * (1.0 - abs(f)) + 0.2 * a3) * (0.75 + 0.45 * smoothstep(0.35, 1.0, rl));
-      vidro *= 0.88 + 0.22 * smoothstep(0.45, 0.65, fract(rl * (4.0 + 5.0 * a3) + e * 30.0));   // janelas
-      c = mix(c, vidro, dt);
-      float copa = 0.035 + 0.035 * ruido(vec3(f * 26.0, 1.3, 0.7)) + 0.02 * ruido(vec3(f * 70.0, 2.1, 0.4));
-      c = mix(c, uChao * (0.35 + 0.25 * ruido(vec3(f * 50.0, e * 80.0, 3.0))), (1.0 - smoothstep(copa - 0.006, copa, e)) * smoothstep(-0.02, 0.0, e) * 0.95);
-    }
-    // abaixo do horizonte, o gramado verde do parque, iluminado pelo sol
-    if (e < 0.0) c = mix(c, uChao * (0.5 + 0.7 * exp(e * 4.0) * (0.6 + 0.8 * exp(-f * f * 6.0))) * (0.85 + 0.3 * n3), smoothstep(-0.02, -0.14, e) * 0.95);
-  } else {
-    c = mix(uHor, uMeio, smoothstep(0.0, 0.55, e));
-    c = mix(c, uCeu, smoothstep(0.45, 1.35, e));
-    c += uHor * 0.5 * exp(-abs(e) * 10.0);
-    float m = 0.05 + 0.10 * pow(max(0.0, sin(f * 2.0 + 0.7)), 1.5) + 0.045 * sin(f * 5.0 + 1.3) + 0.022 * sin(f * 11.0 + 0.4) + 0.009 * sin(f * 27.0 + 2.0);
-    if (e < m) c = mix(mix(uMont, uHor, 0.45), uMont, clamp((m - e) / 0.22, 0.0, 1.0));
-    if (e < 0.0) c = mix(mix(uChao, uHor, 0.35) * 1.2, uChao * 0.3, smoothstep(0.0, -1.1, e));
   }
-  // no acabamento liso, o chão escurece abaixo do horizonte (espelho de verdade) e o refletor principal é menor: a borda
-  // dele e a linha do horizonte aparecem dentro da face e ondulam com a superfície
-  if (uPsi <= 0.0 && uCidade <= 0.0) c *= mix(1.0, mix(0.32, 1.0, smoothstep(-0.10, 0.07, e)), uLiso);
   vec2 tam = mix(vec2(0.55, 0.50), vec2(0.26, 0.17), uLiso);
   // refletores de estúdio (caixa de luz, focos): não existem no espelho da cidade nem no céu de Matrix, que só refletem o que é deles
   float est = (1.0 - uCidade) * (1.0 - 0.95 * uPsi);   // no céu de Matrix, o espelho reflete só o céu
@@ -582,6 +505,15 @@ let _aguia = null;
     gl.uniform1f(U('uBrilho'), paleta.brilho || 1); gl.uniform1f(U('uRelevo'), paleta.relevo || 0.5);
     const tex = gl.createTexture();
     gl.uniform1i(U('uAguiaT'), 1); gl.uniform1i(U('uFotoT'), 2); gl.uniform4fv(U('uFoto'), [0, 0, 0, 0]);
+    // a paisagem pronta (rev.78), na unidade 3: sem mipmaps (ponto a ponto, como a conta de antes), repetindo na volta do azimute
+    gl.uniform1i(U('uCena'), 3);
+    gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, q.cenaImg);
+    gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.BROWSER_DEFAULT_WEBGL);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.activeTexture(gl.TEXTURE0);
     if (paleta.aguia) {   // [azimute, elevação, largura, altura] da águia no céu refletido
       if (!_aguia) _aguia = desenhaAguia(1024, 512);
       textura(gl, 1, _aguia);
@@ -696,15 +628,20 @@ let _aguia = null;
       const e = lista.find(x => x.btn === v.target); if (e) { e.visivel = v.isIntersecting; liga(e); }
     })) : null;
     const pendentes = [];
+    // paleta por botão: "por": {"btn-kindle": {...}} troca campos da paleta nos botões com essa classe (o Cotidiano
+    // tem ouro e cidade na mesma página)
+    const paletaDe = btn => Object.assign({}, paleta, ...Object.entries(paleta.por || {}).filter(([cl]) => btn.classList.contains(cl)).map(([, v]) => v));
     document.querySelectorAll(seletor || 'a.btn').forEach(btn => {
       const q = inicia();
-      if (q) pendentes.push({ btn, q });
+      if (!q) return;
+      // a paisagem pronta (rev.78) carrega junto com o programa; se a imagem não vier, fica o botão original
+      q.pal = paletaDe(btn);
+      carrega(urlCena(q.pal)).then(im => { q.cenaImg = im; }, () => { q.semCena = true; console.warn('aco-escovado: a paisagem não carregou', urlCena(q.pal)); });
+      pendentes.push({ btn, q });
     });
     const monta = ({ btn, q }) => {
       const css = getComputedStyle(btn);
-      // paleta por botão: "por": {"btn-kindle": {...}} troca campos da paleta nos botões com essa classe (o Cotidiano
-      // tem ouro e cidade na mesma página)
-      const pal = Object.assign({}, paleta, ...Object.entries(paleta.por || {}).filter(([cl]) => btn.classList.contains(cl)).map(([, v]) => v));
+      const pal = q.pal;
       const e = prepara(btn, pal, { backgroundColor: css.backgroundColor, backgroundImage: css.backgroundImage, color: css.color }, q);
       if (!e) return;
       e.cv.className = 'aco-cv'; e.cv.setAttribute('aria-hidden', 'true');
@@ -725,9 +662,13 @@ let _aguia = null;
       centro.junta(btn, sim => { if (e.centro !== sim) { e.centro = sim; decide(e); } });
       decide(e);
     };
-    // a cada quadro, monta os botões cujo programa já ficou pronto; os outros esperam sem travar nada
+    // a cada quadro, monta os botões cujo programa e cuja paisagem já ficaram prontos; os outros esperam sem travar nada
     const confere = () => {
-      for (let i = pendentes.length - 1; i >= 0; i--) if (preparado(pendentes[i].q)) monta(pendentes.splice(i, 1)[0]);
+      for (let i = pendentes.length - 1; i >= 0; i--) {
+        const { q } = pendentes[i];
+        if (q.semCena) { pendentes.splice(i, 1); const perde = q.gl.getExtension('WEBGL_lose_context'); if (perde) perde.loseContext(); }
+        else if (q.cenaImg && preparado(q)) monta(pendentes.splice(i, 1)[0]);
+      }
       if (pendentes.length) requestAnimationFrame(confere); else avisaPronto(lista.length);
     };
     confere();
