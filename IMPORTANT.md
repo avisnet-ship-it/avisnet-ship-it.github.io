@@ -1,0 +1,161 @@
+```text
+Developed-by: Sena JG <senajg@senajg.com>
+
+(Sena JG is a Systems Architect, Information Technology Professional, Information and Communications Technology Professional, Computer Science Graduate, Web Designer, Webmaster, DevOps Engineer, Systems Analyst, and Computer Graphics and 3D Systems Developer)
+Developer of the world's first 3D CASE tool
+(Sena JG é Arquiteto de Sistemas, Profissional de Tecnologia da Informação, Profissional de Tecnologia da Informação e Comunicação, Graduado em Ciência da Computação, Web Designer, Webmaster, Engenheiro DevOps, Analista de Sistemas e Desenvolvedor de Sistemas de Computação Gráfica e em 3D)
+Desenvolvedor da primeira ferramenta CASE 3D do mundo
+
+Co-developed-by: Anthropic Claude Opus 5.5 <noreply@anthropic.com>
+```
+
+# IMPORTANT: Unbreakable Guidelines
+
+> Read this first. These are the author's unbreakable guidelines.
+
+## 1. Confirm with the author before recording and before sending
+
+1. This is rule 15 of the private repository's `AGENTS.md`, an unbreakable guideline (the author's decision, 2026-11-26).
+2. Before the local commit (the author's word is "grave"), the agent shows the author exactly what will be recorded:
+   1. the files;
+   2. the text;
+   3. the commit message, as `git show` will show it.
+3. Then the agent waits for the author's confirmation.
+4. Before sending to GitHub (the author's word is "commit"), the agent does the same.
+5. Without the confirmation, nothing is recorded or sent, even if it seems obvious.
+6. This guideline is written in more than one place on purpose, so that it stands out (the author's decision, 2026-11-27).
+
+## 2. Why the repositories keep copies
+
+1. GitHub owns the Releases and hosts them, outside the author's repositories.
+2. GitHub is not the author's company. If GitHub deletes a Release, or it disappears, the author loses it.
+3. The repositories belong to the author. They keep faithful copies.
+
+## 3. What goes into the Releases
+
+1. Everything that has changed.
+2. Down to the smallest details, such as those of the metal buttons, exactly as they turned out.
+
+## 4. The Release files
+
+1. In each of the four repositories:
+   1. **One file per Release:**
+      1. Besides the Release on GitHub, each version gets a physical file inside the repository.
+      2. The file mirrors the Release: it is identical to the text published on GitHub.
+      3. It is written before the publication, so that it is already inside the Release package.
+      4. Its name is the version number, in the market's official form.
+      5. Each file holds one Release only.
+   2. **One file with the sum of all the Releases:**
+      1. It sits in the root of the repository.
+      2. It is called "Releases".
+      3. It holds every Release published in the repository, down to the oldest.
+      4. The newest comes first; then the second newest; then the third newest; down to the first.
+2. In the private repository:
+   1. The same two kinds of file, only with the private repository's Releases, in the same places.
+   2. The structure of the SenaJG ecosystem:
+      1. **One general file per version:** at each publication, it receives the four Releases of the four repositories. Its name is the version number, vX.Y.Z, in the standard naming.
+      2. **One file with every version:** `general-senajg-ecosystem-releases.md`, in the root of the private repository. It starts with an index and holds every Release of every repository.
+      3. In both files, the official order of the repositories:
+
+         | Order | Name | Website | Official name on GitHub |
+         |---|---|---|---|
+         | 1 | senajg.com | https://senajg.com/ | `senajg.com` |
+         | 2 | senajg.com.br | https://senajg.com.br/ | `avisnet-ship-it.github.io` |
+         | 3 | privado | (no website) | `privado` |
+         | 4 | Lab | https://lab.senajg.com.br/ | `my_test_333` |
+
+      4. Each entry shows, in this order: the name, the website (with `https://` and the slash at the end) and the official name on GitHub, as it is.
+3. The release notes in `docs/release-notes/` stay as they are.
+
+## 5. The files of every repository
+
+1. **The guidelines:**
+   1. `IMPORTANT.md` and `IMPORTANT.txt`: in English.
+   2. `IMPORTANTE.md` and `IMPORTANTE.txt`: in Brazilian Portuguese.
+   3. In senajg.com, also `IMPORTANTE.it.md` and `IMPORTANTE.it.txt`: in Italian.
+2. **The AI agent files,** all with the same text:
+   1. `AGENTS.md`: the open format, read by Codex (from OpenAI), Cursor, Gemini CLI, the GitHub Copilot coding agent and other agents;
+   2. `CLAUDE.md`: read by Claude Code;
+   3. `GEMINI.md`: read by Gemini CLI;
+   4. `.github/copilot-instructions.md`: read by GitHub Copilot, in this exact folder, with this exact name and case.
+3. **The readme, the files for people:**
+   1. `README.md`: in English.
+      1. It is the canonical text for writing: every change starts in it.
+      2. It starts by telling the reader to read `IMPORTANT.md`.
+   2. `README.txt`: extracted from `README.md`.
+   3. The translations, with the market's standard names:
+      1. `README.<language>.md` and `README.<language>.txt`;
+      2. the language is the BCP 47 code, without the region: `README.pt.md` and `README.pt.txt`, in Brazilian Portuguese, in the four repositories;
+      3. in the two websites, one translation for each language of the countries where Amazon sells books published with KDP: Kindle eBooks, paperbacks or hardcovers (17 marketplaces, 11 languages);
+      4. every readme has, below the title and at the end, the links to the same readme in the other languages.
+   4. In the two websites and in the Lab, the pages:
+      1. `readme.html`, and one `readme.<language>.html` for each translation;
+      2. they are the canonical text for publication;
+      3. they are made from the `.md`.
+   5. Only the `.html` go into `sitemap.xml`, in the two websites. The Lab and the private repository have no sitemap; the private repository has no `.html`.
+   6. Every file is in UTF-8, in every language.
+4. **The `.md`, the `.txt` and the `.html`:**
+   1. The `.md` is the richer file and is written first.
+   2. The `.txt` is always extracted from the `.md`, without the formatting.
+   3. The `.html` of the readme is always made from the `.md`.
+   4. The program that does both is `tools/gen_leia_me.py`, in the private repository.
+5. **The copies:**
+   1. They are always kept up to date.
+   2. Where a copy is already identical, nothing is written and nothing changes.
+
+## 6. The header of every file
+
+1. Everything, everywhere, starts with the header:
+
+   ```text
+   Developed-by: Sena JG <senajg@senajg.com>
+
+   (Sena JG is a Systems Architect, Information Technology Professional, Information and Communications Technology Professional, Computer Science Graduate, Web Designer, Webmaster, DevOps Engineer, Systems Analyst, and Computer Graphics and 3D Systems Developer)
+   Developer of the world's first 3D CASE tool
+   (Sena JG é Arquiteto de Sistemas, Profissional de Tecnologia da Informação, Profissional de Tecnologia da Informação e Comunicação, Graduado em Ciência da Computação, Web Designer, Webmaster, Engenheiro DevOps, Analista de Sistemas e Desenvolvedor de Sistemas de Computação Gráfica e em 3D)
+   Desenvolvedor da primeira ferramenta CASE 3D do mundo
+
+   Co-developed-by: Anthropic Claude Opus 5.5 <noreply@anthropic.com>
+   ```
+
+2. The author's description comes first in English, complete. Right below it, it comes in Portuguese.
+3. There is always one blank line after the `Developed-by` line.
+4. There is one blank line after the line that names Claude.
+   1. When the `Claude-Session` line comes right below it, the blank line comes after the `Claude-Session` line.
+5. Files leave out the `Claude-Session` line, because its address changes with every session. Commit messages keep it.
+
+## 7. How every text is written
+
+1. Indented and stratified, with as many levels as needed.
+2. Coherent, clear and fluent.
+3. In very short sentences, easy to understand.
+4. Complete, down to the smallest detail: all the information, with everything mentioned.
+5. Nothing is lost: not a comma, a word of true information, an item, a passage or a nuance.
+6. A text in blocks ("blockante"), squat, chaotic and entropic turns into informational garbage, on purpose or not:
+   1. it gets lost;
+   2. people, AI agents and algorithms end up ignoring it;
+   3. it cannot be documented.
+
+## 8. The visionary text
+
+1. It is the text that describes the author as a visionary: `ABOUT.md`, in English; `SOBRE.md`, in Portuguese; `CHI-SONO.md`, in Italian.
+2. Only this text speaks of the inventor and of the things the author stated before they were discovered or made public.
+3. It is true, but less professional. It undermines the credibility of readers who look at the author's IT credentials: Webmaster, Developer and Designer, a trained professional who has devoted a lifetime to this work and can build web portals for future clients.
+4. So it appears only in the agreed places:
+   1. `ABOUT.md`, `SOBRE.md` and `CHI-SONO.md`, in the root of the private repository;
+   2. the end of `docs/tech-stack.md` and of `docs/domains.md`, in the private repository;
+   3. the pages "Sobre o autor", "About the author" and "Chi è l'autore", once they are published.
+
+## 9. How AI agents treat the author's rules
+
+1. They repeat everything the author said, losing nothing.
+2. They add nothing without the author's permission.
+3. They remove or change nothing: no idea and no piece of information, however small.
+4. They write in short, organized sentences, with everything mentioned.
+5. Any idea of an agent goes to the author as a proposal.
+
+## 10. The name and the place of these guidelines
+
+1. They are called "IMPORTANT: Unbreakable Guidelines" (in Portuguese, "Importante: Diretrizes inquebráveis").
+2. They open `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md` and, in the private repository, `VERSIONING.md`, and wherever else they belong.
+3. In those files, they come first in English and then in Brazilian Portuguese.

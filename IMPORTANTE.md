@@ -1,0 +1,161 @@
+```text
+Developed-by: Sena JG <senajg@senajg.com>
+
+(Sena JG is a Systems Architect, Information Technology Professional, Information and Communications Technology Professional, Computer Science Graduate, Web Designer, Webmaster, DevOps Engineer, Systems Analyst, and Computer Graphics and 3D Systems Developer)
+Developer of the world's first 3D CASE tool
+(Sena JG é Arquiteto de Sistemas, Profissional de Tecnologia da Informação, Profissional de Tecnologia da Informação e Comunicação, Graduado em Ciência da Computação, Web Designer, Webmaster, Engenheiro DevOps, Analista de Sistemas e Desenvolvedor de Sistemas de Computação Gráfica e em 3D)
+Desenvolvedor da primeira ferramenta CASE 3D do mundo
+
+Co-developed-by: Anthropic Claude Opus 5.5 <noreply@anthropic.com>
+```
+
+# Importante: Diretrizes inquebráveis
+
+> Leia isto primeiro. São as diretrizes inquebráveis do autor.
+
+## 1. Confirmar com o autor antes de gravar e antes de enviar
+
+1. É a regra 15 do `AGENTS.md` do privado, uma diretriz inquebrável (decisão do autor, 26/11/2026).
+2. Antes do commit local ("grave"), o agente mostra ao autor exatamente o que vai ser gravado:
+   1. os arquivos;
+   2. o texto;
+   3. a mensagem do commit, como o `git show` vai mostrar.
+3. Depois, o agente espera a confirmação do autor.
+4. Antes do envio ao GitHub ("commit"), o agente faz a mesma coisa.
+5. Sem a confirmação, nada é gravado nem enviado, mesmo que pareça óbvio.
+6. Esta diretriz está escrita em mais de um lugar de propósito, para ter destaque (decisão do autor, 27/11/2026).
+
+## 2. Por que os repositórios guardam cópias
+
+1. O GitHub é dono das Releases e as hospeda, fora dos repositórios do autor.
+2. O GitHub não é empresa do autor. Se o GitHub apagar uma Release, ou se ela sumir, o autor a perde.
+3. Os repositórios são do autor. Neles ficam as cópias fiéis.
+
+## 3. O que vai nas Releases
+
+1. Tudo o que já mudou.
+2. Até os detalhes mínimos, como os dos botões de metal, do jeito que ficaram.
+
+## 4. Os arquivos das Releases
+
+1. Em cada um dos quatro repositórios:
+   1. **Um arquivo por Release:**
+      1. Além da Release no GitHub, cada versão ganha um arquivo físico dentro do repositório.
+      2. O arquivo é o espelho da Release: idêntico ao texto publicado no GitHub.
+      3. Ele é gravado antes da publicação, para já ir dentro do pacote da Release.
+      4. O nome dele é o número da versão, na forma oficial do mercado.
+      5. Cada arquivo tem uma Release só.
+   2. **Um arquivo com a soma de todas as Releases:**
+      1. Fica na raiz do repositório.
+      2. Chama-se "Releases".
+      3. Tem todas as Releases publicadas no repositório, até a mais antiga.
+      4. A mais nova vem primeiro; depois a penúltima; depois a antepenúltima; até a primeira.
+2. No privado:
+   1. Os mesmos dois tipos de arquivo, só com as Releases do privado, nos mesmos lugares.
+   2. A estrutura do ecossistema SenaJG:
+      1. **Um arquivo geral por versão:** a cada publicação, ele recebe as quatro Releases dos quatro repositórios. O nome dele é o número da versão, vX.Y.Z, na nomenclatura padrão.
+      2. **Um arquivo com todas as versões:** o `general-senajg-ecosystem-releases.md`, na raiz do privado. Ele começa com o índice e tem todas as Releases de todos os repositórios.
+      3. Nos dois arquivos, a ordem oficial dos repositórios:
+
+         | Ordem | Nome | Site | Nome oficial no GitHub |
+         |---|---|---|---|
+         | 1 | senajg.com | https://senajg.com/ | `senajg.com` |
+         | 2 | senajg.com.br | https://senajg.com.br/ | `avisnet-ship-it.github.io` |
+         | 3 | privado | (não tem site) | `privado` |
+         | 4 | Lab | https://lab.senajg.com.br/ | `my_test_333` |
+
+      4. Cada entrada traz, nesta ordem: o nome, o site (com `https://` e a barra no fim) e o nome oficial no GitHub, como é.
+3. As notas das versões, em `docs/release-notes/`, continuam como são.
+
+## 5. Os arquivos de cada repositório
+
+1. **As diretrizes:**
+   1. `IMPORTANT.md` e `IMPORTANT.txt`: em inglês.
+   2. `IMPORTANTE.md` e `IMPORTANTE.txt`: em português do Brasil.
+   3. No senajg.com, também `IMPORTANTE.it.md` e `IMPORTANTE.it.txt`: em italiano.
+2. **Os arquivos dos agentes de IA,** todos com o mesmo texto:
+   1. `AGENTS.md`: o formato aberto, lido pelo Codex (da OpenAI), pelo Cursor, pelo Gemini CLI, pelo agente do GitHub Copilot e por outros agentes;
+   2. `CLAUDE.md`: lido pelo Claude Code;
+   3. `GEMINI.md`: lido pelo Gemini CLI;
+   4. `.github/copilot-instructions.md`: lido pelo GitHub Copilot, nesta pasta, com este nome e com estas letras, maiúsculas e minúsculas.
+3. **O leia-me, os arquivos para as pessoas:**
+   1. `README.md`: em inglês.
+      1. É o texto canônico de redação: toda mudança começa nele.
+      2. Ele começa mandando ler o `IMPORTANT.md`.
+   2. `README.txt`: extraído do `README.md`.
+   3. As traduções, com os nomes do padrão de mercado:
+      1. `README.<língua>.md` e `README.<língua>.txt`;
+      2. a língua é o código BCP 47, sem a região: `README.pt.md` e `README.pt.txt`, em português do Brasil, nos quatro repositórios;
+      3. nos dois sites, uma tradução para cada língua dos países em que a Amazon vende os livros publicados pelo KDP: eBooks Kindle, livros de capa comum (paperback) ou de capa dura (17 lojas, 11 línguas);
+      4. todo leia-me tem, logo abaixo do título e no fim, os links para o mesmo leia-me nas outras línguas.
+   4. Nos dois sites e no laboratório, as páginas:
+      1. `readme.html` e um `readme.<língua>.html` para cada tradução;
+      2. são o texto canônico de publicação;
+      3. são feitas a partir do `.md`.
+   5. Só os `.html` entram no `sitemap.xml`, nos dois sites. O laboratório e o privado não têm sitemap; o privado não tem `.html`.
+   6. Todos os arquivos ficam em UTF-8, em todas as línguas.
+4. **O `.md`, o `.txt` e o `.html`:**
+   1. O `.md` é o arquivo mais rico e é feito primeiro.
+   2. O `.txt` é sempre extraído do `.md`, sem a formatação.
+   3. O `.html` do leia-me é sempre feito a partir do `.md`.
+   4. O programa que faz os dois é o `tools/gen_leia_me.py`, do privado.
+5. **As cópias:**
+   1. Ficam sempre atualizadas.
+   2. Onde a cópia já está igual, nada é gravado e nada muda.
+
+## 6. O cabeçalho de todos os arquivos
+
+1. Tudo, em todos os lugares, começa com o cabeçalho:
+
+   ```text
+   Developed-by: Sena JG <senajg@senajg.com>
+
+   (Sena JG is a Systems Architect, Information Technology Professional, Information and Communications Technology Professional, Computer Science Graduate, Web Designer, Webmaster, DevOps Engineer, Systems Analyst, and Computer Graphics and 3D Systems Developer)
+   Developer of the world's first 3D CASE tool
+   (Sena JG é Arquiteto de Sistemas, Profissional de Tecnologia da Informação, Profissional de Tecnologia da Informação e Comunicação, Graduado em Ciência da Computação, Web Designer, Webmaster, Engenheiro DevOps, Analista de Sistemas e Desenvolvedor de Sistemas de Computação Gráfica e em 3D)
+   Desenvolvedor da primeira ferramenta CASE 3D do mundo
+
+   Co-developed-by: Anthropic Claude Opus 5.5 <noreply@anthropic.com>
+   ```
+
+2. A descrição do autor vem primeiro em inglês, completa. Logo abaixo, vem em português.
+3. Sempre há uma linha em branco depois da linha do `Developed-by`.
+4. Há uma linha em branco depois da linha que cita o Claude.
+   1. Quando a linha do `Claude-Session` vem logo abaixo dela, a linha em branco vem depois do `Claude-Session`.
+5. Os arquivos não levam a linha do `Claude-Session`, porque o endereço dela muda a cada sessão. As mensagens dos commits levam.
+
+## 7. Como se escreve todo texto
+
+1. Endentado e estratificado, com quantos níveis forem precisos.
+2. Coerente, claro e fluido.
+3. Em frases bem curtas, fáceis de entender.
+4. Completo, até o mínimo detalhe: todas as informações, com tudo mencionado.
+5. Sem perder nada: nenhuma vírgula, palavra de informação verdadeira, item, trecho ou nuance.
+6. O texto em bloco ("blockante"), atarracado, caótico e entrópico vira lixo informacional, querendo ou sem querer:
+   1. ele se perde;
+   2. pessoas, agentes de IA e algoritmos acabam por ignorá-lo;
+   3. ele não é documentável.
+
+## 8. O texto do visionário
+
+1. É o texto que descreve o autor como visionário: o `ABOUT.md`, em inglês; o `SOBRE.md`, em português; o `CHI-SONO.md`, em italiano.
+2. Só esse texto fala do inventor e das coisas que o autor enunciou antes de serem descobertas ou divulgadas.
+3. Ele é real, mas menos profissional. Ele tira a credibilidade de quem vê as credenciais de TI do autor: Webmaster, Developer e Designer, profissional formado, que dedicou a vida a isso e pode construir portais para futuros clientes.
+4. Por isso, ele aparece só nos lugares combinados:
+   1. o `ABOUT.md`, o `SOBRE.md` e o `CHI-SONO.md`, na raiz do privado;
+   2. o fim do `docs/tech-stack.md` e do `docs/domains.md`, no privado;
+   3. as páginas "Sobre o autor", "About the author" e "Chi è l'autore", quando forem publicadas.
+
+## 9. Como os agentes de IA tratam as regras do autor
+
+1. Repetem tudo o que o autor disse, sem perder nada.
+2. Não acrescentam nada sem a permissão do autor.
+3. Não retiram nem alteram nada: nenhuma ideia e nenhuma informação, por menor que seja.
+4. Escrevem em frases curtas e organizadas, com tudo mencionado.
+5. Qualquer ideia de um agente vai ao autor como proposta.
+
+## 10. O nome e o lugar destas diretrizes
+
+1. Elas se chamam "Importante: Diretrizes inquebráveis" (em inglês, "IMPORTANT: Unbreakable Guidelines").
+2. Elas abrem o `AGENTS.md`, o `CLAUDE.md`, o `GEMINI.md`, o `.github/copilot-instructions.md` e, no privado, o `VERSIONING.md`, e onde mais devam ficar.
+3. Nesses arquivos, elas vêm primeiro em inglês e depois em português do Brasil.

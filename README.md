@@ -1,24 +1,53 @@
-# Sena JG — site do autor (senajg.com.br)
+```text
+Developed-by: Sena JG <senajg@senajg.com>
 
-Páginas do site do autor Sena JG, publicadas em <https://senajg.com.br/>.
+(Sena JG is a Systems Architect, Information Technology Professional, Information and Communications Technology Professional, Computer Science Graduate, Web Designer, Webmaster, DevOps Engineer, Systems Analyst, and Computer Graphics and 3D Systems Developer)
+Developer of the world's first 3D CASE tool
+(Sena JG é Arquiteto de Sistemas, Profissional de Tecnologia da Informação, Profissional de Tecnologia da Informação e Comunicação, Graduado em Ciência da Computação, Web Designer, Webmaster, Engenheiro DevOps, Analista de Sistemas e Desenvolvedor de Sistemas de Computação Gráfica e em 3D)
+Desenvolvedor da primeira ferramenta CASE 3D do mundo
 
-## Versão
+Co-developed-by: Anthropic Claude Opus 5.5 <noreply@anthropic.com>
+```
 
-Versão atual: **v4.3.1** (SenaJG-rev.81), de 26/11/2026. Cada versão tem uma página de Release neste repositório, com o resumo do que mudou: <https://github.com/avisnet-ship-it/avisnet-ship-it.github.io/releases>. O processo de versão (tags, branches e Releases) está no `VERSIONING.md` do repositório privado do projeto, `avisnet-ship-it/privado`; o `CLAUDE.md` daqui lembra o Claude de lê-lo antes de agir.
+> **Read this first: [`IMPORTANT.md`](IMPORTANT.md).** These are the author's unbreakable guidelines. In Portuguese: [`IMPORTANTE.md`](IMPORTANTE.md).
 
-Desde a v4.0.0, as páginas em inglês estão no domínio internacional, <https://senajg.com/>, e os endereços delas aqui levam na hora para lá.
+# Sena JG — the author's website (senajg.com.br)
 
-## Onde está cada página
+**English** · [Português](README.pt.md) · [Italiano](README.it.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [Español](README.es.md) · [हिन्दी](README.hi.md) · [Nederlands](README.nl.md) · [日本語](README.ja.md) · [Polski](README.pl.md) · [Svenska](README.sv.md)
 
-| Endereço | Onde fica |
+1. The pages of the website of the author Sena JG, published at <https://senajg.com.br/>.
+2. Since v4.0.0, the English pages live on the international domain, <https://senajg.com/>.
+   1. Their old addresses here lead there at once.
+
+## The SenaJG ecosystem
+
+The four repositories, in the official order:
+
+| Order | Name | Website | Official name on GitHub | What it is |
+|---|---|---|---|---|
+| 1 | senajg.com | https://senajg.com/ | `senajg.com` | The author's international website, in English, with a page in Italian. |
+| 2 | senajg.com.br | https://senajg.com.br/ | `avisnet-ship-it.github.io` | The author's website in Portuguese. |
+| 3 | privado | (no website) | `privado` | The project's memory and the programs that build the two websites. It is private. |
+| 4 | Lab | https://lab.senajg.com.br/ | `my_test_333` | The previews that the author approves before anything goes live. |
+
+## Version
+
+1. Current version: **v4.3.1** (SenaJG-rev.81), of 2026-11-26.
+2. Each version has a Release page in this repository, with a summary of what changed: <https://github.com/avisnet-ship-it/avisnet-ship-it.github.io/releases>.
+3. The version process (tags, branches and Releases) is in `VERSIONING.md`, in the project's private repository, `avisnet-ship-it/privado`.
+4. The AI agent files here remind the agents to read it before acting.
+
+## Where each page is
+
+| Address | Where it is |
 |---|---|
-| `/` | página do autor, obras humanistas |
-| `/cotidiano/` | livros de finanças e cotidiano |
-| `/<pasta>/` — os 6 livros (lista abaixo) | **pastas deste repositório** |
-| `/en/`, `/en/everyday/` e as 6 pastas dos livros em inglês (lista abaixo) | páginas de redirecionamento: levam na hora às páginas em inglês no senajg.com (fora do `sitemap.xml`); as imagens delas continuam aqui |
-| `/cristo-cosmico-rebuild/`, `/universos-paralelos/`, `/universos.paralelos/`, `/a-solucao-para-tudo/`, `/neurociencia/`, `/dinheiro/`, `/sucesso.kindle/`, `/solution-neuroscience-book/` e `/succeed-on-kindle/` — os endereços antigos dos livros | páginas de redirecionamento: levam na hora à página atual de cada livro (fora do `sitemap.xml`) |
+| `/` | The author's page: humanist books. |
+| `/cotidiano/` | Books on finance and everyday life. |
+| `/<folder>/` — the 6 books (list below) | **Folders of this repository.** |
+| `/en/`, `/en/everyday/` and the 6 folders of the books in English (list below) | Redirect pages: they lead at once to the English pages on senajg.com (outside `sitemap.xml`). Their images stay here. |
+| `/cristo-cosmico-rebuild/`, `/universos-paralelos/`, `/universos.paralelos/`, `/a-solucao-para-tudo/`, `/neurociencia/`, `/dinheiro/`, `/sucesso.kindle/`, `/solution-neuroscience-book/` and `/succeed-on-kindle/` — the old addresses of the books | Redirect pages: they lead at once to the current page of each book (outside `sitemap.xml`). |
 
-## Os 6 livros (pasta = endereço)
+## The 6 books (folder = address)
 
 1. O Cristo Cósmico — `o-cristo-cosmico/`
 2. O Celeiro dessa Vida — `o-celeiro-dessa-vida/`
@@ -27,9 +56,9 @@ Desde a v4.0.0, as páginas em inglês estão no domínio internacional, <https:
 5. Dinheiro Vol. 1 - Agora Sim! — `dinheiro-vol-1/`
 6. Faça Sucesso no Kindle — `faca-sucesso-no-kindle/`
 
-## As páginas em inglês, no senajg.com desde a rev.55
+## The English pages, on senajg.com since rev.55
 
-| Endereço aqui | Leva a |
+| Address here | Leads to |
 |---|---|
 | `/en/` | <https://senajg.com/> |
 | `/en/everyday/` | <https://senajg.com/everyday/> |
@@ -40,16 +69,41 @@ Desde a v4.0.0, as páginas em inglês estão no domínio internacional, <https:
 | `/money/` | <https://senajg.com/money-vol-1/> |
 | `/succeed.on.kindle/` | <https://senajg.com/succeed-on-kindle/> |
 
-## Arquivos
-- `CNAME` — domínio próprio (`senajg.com.br`)
-- `.nojekyll` — publica os arquivos como estão (necessário para pastas com ponto no nome)
-- `.gitattributes` — regras do Git para os arquivos (fim de linha e imagens como binário)
-- `robots.txt` — o único que os buscadores leem no domínio; aponta o sitemap
-- `sitemap.xml` — mapa com as páginas em português (as em inglês estão no sitemap do senajg.com)
-- `google484cfeadc0c124ef.html` — verificação do Google Search Console
-- `404.html` — página de erro com botão para a página inicial
-- `favicon.ico` — ícone da aba do navegador (mandala azul, 16, 32 e 48 px)
-- `apple-touch-icon.png` — ícone de 180×180 para quem salva o site na tela inicial do iPhone ou iPad
-- `assets/` — capas dos cartões e ícones das páginas principais; `aco-escovado.js` (os botões de metal que giram), `seta-voltar.js` (a seta do botão Voltar que gira), as fotos do espelho da cidade dos botões do Kindle (`mirror-city.webp` e `mirror-eagle.webp`) e o fundo da Realidade: `fundo-bolhas.js` (as imagens de universos-bolha se revezando, `universo-bolha-1.webp` a `universo-bolha-4.webp`) e `cubos-metal.webp` (os cubos de metal)
-- `sitemap-antigos.xml` — sitemap temporário dos 17 endereços antigos (rev.60), enviado só no Search Console; sai até 10/12/2026
-- `AGENTS.md` e `CLAUDE.md` — instruções para agentes de IA, que levam ao repositório privado
+## Files
+
+1. **The guidelines:** `IMPORTANT.md` and `IMPORTANT.txt`, in English; `IMPORTANTE.md` and `IMPORTANTE.txt`, in Portuguese.
+2. **This readme:**
+   1. `README.md`: in English, the canonical text for writing; every change starts here.
+   2. `README.txt`: extracted from `README.md`.
+   3. `readme.html`: the canonical page for publication, listed in `sitemap.xml`.
+   4. The translations, one for each language of the countries where Amazon sells books published with KDP: Kindle eBooks, paperbacks or hardcovers (17 marketplaces). Each one has its `.md`, its `.txt` and its `.html`:
+      1. Portuguese: [`README.pt.md`](README.pt.md), [`README.pt.txt`](README.pt.txt) and [`readme.pt.html`](readme.pt.html);
+      2. Italian: [`README.it.md`](README.it.md), [`README.it.txt`](README.it.txt) and [`readme.it.html`](readme.it.html);
+      3. German: [`README.de.md`](README.de.md), [`README.de.txt`](README.de.txt) and [`readme.de.html`](readme.de.html);
+      4. French: [`README.fr.md`](README.fr.md), [`README.fr.txt`](README.fr.txt) and [`readme.fr.html`](readme.fr.html);
+      5. Spanish: [`README.es.md`](README.es.md), [`README.es.txt`](README.es.txt) and [`readme.es.html`](readme.es.html);
+      6. Hindi: [`README.hi.md`](README.hi.md), [`README.hi.txt`](README.hi.txt) and [`readme.hi.html`](readme.hi.html);
+      7. Dutch: [`README.nl.md`](README.nl.md), [`README.nl.txt`](README.nl.txt) and [`readme.nl.html`](readme.nl.html);
+      8. Japanese: [`README.ja.md`](README.ja.md), [`README.ja.txt`](README.ja.txt) and [`readme.ja.html`](readme.ja.html);
+      9. Polish: [`README.pl.md`](README.pl.md), [`README.pl.txt`](README.pl.txt) and [`readme.pl.html`](readme.pl.html);
+      10. Swedish: [`README.sv.md`](README.sv.md), [`README.sv.txt`](README.sv.txt) and [`readme.sv.html`](readme.sv.html).
+   5. The names follow the market standard: `README.<language>.md`, with the BCP 47 language code, without the region.
+   6. Every file is in UTF-8, in every language.
+3. **The AI agent files,** with the instructions for the agents, all with the same text, pointing to the private repository: `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md`.
+4. `CNAME`: the custom domain (`senajg.com.br`).
+5. `.nojekyll`: publishes the files as they are (needed for folders with a dot in the name).
+6. `.gitattributes`: Git rules for the files (line endings, and images as binary).
+7. `robots.txt`: the only one that search engines read on the domain; it points to the sitemap.
+8. `sitemap.xml`: the map with the pages in Portuguese (the English pages are in the senajg.com sitemap) and, since rev.82, the readme pages.
+9. `google484cfeadc0c124ef.html`: the Google Search Console verification.
+10. `404.html`: the error page, with a button to the home page.
+11. `favicon.ico`: the browser tab icon (blue mandala, 16, 32 and 48 px).
+12. `apple-touch-icon.png`: the 180×180 icon for people who save the website to the home screen of an iPhone or iPad.
+13. `assets/`: the covers of the cards and the icons of the main pages, and also:
+    1. `aco-escovado.js`: the metal buttons that spin;
+    2. `seta-voltar.js`: the arrow of the Back button, which spins;
+    3. the photos of the city mirror on the Kindle buttons: `mirror-city.webp` and `mirror-eagle.webp`;
+    4. the background of the Reality: `fundo-bolhas.js` (the bubble-universe images taking turns, `universo-bolha-1.webp` to `universo-bolha-4.webp`) and `cubos-metal.webp` (the metal cubes).
+14. `sitemap-antigos.xml`: the temporary sitemap of the 17 old addresses (rev.60), sent only in Search Console. It goes away by 2026-12-10.
+
+**English** · [Português](README.pt.md) · [Italiano](README.it.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [Español](README.es.md) · [हिन्दी](README.hi.md) · [Nederlands](README.nl.md) · [日本語](README.ja.md) · [Polski](README.pl.md) · [Svenska](README.sv.md)
